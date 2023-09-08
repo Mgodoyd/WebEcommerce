@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { GLOBAL } from './GLOBAL';
 import { Observable } from 'rxjs';
-import { ICliente } from '../Entities/ICliente';
 @Injectable({
   providedIn: 'root'
 })
