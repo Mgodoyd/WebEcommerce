@@ -15,8 +15,6 @@ import { InicioLoginComponent } from './components/Store/inicio-login/inicio-log
 
 
 
-
-
 const routes: Routes = [
   { path: '', component: InicioComponent },
   { path: 'login', component: LoginComponent},
