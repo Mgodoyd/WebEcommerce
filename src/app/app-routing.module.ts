@@ -20,10 +20,10 @@ import { InicioLoginComponent } from './components/Store/inicio-login/inicio-log
 const routes: Routes = [
   { path: '', component: InicioComponent },
   { path: 'login', component: LoginComponent},
-  { path: 'inicio', component: InicioLoginComponent,/* canActivate: [DashGuard]*/ },
-  { path: 'dashboard', component: SidebarComponent },
+  { path: 'inicio', component: InicioLoginComponent,/* canActivate: [DashGuard] */},
+  { path: 'dashboard', component: SidebarComponent , /*canActivate: [DashGuard]*/},
   { path : 'index',children: [
-    { path: 'clientes', component: IndexClienteComponent,   }, ]},
+    { path: 'clientes', component: IndexClienteComponent, /*canActivate: [DashGuard]  */}, ]}, 
 ];
 
 @NgModule({

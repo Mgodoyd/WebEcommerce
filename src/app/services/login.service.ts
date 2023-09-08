@@ -69,7 +69,4 @@ export class LoginService{
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(this.url+'/Login/login', data, {headers: headers});
   }
-
- 
-  
 }

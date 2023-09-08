@@ -15,15 +15,15 @@
       </div>
     </div>
 </div>
-<div class="row justify-content-center" style="margin-right: -28%;">
-    <div class=" col-md-6">
+<div class="justify-content-center" style="margin-left: 355px;">
+  <div class="col-md-12" > 
       <!-- Contenido del filtro de clientes -->
       <div class="card box-shadow-sm">
-        <div class="card-header">
-          <h5 style="margin-bottom: 0px;">Filtro de Usuarios</h5>
-        </div>
-        <div class="card-header text-center">
-          <form class="form-inline pt-2">
+          <div class="card-header">
+              <h5 >Filtro de Usuarios</h5>
+          </div>
+          <div class="card-header text-center">
+              <form class="form-inline pt-2">
         <label class="sr-only" for="inline-form-input-name">Apellidos</label>
         <input class="form-control mb-3 mr-sm-4" type="text" id="inline-form-input-name" placeholder="John Doe">
         <label class="sr-only" for="inline-form-input-username">Correo</label>
@@ -40,73 +40,37 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered">
-                  <thead>
+                  <thead class="thead-dark">
                     <tr>
                       <th>#</th>
-                      <th>First Name</th>
+                      <th>Name</th>
                       <th>Last Name</th>
-                      <th>Position</th>
+                      <th>Address</th>
                       <th>Phone</th>
-                      <th>Position</th>
-                      <th>Position</th>
-                      <th>Position</th>
-                      <th>Position</th>
+                      <th>Nit</th>
+                      <th>Emial</th>
+                      <th>Rol</th>
+                      <th>Opcions</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody *ngFor="let cliente of clientes">
                     <tr>
-                      <th scope="row">1</th>
-                      <td>John</td>
-                      <td>Doe</td>
-                      <td>CEO, Founder</td>
+                      <th>{{cliente.id}}</th>
+                      <td>{{cliente.name}}</td>
+                      <td>{{cliente.lastname}}</td>
+                      <td>{{cliente.address}}</td>
+                      <td>{{cliente.phone}}</td>
+                      <td>{{cliente.nit}}</td>
+                      <td>{{cliente.login.email}}</td>
+                      <td>{{cliente.login.rol}}</td>
                       <td>
                         <div class="btn-group dropdown">
                             <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Dropdown
+                              Actions
                             </button>
                             <div class="dropdown-menu">
-                              <a href="#" class="dropdown-item">Action</a>
-                              <a href="#" class="dropdown-item">Another action</a>
-                              <div class="dropdown-divider"></div>
-                              <a href="#" class="dropdown-item">Something else here</a>
-                            </div>
-                          </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Anna</td>
-                      <td>Cabana</td>
-                      <td>Designer</td>
-                      <td>
-                        <div class="btn-group dropdown">
-                            <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Dropdown
-                            </button>
-                            <div class="dropdown-menu">
-                              <a href="#" class="dropdown-item">Action</a>
-                              <a href="#" class="dropdown-item">Another action</a>
-                              <div class="dropdown-divider"></div>
-                              <a href="#" class="dropdown-item">Something else here</a>
-                            </div>
-                          </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Kale</td>
-                      <td>Thornton</td>
-                      <td>Developer</td>
-                      <td>
-                        <div class="btn-group dropdown">
-                            <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Dropdown
-                            </button>
-                            <div class="dropdown-menu">
-                              <a href="#" class="dropdown-item">Action</a>
-                              <a href="#" class="dropdown-item">Another action</a>
-                              <div class="dropdown-divider"></div>
-                              <a href="#" class="dropdown-item">Something else here</a>
+                              <a href="#" class="dropdown-item">Update</a>
+                              <a href="#" class="dropdown-item">Delete</a>
                             </div>
                           </div>
                       </td>
