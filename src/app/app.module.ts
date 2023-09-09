@@ -12,7 +12,8 @@ import { FooterComponent } from './components/Store/footer/footer.component';
 import { HeaderComponent } from './components/Store/header/header.component';
 import { InicioComponent } from './components/Store/inicio/inicio.component';
 import { InicioLoginComponent } from './components/Store/inicio-login/inicio-login.component';
-import { IndexClienteComponent } from './components/Dashboard/clientes/index-cliente/index-cliente.component';
+import { IndexClienteComponent } from './components/Dashboard/clientes/index-users/index-user.component';
+import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -31,9 +32,11 @@ import { IndexClienteComponent } from './components/Dashboard/clientes/index-cli
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule,
+    NgbPaginationModule
   ],
   providers: [LoginService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { } 

@@ -19,4 +19,9 @@ export class ClientesService {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.get(this.url+'/Client', {headers: headers});
   }
+
+  list_admins(): Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.get(this.url+'/Admin', {headers: headers});
+  }
 }
