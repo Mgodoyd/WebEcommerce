@@ -1,7 +1,7 @@
 <app-sidebar></app-sidebar>
    <!-- Page title-->
   <!-- Page title-->
-  <div class="container" style="margin-right: 2%;">
+  <div class="container" style="margin-right: 0%;">
     <div class="row">
       <div class="col-md-12">
         <!-- Contenido izquierdo -->
@@ -9,7 +9,7 @@
           <h2 class="mt-2 mt-md-4 mb-3 pt-3">Usuarios</h2>
           <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
             <p class="text-muted">Este módulo lista todos los usuarios de la tienda.</p>
-            <p class="font-size-sm font-weight-medium pl-md-4"><a class="text-nowrap" href="https://getbootstrap.com/docs/4.5/components/forms/" target="_blank" rel="noopener">Registrar nuevo<i class="cxi-angle-right font-size-base align-middle ml-1"></i></a></p>
+            <p class="font-size-sm font-weight-medium pl-md-4"><a class="text-nowrap" routerLinkActive="active" [routerLink]="['/index/users/create']" rel="noopener">Registrar nuevo<i class="cxi-angle-right font-size-base align-middle ml-1"></i></a></p>
           </div>
         </div>
       </div>
@@ -77,12 +77,12 @@
                       </td>
                     </tr>
                   </tbody>
-                  <tbody *ngFor="let admin of admins" >
+                  <tbody *ngFor="let admin of admins| slice: (page-1)*pageSize : (page-1) * pageSize + pageSize" >
                     <tr>
                       <th>{{admin.id}}</th>
                       <td>{{admin.name}}</td>
                       <td>{{admin.lastname}}</td>
-                      <td>{{admin.lastname }}</td>
+                      <td>{{admin.address}}</td>
                       <td>{{admin.phone}}</td>
                       <td>{{admin.nit}}</td>
                       <td>{{admin.login.email}}</td>

@@ -64,6 +64,9 @@ export class LoginService{
   }
 
  
+  getToken() {
+    return localStorage.getItem('token');
+    }
   
   _login_cliente(data: ILogin): Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/json');

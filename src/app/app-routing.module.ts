@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 /*dashboard*/
 import { SidebarComponent } from './components/Dashboard/sidebar/sidebar.component';
 import { IndexClienteComponent } from './components/Dashboard/clientes/index-users/index-user.component';
+import { CreateUsersComponent } from './components/Dashboard/clientes/create-users/create-users.component';
 
 /*Guards*/
 import { DashGuard } from '../app/guards/dash.guard';
@@ -22,7 +23,9 @@ const routes: Routes = [
   { path: 'inicio', component: InicioLoginComponent,/* canActivate: [DashGuard] */},
   { path: 'dashboard', component: SidebarComponent , /*canActivate: [DashGuard]*/},
   { path : 'index',children: [
-    { path: 'users', component: IndexClienteComponent, /*canActivate: [DashGuard]  */}, ]}, 
+    { path: 'users', component: IndexClienteComponent, /*canActivate: [DashGuard]  */},
+    { path: 'users/create', component: CreateUsersComponent, /*canActivate: [DashGuard]  */} , ]}, 
+     
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
