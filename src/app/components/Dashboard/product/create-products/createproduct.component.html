@@ -1,0 +1,77 @@
+<app-sidebar></app-sidebar>
+
+        <!-- Page title-->
+        <div class="border-bottom pt-5 mt-2 mb-5">
+            <h1 class="mt-2 mt-md-4 mb-3 pt-5"  style="margin-left: 380px;margin-right: 15px;">Productos</h1>
+            <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+              <p class="text-muted">Este módulo lista todos los productos de la tienda.</p>
+              
+            </div>
+          </div>
+
+         <form #registroForm="ngForm" (ngSubmit)="registro(registroForm)" >
+          <div class="card box-shadow-sm" style="margin-left: 370px; margin-right: 15px;">
+            <div class="card-header">
+                <h5 style="margin-bottom: 0px;">Registro de producto</h5>
+            </div>
+            <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-8">
+                        <div class="row">
+                          <div class="col-lg-12 form-group">	
+                              <label for="">Title</label>
+                              <input type="text" class="form-control" placeholder="Title" required name="title"[(ngModel)]="products.title" >
+                          </div>
+                          <div class="col-lg-4 form-group">	
+                              <label for="">Stock</label>
+                              <input type="number" class="form-control" placeholder="Cantidad inicial" required name="stock"[(ngModel)]="products.stock">
+                          </div>
+                          <div class="col-lg-4 form-group">	
+                              <label for="">Precio</label>
+                              <input type="number" class="form-control" placeholder="Precio" required name="price"[(ngModel)]="products.price">
+                          </div>
+                          <div class="col-lg-4 form-group">	
+                              <label for="">Categoría</label>
+                              <select class="form-control custom-select" id="select-input" name="category"[(ngModel)]="products.category">
+                                <option value="" selected disabled>Seleccionar</option>
+                                <option value="Categoria 1">Categoria 1</option>
+                                <option value="Categoria 2">Categoria 2</option>
+                                <option value="Categoria 3">Categoria 3</option>
+                              </select>
+                          </div>
+
+                          <div class="col-lg-12 form-group">
+                              <label for="">Descripción </label>
+                              <textarea class="form-control" placeholder="description" required rows="3" name="description"[(ngModel)]="products.description"></textarea>
+                          </div>
+
+                          <div class="col-lg-12 form-group">
+                            <editor name="content"[(ngModel)]="products.content"
+                            [init]="{ plugins: 'lists link image table code help wordcount' }"
+                          ></editor>
+                          </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="row">
+                        <div class="col-lg-12 form-group">	
+                          <label for="">Portada</label>
+                          <div class="custom-file">
+                              <input class="custom-file-input" type="file" id="file-input" (change)="fileChangeEvent($event)">
+                              <label class="custom-file-label" id="input-portada" for="file-input">Seleccionar imagen</label>
+                          </div>
+                      </div>
+                      <div class="col-lg-8">
+                          <img [src]="imgSelect" class="img-thumbnail" alt="Rounded image">
+                      </div>
+                      </div>                      
+                    </div>
+                  </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary mr-3" type="submit">Crear producto</button>
+                <button class="btn btn-warning">Regresar</button>
+            </div>
+      </div>
+         </form>

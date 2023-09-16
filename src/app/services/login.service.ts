@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders  } from "@angular/common/http";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { ILogin } from "../Entities/ILogin";
 import { Router } from "@angular/router";
+import Swal from "sweetalert2";
 
 
 @Injectable()
@@ -17,8 +18,6 @@ export class LoginService{
         this.url = GLOBAL.url;
       }
     
-    
-     
   public isAuthenticate(): boolean {
     const token = localStorage.getItem('token');
 
@@ -39,6 +38,19 @@ export class LoginService{
 
     if (!userRole) {
       this._router.navigate(['/error']);
+      return false;
+    }
+    // Verifica si el token ha expirado
+    const isTokenExpired = helper.isTokenExpired(token);
+    
+    if (isTokenExpired) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Sesión expirada',
+        text: 'Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.',
+      });
+      localStorage.removeItem('token'); // Elimina el token expirado
+      this._router.navigate(['/login']);
       return false;
     }
 

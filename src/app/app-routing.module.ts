@@ -3,8 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 /*dashboard*/
 import { SidebarComponent } from './components/Dashboard/sidebar/sidebar.component';
+    /*users*/
 import { IndexClienteComponent } from './components/Dashboard/clientes/index-users/index-user.component';
 import { CreateUsersComponent } from './components/Dashboard/clientes/create-users/create-users.component';
+import { EditUserComponent } from './components/Dashboard/clientes/edit-user/edit-user.component';
+    /*products*/
+import { ProductComponent } from './components/Dashboard/product/create-products/createproduct.component';
+
 
 /*Guards*/
 import { DashGuard } from '../app/guards/dash.guard';
@@ -24,7 +29,9 @@ const routes: Routes = [
   { path: 'dashboard', component: SidebarComponent , /*canActivate: [DashGuard]*/},
   { path : 'index',children: [
     { path: 'users', component: IndexClienteComponent, /*canActivate: [DashGuard]  */},
-    { path: 'users/create', component: CreateUsersComponent, /*canActivate: [DashGuard]  */} , ]}, 
+    { path: 'users/create', component: CreateUsersComponent, /*canActivate: [DashGuard]  */},
+    { path: 'users/edit/:id', component: EditUserComponent, /*canActivate: [DashGuard]  */}, 
+    { path: 'products/create', component: ProductComponent, /*canActivate: [DashGuard]  */},]}, 
      
 ];
 @NgModule({

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { ClientesService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user.service';
 import { LoginService } from 'src/app/services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-users',
@@ -12,14 +12,16 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class CreateUsersComponent implements OnInit {
 
-   public cliente : any = {
+   public user : any = {
     login: {},
     rol: ''
    };
    public token;
+   public load_btn=false;
   constructor(
-    private _clienteService : ClientesService,
-    private _loginService : LoginService
+    private _userService : UserService,
+    private _loginService : LoginService,
+    private _router : Router
   ) {
     this.token = this._loginService.getToken();
    }
@@ -36,9 +38,10 @@ export class CreateUsersComponent implements OnInit {
         text: 'Por favor, completa todos los campos correctamente.',
       });
     } else {
-      console.log(this.cliente);
+      console.log(this.user);
       if (this.token !== null) { // Comprueba que token no sea null
-        this._clienteService.create_clientes(this.cliente, this.token).subscribe(
+        this.load_btn=true;
+        this._userService.create_user(this.user, this.token).subscribe(
           response => {
             console.log(response);
           },
@@ -49,12 +52,12 @@ export class CreateUsersComponent implements OnInit {
         Swal.fire({
           icon: 'success',
           title: 'Éxito',
-          text: 'Cliente registrado con éxito.',
+          text: 'Usuario registrado con éxito.',
         });
-  
+        this.load_btn=false;
         registroForm.resetForm();
+
       } else {
-        // Haz algo en caso de que token sea null, por ejemplo, muestra un mensaje de error
         Swal.fire({
           icon: 'error',
           title: 'Error',

@@ -1,20 +1,20 @@
 <app-sidebar></app-sidebar>
 
   <!-- Page title-->
-  <form #registroForm="ngForm" (ngSubmit)="registro(registroForm)">
+  <form #updateForm="ngForm" (ngSubmit)="update(updateForm)">
   <div class="border-bottom pt-2 mt-2 mb-5" style="margin-left: 380px;margin-right: 15px;">
     <h2 class="mt-2 mt-md-4 mb-3 pt-1">Usuarios</h2>
     <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
-      <p class="text-muted">Este módulo crea todos los usuarios de la tienda.</p>
+      <p class="text-muted">Este módulo actualiza todos los usuarios de la tienda.</p>
       
     </div>
   </div>
 
 <div class="card box-shadow-sm" style="margin-left: 370px; margin-right: 15px;">
         <div class="card-header">
-            <h5 style="margin-bottom: 0px;">Registro de usuario</h5>
+            <h5 style="margin-bottom: 0px;">Actualización de usuario</h5>
         </div>
-        <div class="card-body">
+        <div class="card-body" *ngIf="user != undefined">
             
               <div class="row">
                 <div class="col-md-4 form-group">
@@ -35,14 +35,13 @@
                   <input class="form-control" type="text" placeholder="Telefono"  required name="phone" [(ngModel)]="user.phone">
                 </div>
                 <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">Nit</label>
+                    <input class="form-control" type="text" placeholder="Nit"  required name="nit" [(ngModel)]="user.nit">
+                  </div>
+                <div class="col-md-4 form-group">
                   <label for="validationCustom01" class="form-label">Password</label>
                   <input class="form-control" type="password" placeholder="Password"  required name="password" [(ngModel)]="user.login.password">
                 </div>
-                <div class="col-md-4 form-group">
-                  <label for="validationCustom01" class="form-label">Nit</label>
-                  <input class="form-control" type="text" placeholder="Nit"  required name="nit" [(ngModel)]="user.nit">
-                </div>
-
                 <div class="col-md-4">
                   <label for="validationCustom01" class="form-label">Dirección</label>
                   <input class="form-control" type="text" placeholder="address"  required name="address" [(ngModel)]="user.address">
@@ -58,11 +57,14 @@
               </div>
            
         </div>
+        <div class="card-body" *ngIf="user == undefined">
+            <h2 class="text-center">No se encontro el Usuario </h2>
+        </div>
         <div class="card-footer">
-            <button *ngIf="!load_btn" class="btn btn-primary mr-3" type="submit">Crear User</button>
+            <button   *ngIf="!load_btn" class="btn btn-primary mr-3" type="submit">Actualizar User</button>
             <button *ngIf="load_btn"type="button" class="btn btn-secondary" disabled>
               <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
-              creanding...
+              editing...
             </button>
             <button class="btn btn-warning" routerLinkActive="active" [routerLink]="['/index/users']">Regresar</button>
         </div>

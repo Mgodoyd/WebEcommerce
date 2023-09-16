@@ -7,7 +7,7 @@ import { ICliente } from '../Entities/ICliente';
 @Injectable({
   providedIn: 'root'
 })
-export class ClientesService {
+export class UserService {
 
   public url: string;;
 
@@ -16,19 +16,27 @@ export class ClientesService {
         this.url = GLOBAL.url;
       }
 
-      list_clientes(token: string): Observable<any> {
+      list_users(token: string): Observable<any> {
         let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
-        return this._http.get(this.url + '/Client', {headers: headers});
+        return this._http.get(this.url + '/User', {headers: headers});
       }
 
-      create_clientes(data:ICliente,token: string): Observable<any> {
+      get_user(id:ICliente,token: string): Observable<any> {
         let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
-        return this._http.post(this.url + '/Client',data, {headers: headers});
+        return this._http.get(this.url + '/User/'+id, {headers: headers});
       }
-      
-      list_admins(token: string): Observable<any> {
+      create_user(data:ICliente,token: string): Observable<any> {
         let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
-        return this._http.get(this.url + '/Admin', {headers: headers});
+        return this._http.post(this.url + '/User',data, {headers: headers});
+      }
+
+      update_user(id:ICliente,data:ICliente,token: string): Observable<any> {
+        let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
+        return this._http.put(this.url + '/User/'+id,data, {headers: headers});
+      }
+      delete_user(id:ICliente,token: string): Observable<any> {
+        let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
+        return this._http.delete(this.url + '/User/'+id, {headers: headers});
       }
       
 }

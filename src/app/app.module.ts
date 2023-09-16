@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { EditorModule } from '@tinymce/tinymce-angular';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +17,8 @@ import { InicioLoginComponent } from './components/Store/inicio-login/inicio-log
 import { IndexClienteComponent } from './components/Dashboard/clientes/index-users/index-user.component';
 import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateUsersComponent } from './components/Dashboard/clientes/create-users/create-users.component';
+import { EditUserComponent } from './components/Dashboard/clientes/edit-user/edit-user.component';
+import { ProductComponent } from './components/Dashboard/product/create-products/createproduct.component';
 
 
 
@@ -29,6 +33,8 @@ import { CreateUsersComponent } from './components/Dashboard/clientes/create-use
     InicioLoginComponent,
     IndexClienteComponent,
     CreateUsersComponent,
+    EditUserComponent,
+    ProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +42,8 @@ import { CreateUsersComponent } from './components/Dashboard/clientes/create-use
     HttpClientModule,
     FormsModule,
     NgbModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    EditorModule
   ],
   providers: [LoginService],
   bootstrap: [AppComponent]

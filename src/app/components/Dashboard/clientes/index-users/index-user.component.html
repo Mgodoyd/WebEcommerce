@@ -54,58 +54,66 @@
                       <th>Opcions</th>
                     </tr>
                   </thead>
-                  <tbody *ngFor="let cliente of clientes| slice: (page-1)*pageSize : (page-1) * pageSize + pageSize" >
+                  <tbody *ngIf="load_data">
                     <tr>
-                      <th>{{cliente.id}}</th>
-                      <td>{{cliente.name}}</td>
-                      <td>{{cliente.lastname}}</td>
-                      <td>{{cliente.address}}</td>
-                      <td>{{cliente.phone}}</td>
-                      <td>{{cliente.nit}}</td>
-                      <td>{{cliente.login.email}}</td>
-                      <td>{{cliente.login.rol}}</td>
-                      <td>
-                        <div class="btn-group dropdown">
-                            <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Actions
-                            </button>
-                            <div class="dropdown-menu">
-                              <a href="#" class="dropdown-item">Update</a>
-                              <a href="#" class="dropdown-item">Delete</a>
-                            </div>
-                          </div>
+                      <td class="text-center"  colspan="9">
+                    <!-- Custom size border spinner -->
+                      <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
                       </td>
                     </tr>
                   </tbody>
-                  <tbody *ngFor="let admin of admins| slice: (page-1)*pageSize : (page-1) * pageSize + pageSize" >
-                    <tr>
-                      <th>{{admin.id}}</th>
-                      <td>{{admin.name}}</td>
-                      <td>{{admin.lastname}}</td>
-                      <td>{{admin.address}}</td>
-                      <td>{{admin.phone}}</td>
-                      <td>{{admin.nit}}</td>
-                      <td>{{admin.login.email}}</td>
-                      <td>{{admin.login.rol}}</td>
-                      <td>
-                        <div class="btn-group dropdown">
-                            <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Actions
-                            </button>
-                            <div class="dropdown-menu">
-                              <a href="#" class="dropdown-item">Update</a>
-                              <a href="#" class="dropdown-item">Delete</a>
+                  <ng-container *ngIf="!load_data">
+                    <tbody  *ngFor="let user of users| slice: (page-1)*pageSize : (page-1) * pageSize + pageSize" >
+                      <tr>
+                        <th>{{user.id}}</th>
+                        <td>{{user.name}}</td>
+                        <td>{{user.lastname}}</td>
+                        <td>{{user.address}}</td>
+                        <td>{{user.phone}}</td>
+                        <td>{{user.nit}}</td>
+                        <td>{{user.login.email}}</td>
+                        <td>{{user.login.rol}}</td>
+                        <td>
+                          <div class="btn-group dropdown">
+                              <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Actions
+                              </button>
+                              <div class="dropdown-menu">
+                                <a href="#" class="dropdown-item" routerLinkActive="active" [routerLink]="['/index/users/edit/',user.id]" >Update</a>
+                                <a href="#" class="dropdown-item" style="cursor:pointer;" data-toggle="modal"  [attr.data-target]="'#delete-'+user.id">Delete</a>
+                              </div>
+                            </div>
+                            <!-- Modal markup -->
+                          <div class="modal" id="delete-{{user.id}}" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Eliminar, {{ user.name }}  {{ user.lastname }}</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <p class="fs-sm">Desea eliminar este usuario?</p>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                                  <button type="button" class="btn btn-primary btn-sm" (click)="eliminar(user.id)">Sí, eliminar</button>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                      </td>
-                    </tr>
-                  </tbody>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </ng-container>
+                  
                 </table>
             </div>
         </div>
         <div class="card-footer">
                <ngb-pagination
-                [collectionSize]="clientes.length" 
+                [collectionSize]="users.length" 
                 [(page)]="page" 
                 [pageSize]="pageSize">
               </ngb-pagination>
