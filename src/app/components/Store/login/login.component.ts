@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
           } else {
             this.usuario = response.data;
             localStorage.setItem('token', response.token);
-
+            localStorage.setItem('expiration', response.exp);
             this._login_cliente.login(response.token);
 
             this._login_cliente.isAuthenticate();

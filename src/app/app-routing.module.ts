@@ -9,6 +9,9 @@ import { CreateUsersComponent } from './components/Dashboard/clientes/create-use
 import { EditUserComponent } from './components/Dashboard/clientes/edit-user/edit-user.component';
     /*products*/
 import { ProductComponent } from './components/Dashboard/product/create-products/createproduct.component';
+import { IndexProductComponent } from './components/Dashboard/product/index-product/index-product.component';
+
+
 
 
 /*Guards*/
@@ -30,7 +33,8 @@ const routes: Routes = [
   { path : 'index',children: [
     { path: 'users', component: IndexClienteComponent, /*canActivate: [DashGuard]  */},
     { path: 'users/create', component: CreateUsersComponent, /*canActivate: [DashGuard]  */},
-    { path: 'users/edit/:id', component: EditUserComponent, /*canActivate: [DashGuard]  */}, 
+    { path: 'users/edit/:id', component: EditUserComponent, /*canActivate: [DashGuard]  */},
+    { path: 'products', component: IndexProductComponent, /*canActivate: [DashGuard]  */}, 
     { path: 'products/create', component: ProductComponent, /*canActivate: [DashGuard]  */},]}, 
      
 ];

@@ -19,6 +19,7 @@ import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateUsersComponent } from './components/Dashboard/clientes/create-users/create-users.component';
 import { EditUserComponent } from './components/Dashboard/clientes/edit-user/edit-user.component';
 import { ProductComponent } from './components/Dashboard/product/create-products/createproduct.component';
+import { IndexProductComponent } from './components/Dashboard/product/index-product/index-product.component';
 
 
 
@@ -35,6 +36,7 @@ import { ProductComponent } from './components/Dashboard/product/create-products
     CreateUsersComponent,
     EditUserComponent,
     ProductComponent,
+    IndexProductComponent,
   ],
   imports: [
     BrowserModule,
