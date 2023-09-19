@@ -45,11 +45,9 @@
                               <label for="">Descripción </label>
                               <textarea class="form-control" placeholder="description" required rows="3" name="description" [(ngModel)]="product.description"></textarea>
                           </div>
-
-                          <div class="col-lg-12 form-group">
-                            <editor name="content" [(ngModel)]="product.content"
-                            [init]="{ plugins: 'lists link image table code help wordcount' }"
-                          ></editor>
+                          <div class="col-lg-12 form-group" >
+                            <label for="">Content </label>
+                            <textarea class="form-control" required rows="15" name="content" [(ngModel)]="product.content"></textarea>
                           </div>
 
                         </div>
@@ -59,8 +57,8 @@
                         <div class="col-lg-12 form-group">	
                           <label for="">Portada</label>
                           <div class="custom-file">
-                              <input class="custom-file-input" type="file" id="file-input" (change)="fileChangeEvent($event)" name="frontpage" [(ngModel)]="product.frontpage">
-                              <label class="custom-file-label" id="input-portada" for="file-input">Seleccionar imagen</label>
+                              <input class="custom-file-input" type="file" id="file-input" (change)="fileChangeEvent($event)" name="ImageFile" [(ngModel)]="product.ImageFile">
+                              <label class="custom-file-label" id="input-portada" for="file-input" style="white-space:nowrap">Seleccionar imagen</label>
                           </div>
                       </div>
                       <div class="col-lg-8">

@@ -20,6 +20,7 @@ import { CreateUsersComponent } from './components/Dashboard/clientes/create-use
 import { EditUserComponent } from './components/Dashboard/clientes/edit-user/edit-user.component';
 import { ProductComponent } from './components/Dashboard/product/create-products/createproduct.component';
 import { IndexProductComponent } from './components/Dashboard/product/index-product/index-product.component';
+import { UpdateProductComponent } from './components/Dashboard/product/update-product/update-product.component';
 
 
 
@@ -37,6 +38,7 @@ import { IndexProductComponent } from './components/Dashboard/product/index-prod
     EditUserComponent,
     ProductComponent,
     IndexProductComponent,
+    UpdateProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,7 @@ import { IndexProductComponent } from './components/Dashboard/product/index-prod
     FormsModule,
     NgbModule,
     NgbPaginationModule,
-    EditorModule
+    EditorModule,
   ],
   providers: [LoginService],
   bootstrap: [AppComponent]

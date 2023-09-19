@@ -5,7 +5,7 @@ import * as $ from 'jquery';
 import { ProducService } from 'src/app/services/product.service';
 import { LoginService } from 'src/app/services/login.service';
 
-declare var iziToast:any;
+
 @Component({
   selector: 'app-product',
   templateUrl: './createproduct.component.html',
@@ -17,7 +17,7 @@ export class ProductComponent implements OnInit {
       category: '',
       state: '1',
     };
-    public file: string | undefined;
+    public file: File | undefined;
     public imgSelect : any | ArrayBuffer = '../../../../../assets/img/default-img.avif';
     public config : any = {};
     public token;
@@ -32,7 +32,6 @@ export class ProductComponent implements OnInit {
   
     ngOnInit(): void {
     }
-
     registro(registroForm: NgForm) {
       if (!registroForm.valid) {
         Swal.fire({
@@ -40,32 +39,41 @@ export class ProductComponent implements OnInit {
           title: 'Oops...',
           text: 'Por favor, completa todos los campos correctamente.',
         });
-       
       } else {
-    
         if (this.token !== null) {
-           this.load_btn = true; 
-          this._productService.create_product(this.product, this.file, this.token).subscribe(
-            response => {
-              console.log(response);
-              Swal.fire({
-                icon: 'success',
-                title: 'Éxito',
-                text: 'Producto registrado con éxito.',
-              });
-              this.load_btn = false; 
-            },
-            error => {
-              console.log(<any>error);
-              this.load_btn = false; 
-            }
-          );
+          this.load_btn = true;
+          if (this.file) { // Verifica si this.file es definido antes de hacer la llamada al servicio
+            this._productService.create_product(this.product, this.file, this.token).subscribe(
+              response => {
+                console.log(response);
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Éxito',
+                  text: 'Producto registrado con éxito.',
+                });
+                this.load_btn = false;
+                registroForm.resetForm();
+              },
+              error => {
+                console.log(<any>error);
+                this.load_btn = false;
+              }
+            );
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Por favor, selecciona una imagen.',
+            });
+            this.load_btn = false;
+          }
         } else {
           console.log("El token es nulo.");
           // Tratar el caso en el que el token es nulo, si es necesario.
         }
       }
     }
+    
     
     fileChangeEvent(event: Event): void {
       const inputElement = event.target as HTMLInputElement;
@@ -74,6 +82,7 @@ export class ProductComponent implements OnInit {
       if (!files || files.length === 0) {
         this.mostrarError('No se seleccionó ningún archivo.');
         $('#input-portada').text('Seleccionar imagen');
+        this.file = undefined; 
         return;
       }
     
@@ -82,6 +91,7 @@ export class ProductComponent implements OnInit {
       if (file.size > 4000000) {
         this.mostrarError('El archivo debe ser menor a 4MB.');
         $('#input-portada').text('Seleccionar imagen');
+        this.file = undefined; 
         return;
       }
     
@@ -95,14 +105,10 @@ export class ProductComponent implements OnInit {
         return;
       }
     
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        // La siguiente línea convierte la imagen en base64 y la asigna a this.file
-        this.file = reader.result as string; // Almacena la imagen como base64
+          this.file = file;
         
-        this.imgSelect = this.file; // Actualiza la vista previa con la imagen en base64
-      };
-      reader.readAsDataURL(file);
+          this.imgSelect = URL.createObjectURL(file);
+          console.log(this.imgSelect);
     
       $('#input-portada').text(file.name);
     }

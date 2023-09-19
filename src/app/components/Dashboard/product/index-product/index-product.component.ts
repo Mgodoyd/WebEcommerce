@@ -3,6 +3,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { ProducService } from 'src/app/services/product.service';
 import Swal from 'sweetalert2';
 
+declare var $: any;
 @Component({
   selector: 'app-index-product',
   templateUrl: './index-product.component.html',
@@ -16,7 +17,7 @@ export class IndexProductComponent implements OnInit{
   public filtro = '';
   public productosEncontrados = true;
   public page =1;
-  public pageSize = 10;
+  public pageSize = 6;
 
 
   constructor(
@@ -84,5 +85,38 @@ export class IndexProductComponent implements OnInit{
       }
     }
     
-    
+    eliminar(id:any){
+      if (this.token !== null && this.token !== undefined) {
+      this._productService.delete_product(id,this.token).subscribe(
+        (response) => {
+          console.log(response);
+          
+          Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'Producto eliminado correctamente.',
+          });
+  
+          $('#delete-'+id).modal('hide');
+          $('.model-backdrop').hide();
+  
+          this.listproducts();
+        },
+        (error) => {
+          console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error en el Servidor.',
+          });
+        }
+      );
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Error al eliminar el producto.',
+      });
+    }
+  }
 }

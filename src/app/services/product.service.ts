@@ -21,11 +21,50 @@ export class ProducService {
                 return this._http.get(this.url + '/products', {headers: headers});
             }
             
-            create_product(data: IProduct, file: any, token: string): Observable<any> {
-                let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
-                const formData = new FormData();
-                formData.append('frontpage', file); // Adjuntar la imagen
+            create_product(data:IProduct,file: File, token: string): Observable<any> {
+              let headers = new HttpHeaders({'Authorization': token});
+              const formData = new FormData();
+              formData.append('title', data.title);
+              formData.append('description', data.description);
+              formData.append('price', data.price);
+              formData.append('category', data.category.toString());
+              formData.append('state', data.state.toString());
+              formData.append('content', data.content);
+              formData.append('stock',data.stock.toString());
+              formData.append('ImageFile', file);
             
-                return this._http.post(this.url + '/products',data, {headers: headers});
+              return this._http.post(this.url + '/products', formData, {headers: headers});
+            }
+
+            get_product(id:IProduct,token: string): Observable<any> {
+              let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
+              return this._http.get(this.url + '/products/'+id, {headers: headers});
+            }
+
+            update_product(id:IProduct,data:any,token: string): Observable<any> {
+              if(data.frontpage){
+                let headers = new HttpHeaders({'Authorization': token});
+                const formData = new FormData();
+                formData.append('title', data.title);
+                formData.append('description', data.description);
+                formData.append('price', data.price);
+                formData.append('category', data.category.toString());
+                formData.append('state', data.state.toString());
+                formData.append('content', data.content);
+                formData.append('stock',data.stock.toString());
+                formData.append('ImageFile', data.frontpage);
+
+                console.log(formData.getAll('ImageFile'));
+              
+                return this._http.put(this.url + '/products/'+id, formData, {headers: headers});
+              }else{
+                let headers = new HttpHeaders({'Authorization': token});
+                return this._http.put(this.url + '/products/'+id, data, {headers: headers});
+              }
+            }
+            
+            delete_product(id:IProduct,token: string): Observable<any> {
+              let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
+              return this._http.delete(this.url + '/products/'+id, {headers: headers});
             }
     }

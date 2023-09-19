@@ -61,7 +61,7 @@
                       <tr>
                         <th>{{products.id}}</th>
                         <td>{{products.title}}</td>
-                        <td><img [src]="products.frontpage" class="img-thumbnail rounded-0" alt="Square image" alt="Product Image" width="150"></td>
+                        <td><img src="https://ecommercewebde.blob.core.windows.net/ecommerce/{{products.frontpage}}" class="img-thumbnail rounded-0" alt="Square image" alt="Product Image" width="150"></td>
                         <td>{{products.price}}</td>
                         <td>{{products.description}}</td>
                         <td>{{products.stock}}</td>
@@ -75,8 +75,8 @@
                               </button>
                           
                                  <div class="dropdown-menu">
-                        <!--        <a href="#" class="dropdown-item" routerLinkActive="active" [routerLink]="['/index/users/edit/',user.id]" >Update</a>
-                                <a href="#" class="dropdown-item" style="cursor:pointer;" data-toggle="modal"  [attr.data-target]="'#delete-'+products.id">Delete</a>-->
+                                <a  class="dropdown-item" routerLinkActive="active" [routerLink]="['/index/products/edit',products.id]" >Update</a>
+                                <a  class="dropdown-item" style="cursor:pointer;" data-toggle="modal"  [attr.data-target]="'#delete-'+products.id">Delete</a>
                               </div>
                             </div>
                           <div class="modal" id="delete-{{products.id}}" tabindex="-1" role="dialog">
@@ -87,11 +87,11 @@
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                  <p class="fs-sm">Desea eliminar este usuario?</p>
+                                  <p class="fs-sm">Desea eliminar este producto?</p>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
-                              <!--      <button type="button" class="btn btn-primary btn-sm" (click)="eliminar(products.id)">Sí, eliminar</button> -->
+                                   <button type="button" class="btn btn-primary btn-sm" (click)="eliminar(products.id)">Sí, eliminar</button> 
                                 </div>
                               </div>
                             </div>
