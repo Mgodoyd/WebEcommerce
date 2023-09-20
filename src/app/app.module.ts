@@ -21,6 +21,7 @@ import { EditUserComponent } from './components/Dashboard/clientes/edit-user/edi
 import { ProductComponent } from './components/Dashboard/product/create-products/createproduct.component';
 import { IndexProductComponent } from './components/Dashboard/product/index-product/index-product.component';
 import { UpdateProductComponent } from './components/Dashboard/product/update-product/update-product.component';
+import { InventoryComponent } from './components/Dashboard/product/inventory/inventory.component';
 
 
 
@@ -39,6 +40,7 @@ import { UpdateProductComponent } from './components/Dashboard/product/update-pr
     ProductComponent,
     IndexProductComponent,
     UpdateProductComponent,
+    InventoryComponent,
   ],
   imports: [
     BrowserModule,

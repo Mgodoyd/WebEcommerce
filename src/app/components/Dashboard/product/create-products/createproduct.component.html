@@ -22,15 +22,15 @@
                               <label for="">Title</label>
                               <input type="text" class="form-control" placeholder="Title" required name="title" [(ngModel)]="product.title" >
                           </div>
-                          <div class="col-lg-4 form-group">	
+                          <div class="col-lg-6 form-group">	
                               <label for="">Stock</label>
                               <input type="number" class="form-control" placeholder="Cantidad inicial" required name="stock" [(ngModel)]="product.stock">
                           </div>
-                          <div class="col-lg-4 form-group">	
+                          <div class="col-lg-6 form-group">	
                               <label for="">Precio</label>
                               <input type="number" class="form-control" placeholder="Precio" required name="price"[(ngModel)]="product.price">
                           </div>
-                          <div class="col-lg-4 form-group">	
+                          <div class="col-lg-6 form-group">	
                               <label for="">Categoría</label>
                               <select class="form-control custom-select" id="select-input" name="category" [(ngModel)]="product.category">
                                 <option value="" selected disabled>Seleccionar</option>
@@ -39,42 +39,46 @@
                                 <option value="3">Categoria 3</option>
                               </select>
                           </div>                       
+                          <div class="col-lg-6 form-group">	
+                            <label for="">Supplier</label>
+                            <input type="text" class="form-control" placeholder="supplier" required name="inventory.supplier" [(ngModel)]="product.inventory.supplier">
+                            </div> 
                           
-
                           <div class="col-lg-12 form-group">
-                              <label for="">Descripción </label>
-                              <textarea class="form-control" placeholder="description" required rows="3" name="description" [(ngModel)]="product.description"></textarea>
+                            <label for="">Descripción </label>
+                            <textarea class="form-control" placeholder="description" required rows="3" name="description" [(ngModel)]="product.description"></textarea>
                           </div>
                           <div class="col-lg-12 form-group" >
                             <label for="">Content </label>
                             <textarea class="form-control" required rows="15" name="content" [(ngModel)]="product.content"></textarea>
                           </div>
-
+                          
                         </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="row">
-                        <div class="col-lg-12 form-group">	
-                          <label for="">Portada</label>
-                          <div class="custom-file">
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="row">
+                          <div class="col-lg-12 form-group">	
+                            <label for="">Portada</label>
+                            <div class="custom-file">
                               <input class="custom-file-input" type="file" id="file-input" (change)="fileChangeEvent($event)" name="ImageFile" [(ngModel)]="product.ImageFile">
                               <label class="custom-file-label" id="input-portada" for="file-input" style="white-space:nowrap">Seleccionar imagen</label>
+                            </div>
                           </div>
+                          <div class="col-lg-8">
+                            <img [src]="imgSelect" class="img-thumbnail" alt="Rounded image">
+                          </div>
+                        </div>                      
                       </div>
-                      <div class="col-lg-8">
-                          <img [src]="imgSelect" class="img-thumbnail" alt="Rounded image">
-                      </div>
-                      </div>                      
                     </div>
                   </div>
-            </div>
-            <div class="card-footer">
-              <button *ngIf="!load_btn" class="btn btn-primary mr-3" type="submit">Crear Product</button>
-              <button *ngIf="load_btn"type="button" class="btn btn-secondary" disabled>
-                <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
-                creanding...
-              </button>
-                <button class="btn btn-warning" routerLinkActive="active" [routerLink]="['/index/products']">Regresar</button>
-            </div>
-      </div>
+                  <div class="card-footer">
+                    <button *ngIf="!load_btn" class="btn btn-primary mr-3" type="submit">Crear Product</button>
+                    <button *ngIf="load_btn"type="button" class="btn btn-secondary" disabled>
+                      <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                      creanding...
+                    </button>
+                    <button class="btn btn-warning" routerLinkActive="active" [routerLink]="['/index/products']">Regresar</button>
+                  </div>
+                </div>
          </form>
+                

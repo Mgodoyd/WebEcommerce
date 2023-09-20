@@ -11,6 +11,8 @@ import { EditUserComponent } from './components/Dashboard/clientes/edit-user/edi
 import { ProductComponent } from './components/Dashboard/product/create-products/createproduct.component';
 import { IndexProductComponent } from './components/Dashboard/product/index-product/index-product.component';
 import { UpdateProductComponent } from './components/Dashboard/product/update-product/update-product.component';
+import { InventoryComponent } from './components/Dashboard/product/inventory/inventory.component';
+
 
 
 
@@ -36,7 +38,8 @@ const routes: Routes = [
     { path: 'users/edit/:id', component: EditUserComponent, /*canActivate: [DashGuard]  */},
     { path: 'products', component: IndexProductComponent, /*canActivate: [DashGuard]  */}, 
     { path: 'products/create', component: ProductComponent, /*canActivate: [DashGuard]  */},
-    { path: 'products/edit/:id', component: UpdateProductComponent, /*canActivate: [DashGuard]  */}, ]}, 
+    { path: 'products/edit/:id', component: UpdateProductComponent, /*canActivate: [DashGuard]  */},
+    { path: 'products/edit/inventary/:id', component: InventoryComponent, /*canActivate: [DashGuard]  */}, ]}, 
      
 ];
 @NgModule({

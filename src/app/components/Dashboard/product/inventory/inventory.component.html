@@ -1,0 +1,80 @@
+<app-sidebar></app-sidebar>
+   <!-- Page title-->
+  <!-- Page title-->
+  <div class="container" style="margin-right: 0%;">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Contenido izquierdo -->
+        <div class="border-bottom pt-20 mt-2 mb-5">
+          <h2 class="mt-2 mt-md-4 mb-3 pt-3">Products</h2>
+          <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+            <p class="text-muted">Este módulo lista todos los productos de la tienda.</p>
+            <p class="font-size-sm font-weight-medium pl-md-4"><a class="text-nowrap" routerLinkActive="active" [routerLink]="['/index/products']" rel="noopener">Regresar<i class="cxi-angle-right font-size-base align-middle ml-1"></i></a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="justify-content-center" style="margin-left: 355px;">
+  <div class="col-md-12" > 
+      <!-- Contenido del filtro de clientes -->
+      <div class="card box-shadow-sm">
+          <div class="card-header">
+              <h5 >Inventory del {{product.title}}</h5>
+          </div>
+          <div class="card-header">
+            <div class="row">
+                <div class="col-12">
+                    <form  #inventarioForm="ngForm" (ngSubmit)="registro_inventory(inventarioForm)" class="form-inline">
+                        <label for="" class="sr-only">Amount</label>
+                        <input type="text" class="form-control mb-3 mr-sm-4" placeholder="amount" name="amount" [(ngModel)]="inventorys.amount">
+                        <label for="" class="sr-only">Supplier</label>
+                        <input type="text" class="form-control mb-3 mr-sm-4" placeholder="supplier" name="supplier" [(ngModel)]="inventorys.supplier">
+                        <button class="btn btn-primary mb-3" type="submit">Ingresar</button>
+                    </form>
+                </div>
+            </div>
+          </div>
+          <div class="card-body" *ngIf="inventory == undefined">
+            <div class="card-body">
+                <h2>No se encontro el registro</h2>
+            </div>
+          </div>
+  
+        <div class="card-body" *ngIf="inventory">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th>Amount</th>
+                      <th>Supplier</th>
+                      <th>Created</th>
+                    </tr>
+                  </thead>
+                  <ng-container *ngIf="inventoryNotFound">
+                    <tbody>
+                        <tr>
+                        <td colspan="8" class="text-center">No se encontraron registros</td>
+                        </tr>
+                   </tbody>
+                  </ng-container>
+                  <ng-container  *ngIf="inventory">
+                      <tbody>
+                          <tr>
+                          <td>{{inventory.amount}}</td>
+                          <td>{{inventory.supplier}}</td>
+                          <td>{{inventory.createdDate}}</td>
+                          </tr>
+                     </tbody>
+                  </ng-container>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+              <ngb-pagination
+                [collectionSize]="product.length" 
+                [(page)]="page" 
+                [pageSize]="pageSize">
+              </ngb-pagination>
+        </div>
+  </div>    

@@ -14,6 +14,7 @@ import { LoginService } from 'src/app/services/login.service';
 export class ProductComponent implements OnInit {
   
     public product : any = {
+      inventory: {},
       category: '',
       state: '1',
     };
@@ -30,7 +31,7 @@ export class ProductComponent implements OnInit {
       this.token = this._loginService.getToken();
      }
   
-    ngOnInit(): void {
+     ngOnInit(): void {
     }
     registro(registroForm: NgForm) {
       if (!registroForm.valid) {
@@ -43,6 +44,8 @@ export class ProductComponent implements OnInit {
         if (this.token !== null) {
           this.load_btn = true;
           if (this.file) { // Verifica si this.file es definido antes de hacer la llamada al servicio
+           this.product.inventory.amount = this.product.stock;
+            console.log(this.product);
             this._productService.create_product(this.product, this.file, this.token).subscribe(
               response => {
                 console.log(response);

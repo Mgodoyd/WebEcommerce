@@ -21,7 +21,7 @@ export class ProducService {
                 return this._http.get(this.url + '/products', {headers: headers});
             }
             
-            create_product(data:IProduct,file: File, token: string): Observable<any> {
+            create_product(data:any,file: File, token: string): Observable<any> {
               let headers = new HttpHeaders({'Authorization': token});
               const formData = new FormData();
               formData.append('title', data.title);
@@ -32,6 +32,8 @@ export class ProducService {
               formData.append('content', data.content);
               formData.append('stock',data.stock.toString());
               formData.append('ImageFile', file);
+              formData.append('inventory.amount',data.inventory.amount.toString());
+              formData.append('inventory.supplier',data.inventory.supplier.toString());
             
               return this._http.post(this.url + '/products', formData, {headers: headers});
             }
