@@ -32,7 +32,7 @@ export class ProducService {
               formData.append('content', data.content);
               formData.append('stock',data.stock.toString());
               formData.append('ImageFile', file);
-              formData.append('inventory.amount',data.inventory.amount.toString());
+           //   formData.append('inventory.amount',data.inventory.amount.toString());
               formData.append('inventory.supplier',data.inventory.supplier.toString());
             
               return this._http.post(this.url + '/products', formData, {headers: headers});

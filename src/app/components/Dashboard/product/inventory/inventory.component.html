@@ -51,19 +51,19 @@
                       <th>Created</th>
                     </tr>
                   </thead>
-                  <ng-container *ngIf="inventoryNotFound">
+                  <ng-container *ngIf="inventory.amount == 0">
                     <tbody>
                         <tr>
                         <td colspan="8" class="text-center">No se encontraron registros</td>
                         </tr>
                    </tbody>
                   </ng-container>
-                  <ng-container  *ngIf="inventory">
+                  <ng-container  *ngFor="let inventories of inventory">
                       <tbody>
                           <tr>
-                          <td>{{inventory.amount}}</td>
-                          <td>{{inventory.supplier}}</td>
-                          <td>{{inventory.createdDate}}</td>
+                          <td>{{inventories.amount}}</td>
+                          <td>{{inventories.supplier}}</td>
+                          <td>{{inventories.createdDate}}</td>
                           </tr>
                      </tbody>
                   </ng-container>

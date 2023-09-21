@@ -23,7 +23,6 @@ export class InventoryComponent implements OnInit {
   public id: any;
   public inventory: any = {};
   public inventorys: any = {};
-  public inventoryNotFound = false;
 
   constructor(private _loginService : LoginService,
     private _router: ActivatedRoute,
@@ -33,22 +32,26 @@ export class InventoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.list_inventory();
+  }
+  
+  list_inventory(){
     this._router.params.subscribe(params => {
       this.id = params['id'];
       if (!this.token) {
         return; // Salir si no hay token
       }
-  
       this._productService.get_product(this.id, this.token).subscribe(
         response => {
           if (response === undefined) {
             this.product = undefined;
             return; // Salir si no se encuentra el producto
           }
-  
+          
           this.product = response;
           if(this.token) {
-            this._inventoryService.list_inventary(this.id, this.token).subscribe(
+            this.inventory.productId = this.id;
+            this._inventoryService.get_inventary(this.id,this.inventory.productId, this.token).subscribe(
               inventoryResponse => {
                 this.inventory = inventoryResponse;
                 console.log(this.inventory);
@@ -61,20 +64,20 @@ export class InventoryComponent implements OnInit {
             );
           }
         },
-        (error: HttpErrorResponse) => {
+        (error) => {
                 console.log(error);
-                if (error.status === 404) {
-                  this.inventoryNotFound = true; // Establece la variable de bandera en verdadero
-                }
+                
         }
       );
     });
+  
   }
   
   registro_inventory(inventarioForm:NgForm){
     if(inventarioForm.valid){
      if(this.token){
-       this._inventoryService.update_inventory(this.id, this.inventorys, this.token).subscribe(
+      this.inventorys.productId= this.id;
+       this._inventoryService.create_inventory(this.inventorys, this.token).subscribe(
         response => {
           this.inventorys = response;
           console.log(this.inventorys);
@@ -85,6 +88,8 @@ export class InventoryComponent implements OnInit {
             text: "Se registro el inventario",
             icon: 'success',
           })
+          inventarioForm.resetForm();
+         this.list_inventory();
   
         },
         error => {

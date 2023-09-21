@@ -12,7 +12,9 @@ import { ProductComponent } from './components/Dashboard/product/create-products
 import { IndexProductComponent } from './components/Dashboard/product/index-product/index-product.component';
 import { UpdateProductComponent } from './components/Dashboard/product/update-product/update-product.component';
 import { InventoryComponent } from './components/Dashboard/product/inventory/inventory.component';
-
+    /*coupon*/
+import { CreateCouponComponent } from './components/Dashboard/coupon/create-coupon/create-coupon.component';
+import { IndexCouponComponent } from './components/Dashboard/coupon/index-coupon/index-coupon.component';
 
 
 
@@ -39,7 +41,9 @@ const routes: Routes = [
     { path: 'products', component: IndexProductComponent, /*canActivate: [DashGuard]  */}, 
     { path: 'products/create', component: ProductComponent, /*canActivate: [DashGuard]  */},
     { path: 'products/edit/:id', component: UpdateProductComponent, /*canActivate: [DashGuard]  */},
-    { path: 'products/edit/inventary/:id', component: InventoryComponent, /*canActivate: [DashGuard]  */}, ]}, 
+    { path: 'products/edit/inventary/:id', component: InventoryComponent, /*canActivate: [DashGuard]  */},
+    { path: 'coupon', component: IndexCouponComponent, /*canActivate: [DashGuard]  */},
+    { path: 'coupon/create', component: CreateCouponComponent, /*canActivate: [DashGuard]  */},  ]}, 
      
 ];
 @NgModule({

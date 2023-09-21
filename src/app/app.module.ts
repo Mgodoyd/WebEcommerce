@@ -22,6 +22,8 @@ import { ProductComponent } from './components/Dashboard/product/create-products
 import { IndexProductComponent } from './components/Dashboard/product/index-product/index-product.component';
 import { UpdateProductComponent } from './components/Dashboard/product/update-product/update-product.component';
 import { InventoryComponent } from './components/Dashboard/product/inventory/inventory.component';
+import { CreateCouponComponent } from './components/Dashboard/coupon/create-coupon/create-coupon.component';
+import { IndexCouponComponent } from './components/Dashboard/coupon/index-coupon/index-coupon.component';
 
 
 
@@ -41,6 +43,8 @@ import { InventoryComponent } from './components/Dashboard/product/inventory/inv
     IndexProductComponent,
     UpdateProductComponent,
     InventoryComponent,
+    CreateCouponComponent,
+    IndexCouponComponent,
   ],
   imports: [
     BrowserModule,

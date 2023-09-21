@@ -1,0 +1,53 @@
+<app-sidebar></app-sidebar>
+
+  <!-- Page title-->
+  <form #registroForm="ngForm" (ngSubmit)="registro(registroForm)">
+  <div class="border-bottom pt-2 mt-2 mb-5" style="margin-left: 380px;margin-right: 15px;">
+    <h2 class="mt-2 mt-md-4 mb-3 pt-1">Cupones</h2>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+      <p class="text-muted">Este módulo crea todos los cupones de la tienda.</p>
+      
+    </div>
+  </div>
+
+<div class="card box-shadow-sm" style="margin-left: 370px; margin-right: 15px;">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px;">Registro de Cupones</h5>
+        </div>
+        <div class="card-body">
+            
+              <div class="row">
+                <div class="col-md-3 form-group">
+                  <label for="validationCustom01" class="form-label">Code Coupon</label>
+                  <input class="form-control" type="text" placeholder="code" required name="code" [(ngModel)]="coupon.code">
+                </div>
+                
+                <div class="col-md-3 form-group">
+                  <label for="validationCustom01" class="form-label">Value </label>
+                  <input class="form-control" type="number" placeholder="value" required name="value" [(ngModel)]="coupon.value">
+                </div>
+                <div class="col-md-3 form-group">
+                  <label for="validationCustom01" class="form-label">Limit </label>
+                  <input class="form-control" type="number" placeholder="limit" required name="limit" [(ngModel)]="coupon.limit">
+                </div>
+                <div class="col-md-3">
+                    <label for="validationCustom01" class="form-label">Type</label>
+                    <select class="form-select" aria-label="Default select example" name="Type" [(ngModel)]="coupon.type">
+                        <option selected disabled >Seleccionar</option>
+                        <option value="Porcentaje">Porcentaje</option>
+                        <option value="Valor Fijo">Valor fijo</option>
+                      </select>
+                  </div>
+              </div>
+           
+        </div>
+        <div class="card-footer">
+            <button *ngIf="!load_btn" class="btn btn-primary mr-3" type="submit">Crear Coupon</button>
+            <button *ngIf="load_btn"type="button" class="btn btn-secondary" disabled>
+              <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+              creanding...
+            </button>
+            <button class="btn btn-warning" routerLinkActive="active" [routerLink]="['/index/coupon']">Regresar</button>
+        </div>
+  </div>  
+</form> 

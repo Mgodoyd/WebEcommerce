@@ -44,15 +44,14 @@ export class ProductComponent implements OnInit {
         if (this.token !== null) {
           this.load_btn = true;
           if (this.file) { // Verifica si this.file es definido antes de hacer la llamada al servicio
-           this.product.inventory.amount = this.product.stock;
-            console.log(this.product);
-            this._productService.create_product(this.product, this.file, this.token).subscribe(
-              response => {
-                console.log(response);
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Éxito',
-                  text: 'Producto registrado con éxito.',
+          // this.product.inventory.amount = this.product.stock;
+           this._productService.create_product(this.product, this.file, this.token).subscribe(
+             response => {
+               console.log(response);
+               Swal.fire({
+                 icon: 'success',
+                 title: 'Éxito',
+                 text: 'Producto registrado con éxito.',
                 });
                 this.load_btn = false;
                 registroForm.resetForm();
