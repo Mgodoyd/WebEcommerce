@@ -1,22 +1,9 @@
 <!-- Navbar-->
-<header
-  class="navbar navbar-expand navbar-light fixed-top navbar-box-shadow bg-light px-3 px-lg-4"
-  data-scroll-header
-  data-fixed-element
->
+<header class="navbar navbar-expand navbar-light fixed-top navbar-box-shadow bg-light px-3 px-lg-4" data-scroll-header data-fixed-element>
   <a class="navbar-brand d-lg-none" href="dev-setup.html">
-    <img
-      src=""
-      alt="Createx"
-      width="130"
-    />
+    <img src="assets/img/components/logo/logo-dark.svg" alt="Createx" width="130">
   </a>
-  <button
-    class="navbar-toggler d-block d-lg-none mr-3 ml-auto"
-    type="button"
-    data-toggle="offcanvas" 
-    data-target="componentsNav"
-  >
+  <button class="navbar-toggler d-block d-lg-none mr-3 ml-auto" type="button" data-toggle="offcanvas" data-target="componentsNav">
     <span class="navbar-toggler-icon"></span>
   </button>
   <ul class="navbar-nav ml-auto d-none d-lg-flex align-items-center">
@@ -27,7 +14,9 @@
       </a>
     </li>
   </ul>
+
 </header>
+ 
 <!-- Side navigation (Off-canvas)-->
 <aside class="cs-offcanvas cs-offcanvas-expand bg-dark" id="componentsNav">
   <div class="cs-offcanvas-cap d-none d-lg-block py-4" >
@@ -78,6 +67,7 @@
       <a class="nav-link px-4" routerLinkActive="active" [routerLink]="['/index/users']">Usuarios</a>
       <a class="nav-link px-4" routerLinkActive="active" [routerLink]="['/index/products']">Productos</a>
       <a class="nav-link px-4" routerLinkActive="active" [routerLink]="['/index/coupon']">Cupones</a>
+      <a class="nav-link px-4" routerLinkActive="active" [routerLink]="['/index/config']">Configuración</a>
     </nav>
   </div>
 </aside>

@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EditorModule } from '@tinymce/tinymce-angular';
 
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './components/Dashboard/sidebar/sidebar.component';
@@ -24,6 +25,8 @@ import { UpdateProductComponent } from './components/Dashboard/product/update-pr
 import { InventoryComponent } from './components/Dashboard/product/inventory/inventory.component';
 import { CreateCouponComponent } from './components/Dashboard/coupon/create-coupon/create-coupon.component';
 import { IndexCouponComponent } from './components/Dashboard/coupon/index-coupon/index-coupon.component';
+import { UpdateCouponComponent } from './components/Dashboard/coupon/update-coupon/update-coupon.component';
+import { ConfigComponent } from './components/Dashboard/config/config/config.component';
 
 
 
@@ -45,6 +48,8 @@ import { IndexCouponComponent } from './components/Dashboard/coupon/index-coupon
     InventoryComponent,
     CreateCouponComponent,
     IndexCouponComponent,
+    UpdateCouponComponent,
+    ConfigComponent,
   ],
   imports: [
     BrowserModule,

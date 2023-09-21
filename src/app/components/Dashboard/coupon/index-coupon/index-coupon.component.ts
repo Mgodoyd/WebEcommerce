@@ -76,4 +76,33 @@ export class IndexCouponComponent implements OnInit {
 
     }
 
+    eliminar(id:any){
+      if (this.token !== null && this.token !== undefined) {
+      this._couponService.delete_couon(id,this.token).subscribe(
+        (response) => {
+          console.log(response);
+          
+          Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'Cuopon eliminado correctamente.',
+          });
+  
+          $('#delete-'+id).modal('hide');
+          $('.model-backdrop').hide();
+  
+          this.listCoupon();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Error al eliminar el cuopon.',
+      });
+    }
+  }
 }

@@ -32,7 +32,7 @@ export class CreateCouponComponent implements OnInit {
       console.log(this.coupon);
       this.load_btn = true;
       if(this.token)
-      this._couponService.create_coupo(this.coupon,this.token).subscribe(
+      this._couponService.create_coupon(this.coupon,this.token).subscribe(
         response => {
           console.log(response);
           this.load_btn = false;
