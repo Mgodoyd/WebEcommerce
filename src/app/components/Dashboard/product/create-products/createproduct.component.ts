@@ -23,6 +23,7 @@ export class ProductComponent implements OnInit {
     public config : any = {};
     public token;
     public load_btn = false;  
+    public categorys : any = {};
 
     constructor(private _productService : ProducService, private _loginService : LoginService) {
       this.config = {
@@ -32,6 +33,7 @@ export class ProductComponent implements OnInit {
      }
   
      ngOnInit(): void {
+      this.listcategorys();
     }
     registro(registroForm: NgForm) {
       if (!registroForm.valid) {
@@ -124,5 +126,16 @@ export class ProductComponent implements OnInit {
       });
     }
     
+    listcategorys(){
+      this._productService.list_category().subscribe(
+        response => {
+          this.categorys = response;
+          console.log(this.categorys);
+        },
+        error => {
+          console.log(<any>error);
+        }
+      );
+    }
     
 }

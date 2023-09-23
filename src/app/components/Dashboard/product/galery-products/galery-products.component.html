@@ -1,0 +1,106 @@
+<app-sidebar></app-sidebar>
+
+<div class="container" style="margin-right: 0%;">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Contenido izquierdo -->
+        <div class="border-bottom pt-20 mt-2 mb-5">
+          <h2 class="mt-2 mt-md-4 mb-3 pt-3">Galery</h2>
+          <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+            <p class="text-muted">Este módulo lista todos las galerias de la tienda.</p>
+            <p class="font-size-sm font-weight-medium pl-md-4"><a class="text-nowrap" routerLinkActive="active" [routerLink]="['/index/products']" rel="noopener">Regresar<i class="cxi-angle-right font-size-base align-middle ml-1"></i></a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="justify-content-center" style="margin-left: 355px;">
+  <div class="col-md-12" > 
+      <!-- Contenido del filtro de clientes -->
+      <div class="card box-shadow-sm">
+          <div class="card-header">
+              <h5 >Galery del {{product.title}}</h5>
+          </div>
+          <div class="card-header">
+            <div class="row">
+                <div class="col-12">
+                    <form  #galeryForm="ngForm" (ngSubmit)="registro_galery(galeryForm)" class="form-inline">
+                        <div class="file-drop-area">
+                            <div class="file-drop-icon ci-upload"></div>
+                            <span class="file-drop-message">Arrastra y suelta aquí para subir</span>
+                            <button class="contenedor-btn-file bordeado">
+                              <i class="fas fa-file"></i>
+                              Adjuntar file
+                              <label for="btn-file"></label>
+                              <input type="file" id="btn-file"  (change)="fileSelected($event)"  name="galery" [(ngModel)]="galerys.galery">
+                            </button>
+                            <button type="submit" class="btn btn-primary " style="margin-top: 1%">Guardar</button>
+                          
+                          </div>
+                    </form>
+                </div>
+            </div>
+          </div>
+          <div class="card-body" *ngIf="galery == undefined">
+            <div class="card-body">
+                <h2>No se encontro el registro</h2>
+            </div>
+          </div>
+  
+        <div class="card-body" *ngIf="galery">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th>Image</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <ng-container *ngIf="galery.amount == 0">
+                    <tbody>
+                        <tr>
+                        <td colspan="8" class="text-center">No se encontraron registros</td>
+                        </tr>
+                   </tbody>
+                  </ng-container>
+                  <ng-container  *ngFor="let galeries of galery">
+                      <tbody>
+                          <tr>
+                          <td><img src="https://ecommercewebde.blob.core.windows.net/ecommerce/{{galeries.galery}}" class="img-thumbnail rounded-0"alt="Image" width="150">{{galeries.galery}}</td>
+                          <td>
+                            <span class="delete" (click)="openDeleteModal(galeries.id)">
+                              <img src="../../../../../assets/img/components/logo/borrar.png" alt="" style="cursor:pointer">
+                            </span>
+                            <!-- Modal markup -->
+                            <div class="modal" id="delete-{{galeries.id}}" tabindex="-1" role="dialog">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">Eliminar, {{ galerys.galery }}</h5>
+                                    <span type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></span>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p class="fs-sm">¿Desea eliminar esta categoría?</p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-primary btn-sm" (click)="eliminar(galeries.id)">Sí, eliminar</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          </tr>
+                     </tbody>
+                  </ng-container>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+              <ngb-pagination
+                [collectionSize]="product.length" 
+                [(page)]="page" 
+                [pageSize]="pageSize">
+              </ngb-pagination>
+        </div>
+  </div>    

@@ -25,12 +25,17 @@ export class UserService {
         let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
         return this._http.get(this.url + '/User/'+id, {headers: headers});
       }
-      create_user(data:ICliente,token: string): Observable<any> {
+
+      get_user_public(id:any): Observable<any> {
+        let headers = new HttpHeaders({'Content-Type': 'application/json'});
+        return this._http.get(this.url + '/User/'+id, {headers: headers});
+      }
+      create_user(data:any,token: string): Observable<any> {
         let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
         return this._http.post(this.url + '/User',data, {headers: headers});
       }
 
-      update_user(id:ICliente,data:ICliente,token: string): Observable<any> {
+      update_user(id:any,data:ICliente,token: string): Observable<any> {
         let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
         return this._http.put(this.url + '/User/'+id,data, {headers: headers});
       }

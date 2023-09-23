@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { LoginService } from '../../../services/login.service';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,8 +12,14 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   public user: any = {}; // Inicializa user como un objeto vacío
   public usuario: any = {};
+  public token;
 
-  constructor(private _login_cliente: LoginService, private _router: Router) {}
+  constructor(private _login_cliente: LoginService, private _router : Router) {
+    this.token = this._login_cliente.getToken();
+    if(this.token){
+      this._router.navigate(['/']);
+    }
+  }
 
   ngOnInit(): void {}
 
@@ -30,7 +37,7 @@ export class LoginComponent implements OnInit {
           if (response.success === false) {
             console.log('Problemas en el Servidor');
           } else {
-            this.usuario = response.data;
+            this.usuario = response;
             localStorage.setItem('token', response.token);
             localStorage.setItem('expiration', response.exp);
             this._login_cliente.login(response.token);

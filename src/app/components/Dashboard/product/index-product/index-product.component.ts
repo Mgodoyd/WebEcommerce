@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { ProducService } from 'src/app/services/product.service';
+import * as FileSaver from 'file-saver';
 import Swal from 'sweetalert2';
+import * as ExcelJS from 'exceljs';
 
 declare var $: any;
 @Component({
@@ -14,6 +16,7 @@ export class IndexProductComponent implements OnInit{
   public load_data= true;
   public token;
   public product = Array();
+  public arr_product = Array();
   public filtro = '';
   public productosEncontrados = true;
   public page =1;
@@ -37,6 +40,10 @@ export class IndexProductComponent implements OnInit{
       response => {
         console.log(response);
         this.product = response;
+        this.product.forEach(element => {
+          this.arr_product.push(element);
+        });
+        console.log(this.arr_product)
         this.load_data = false;
       },
       error => {
@@ -118,5 +125,45 @@ export class IndexProductComponent implements OnInit{
         text: 'Error al eliminar el producto.',
       });
     }
+  }
+
+  dowloand_excel(){
+    let workbook = new ExcelJS.Workbook();
+    let worksheet = workbook.addWorksheet('Products');
+
+    worksheet.addRow(undefined);
+    for(let x1 of this.arr_product){
+      let x2=Object.keys(x1);
+
+      let temp = [];
+      for(let x3 of x2){
+        temp.push(x1[x3]);
+      }
+      worksheet.addRow(temp);
+    }
+    let fileName = "Products.xlsx";
+
+    worksheet.columns = [
+      { header: 'ID', key: 'id', width: 10 },
+      { header: 'Title', key: 'title', width: 30 },
+      { header: 'Slug', key: 'slug', width: 30 },
+      { header: 'Frontpage', key: 'frontpage', width: 30 },
+      { header: 'Image', key: 'imageFile', width: 30 },
+      { header: 'Price', key: 'price', width: 30 },
+      { header: 'Description', key: 'description', width: 30 },
+      { header: 'Content', key: 'content', width: 30 },
+      { header: 'Stock', key: 'stock', width: 30 },
+      { header: 'Points', key: 'points', width: 30 },
+      { header: 'Sales', key: 'sales', width: 30 },
+      { header: 'Category', key: 'category', width: 30 },
+      { header: 'State', key: 'state', width: 30},
+      { header: 'Inventory', key: 'inventoryId', width: 30},
+      { header: 'Created At', key: 'createdAt', width: 60},
+      ]as any;
+
+    workbook.xlsx.writeBuffer().then((data:any)=>{
+      let blob = new Blob([data],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      FileSaver.saveAs(blob,fileName);
+    });
   }
 }

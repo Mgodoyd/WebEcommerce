@@ -12,13 +12,12 @@ import Swal from 'sweetalert2';
   styleUrls: ['./config.component.scss']
 })
 export class ConfigComponent implements OnInit{
-  
-  public token;
+  public token:any;
   public id:any;
   public config : any ={};
-  public title_cat='';
-  public icon_cat='';
-  public category:any= {};
+  public imagePreview: string | ArrayBuffer | null = null;
+  public selectedFile: any | null = null;
+  public file: File | undefined;
 
   constructor(private _loginService: LoginService,
     private _configService: ConfigService,) { 
@@ -28,7 +27,6 @@ export class ConfigComponent implements OnInit{
 
   ngOnInit(): void {
     this.listConfig();
-    this.listCategorys();
   }
 
   listConfig() {
@@ -44,44 +42,97 @@ export class ConfigComponent implements OnInit{
       );
     }
   }
+  fileSelected(event: any) {
+    const inputElement = event.target as HTMLInputElement ;
+    const files = inputElement.files;
+  
+    if (!files || files.length === 0) {
+      this.mostrarError('No se seleccionó ningún archivo.');
+      $('#input-portada').text('Seleccionar imagen');
+      this.file = undefined;
+      this.imagePreview = null; // Restablecer la vista previa cuando no se selecciona ningún archivo
+      return;
+    }
+  
+    const file = files[0];
+  
+    if (file.size > 4000000) {
+      this.mostrarError('El archivo debe ser menor a 4MB.');
+      $('#input-portada').text('Seleccionar imagen');
+      this.file = undefined;
+      this.imagePreview = null; // Restablecer la vista previa si el archivo es demasiado grande
+      return;
+    }
+  
+    const allowedFileTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+  
+    if (!allowedFileTypes.includes(file.type)) {
+      this.mostrarError('El archivo debe ser una imagen.');
+      $('#input-portada').text('Seleccionar imagen');
+      this.file = undefined;
+      this.imagePreview = null; // Restablecer la vista previa si el tipo de archivo no es válido
+      return;
+    }
+  
+    this.file = file;
+  
+    this.selectedFile = URL.createObjectURL(file);
+    console.log(this.selectedFile);
+  }
+  
+  
+  private mostrarError(mensaje: string): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: mensaje,
+    });
+  }
+  
 
-  listCategorys() {
-    if (this.token) {
-      this._configService.list_categorys(this.token).subscribe(
-        response => {
-          console.log(response);
-          this.category = response;
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-  }
+  actualizar(confForm: any) {
+    if(confForm.valid){
+      var data : any ={};
+
+      if(this.file != undefined){
+        data.logo = this.file;
+      }
+      
+      data.title = this.config.title;
+      data.serie = this.config.serie;
+      data.correlative = this.config.correlative;
+       if(this.token != undefined){
+
+         console.log(data),
+         this._configService.update_config(data,this.token).subscribe(
+           response=>{
+             console.log(response);
+             Swal.fire({
+               icon: 'success',
+               title: 'Éxito',
+               text: 'Producto actualizado con éxito.',
+             });
+             this.selectedFile = null;
+             this.listConfig();
+           },
+           error=>{
+             console.log(error);
+             Swal.fire({
+               icon: 'error',
+               title: 'Oops...',
+               text: 'Error en el Servidor.',
+             });
+           }
+         );
+     }else{
+       Swal.fire({
+         icon: 'error',
+         title: 'Oops...',
+         text: 'Los datos del formulario no son válidos',
+       });
+     }
+       }
+      }
   
-  registro(){
-      if(this.token){
-      this._configService.create_category(this.category,this.token).subscribe(
-        response => {
-          console.log(response);
-          this.listCategorys();
-          Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: 'Category registrada con éxito.',
-          });
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }else{
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Todos los campos son obligatorios!',
-      })
-    }
-  
-  }
-}
+    
+}  

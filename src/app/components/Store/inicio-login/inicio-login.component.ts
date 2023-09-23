@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-inicio-login',
@@ -7,16 +8,6 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./inicio-login.component.scss']
 })
 export class InicioLoginComponent {
-
-  constructor(
-    private _login_cliente: LoginService
-  ) { }
-
-  get isLoggedIn() {
-    return this._login_cliente.isLoggedIn;
-  }
   
-  logout() {
-    this._login_cliente.logout();
-  }
+ 
 }

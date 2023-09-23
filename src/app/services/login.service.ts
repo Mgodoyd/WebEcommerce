@@ -47,6 +47,9 @@ export class LoginService {
       this._router.navigate(['/login']);
       return false;
     }
+
+    const id = decodedToken.id;
+    localStorage.setItem('id', id);
   
     const userRole = decodedToken.rol;
   
@@ -70,6 +73,7 @@ export class LoginService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
+    localStorage.removeItem('id');
     this.isLoggedIn = false;
   }
 

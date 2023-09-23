@@ -69,4 +69,9 @@ export class ProducService {
               let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
               return this._http.delete(this.url + '/products/'+id, {headers: headers});
             }
+
+            list_category(): Observable<any> {
+              let headers = new HttpHeaders({'Content-Type': 'application/json'});
+              return this._http.get(this.url + '/Category/public', {headers: headers});
+          }
     }

@@ -22,6 +22,7 @@ export class UpdateProductComponent implements OnInit  {
   public load_btn = false;  
   public url= "https://ecommercewebde.blob.core.windows.net/ecommerce/";
   public id : any;
+  public categorys : any = {};
   constructor(
     private _loginService:LoginService,
     private _router:ActivatedRoute,
@@ -51,6 +52,7 @@ export class UpdateProductComponent implements OnInit  {
         );
       }
     });
+    this.listcategorys();
   }
 
 
@@ -155,4 +157,15 @@ export class UpdateProductComponent implements OnInit  {
     });
   }
   
+  listcategorys(){
+    this._productService.list_category().subscribe(
+      response => {
+        this.categorys = response;
+        console.log(this.categorys);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+  }
 }

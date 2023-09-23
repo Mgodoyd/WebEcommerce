@@ -12,8 +12,6 @@ import { LoginService } from './services/login.service';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/Store/login/login.component';
 import { FooterComponent } from './components/Store/footer/footer.component';
-import { HeaderComponent } from './components/Store/header/header.component';
-import { InicioComponent } from './components/Store/inicio/inicio.component';
 import { InicioLoginComponent } from './components/Store/inicio-login/inicio-login.component';
 import { IndexClienteComponent } from './components/Dashboard/clientes/index-users/index-user.component';
 import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
@@ -27,6 +25,10 @@ import { CreateCouponComponent } from './components/Dashboard/coupon/create-coup
 import { IndexCouponComponent } from './components/Dashboard/coupon/index-coupon/index-coupon.component';
 import { UpdateCouponComponent } from './components/Dashboard/coupon/update-coupon/update-coupon.component';
 import { ConfigComponent } from './components/Dashboard/config/config/config.component';
+import { CreateCategoryComponent } from './components/Dashboard/category/create-category/create-category.component';
+import { GaleryProductsComponent } from './components/Dashboard/product/galery-products/galery-products.component';
+import { HeaderComponent } from './components/Store/header/header/header.component';
+import { ProfileComponent } from './components/Store/User/profile/profile.component';
 
 
 
@@ -35,9 +37,7 @@ import { ConfigComponent } from './components/Dashboard/config/config/config.com
     AppComponent,
     SidebarComponent,
     LoginComponent,
-    FooterComponent, 
-    HeaderComponent,
-    InicioComponent,
+    FooterComponent,
     InicioLoginComponent,
     IndexClienteComponent,
     CreateUsersComponent,
@@ -50,6 +50,10 @@ import { ConfigComponent } from './components/Dashboard/config/config/config.com
     IndexCouponComponent,
     UpdateCouponComponent,
     ConfigComponent,
+    CreateCategoryComponent,
+    GaleryProductsComponent,
+    HeaderComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

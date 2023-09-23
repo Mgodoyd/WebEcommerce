@@ -1,0 +1,82 @@
+<div class="form-group row">
+  <label class="col-md-3 col-form-label font-weight-medium" for="text-input"
+    >Categorías</label
+  >
+  <div class="col-md-4">
+    <input
+      class="form-control"
+      type="text"
+      id="text-input"
+      placeholder="tile"
+      name="titles"
+      [(ngModel)]="category.titles"
+    />
+  </div>
+  <div class="col-md-5">
+    <input
+      class="form-control"
+      type="text"
+      id="text-input"
+      placeholder="Icono"
+      name="icon"
+      [(ngModel)]="category.icon"
+    />
+  </div>
+</div>
+<div class="form-group row">
+  <div class="col-md-9">
+    <a style="cursor: pointer" class="mb-5" (click)="registro()">Agregar</a>
+  </div>
+</div>
+
+
+<div class="table-responsive mt-3">
+  <table class="table table-sm">
+    <thead class="thead-dark">
+      <tr>
+        <th>Categoria</th>
+        <th>Icono</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="category.length === 0; else categoriesList">
+        <tr>
+          <td colspan="2" class="text-center">
+            <span class="text-muted">No hay Categorías disponibles</span>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #categoriesList>
+        <tr *ngFor="let categories of category">
+          <td>{{ categories.titles }}</td>
+          <td> {{ categories.icon }}</td>
+          <td>
+            <span class="delete" (click)="openDeleteModal(categories.id)">
+              <img src="../../../../../assets/img/components/logo/borrar.png" alt="">
+            </span>
+            <!-- Modal markup -->
+            <div class="modal" id="delete-{{categories.id}}" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Eliminar, {{ categories.titles }}</h5>
+                    <span type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></span>
+                  </div>
+                  <div class="modal-body">
+                    <p class="fs-sm">¿Desea eliminar esta categoría?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary btn-sm" (click)="eliminar(categories.id)">Sí, eliminar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>
+

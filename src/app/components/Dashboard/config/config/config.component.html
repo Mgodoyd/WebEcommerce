@@ -1,88 +1,51 @@
 <app-sidebar></app-sidebar>
-
-<div class="container mt-12" style="margin-bottom: 5%; margin-left: 21.8%">
-  <div class="row">
-    <div class="col-12">
-      <div class="border-bottom mb-12">
-        <h1 class="mt-2 mt-md-4 mb-3">Configuraciones</h1>
-        <p class="text-muted">Este módulo se establece las configuraciones de la tienda.</p>
-      </div>
-
-      <div class="card box-shadow-sm ">
-        <div class="card-header">
-          <h5>Configuraciones</h5>
+<form #confForm="ngForm" (ngSubmit)="actualizar(confForm)">
+  <div class="card box-shadow-sm" style="margin-left: 370px; margin-right: 15px;">
+    <div class="card-header">
+      <h5 style="margin-bottom: 0px;">Actualización de configuración</h5>
+    </div>
+    <div class="card-body" *ngIf="config != undefined">
+      <div class="row">
+        <div class="col-md-4 form-group">
+          <label for="validationCustom01" class="form-label">Nombre de la tienda</label>
+          <input class="form-control" type="text" placeholder="Nombre" required name="title" [(ngModel)]="config.title">
         </div>
-        <div class="card-body">
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Nombre de la tienda</label>
-              <div class="col-md-9">
-                <input class="form-control" type="text" id="text-input" value="title" name="title" [(ngModel)]="config.title">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Serie</label>
-              <div class="col-md-4">
-                <input class="form-control" type="number" id="text-input"  value="serie" name="serie" [(ngModel)]="config.serie">
-              </div>
-              <div class="col-md-5">
-                <input class="form-control" type="number" id="text-input"  value="correlative" name="correlative" [(ngModel)]="config.correlative">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Categorías</label>
-              <div class="col-md-4">
-                <input class="form-control" type="text" id="text-input" placeholder="tile" name="titles" [(ngModel)]="category.titles">
-              </div>
-              <div class="col-md-5">
-                <input class="form-control" type="text" id="text-input" placeholder="Icono" name="icon" [(ngModel)]="category.icon">
-              </div>
-            </div>
-            <div class="form-group row">
-              <div class="col-md-3"></div>
-              <div class="col-md-9">
-                <a style="cursor: pointer" class="mb-5" (click)="registro()">Agregar</a>
-                <div class="table-responsive mt-3">
-                    <table class="table table-sm">
-                      <thead class="thead-dark">
-                        <tr>
-                          <th>Categoria</th>
-                          <th>Icono</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <ng-container *ngIf="category.length === 0; else categoriesList">
-                          <tr>
-                            <td colspan="2" class="text-center">
-                              <span class="text-muted">No hay Categorías disponibles</span>
-                            </td>
-                          </tr>
-                        </ng-container>
-                        <ng-template #categoriesList>
-                          <tr *ngFor="let categories of category">
-                            <td>{{ categories.titles }}</td>
-                            <td>{{ categories.icon }}</td>
-                          </tr>
-                        </ng-template>
-                      </tbody>
-                    </table>
-                  </div>
-                  
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label font-weight-medium" for="file-input">Logo</label>
-              <div class="col-md-9">
-                <div class="custom-file">
-                  <input class="custom-file-input" type="file" id="file-input">
-                  <label class="custom-file-label" for="file-input">Buscar</label>
-                </div>
-              </div>
-            </div>
+        <div class="col-md-4 form-group">
+          <label for="validationCustom01" class="form-label">Serie</label>
+          <input class="form-control" type="text" placeholder="Serie" required name="serie" [(ngModel)]="config.serie">
         </div>
-        <div class="card-footer">
-          <button class="btn btn-primary mr-3">Guardar cambios</button>
+        <div class="col-md-4 form-group">
+          <label for="validationCustom01" class="form-label">Correlativo</label>
+          <input class="form-control" type="text" placeholder="Correlativo" required name="correlative" [(ngModel)]="config.correlative">
         </div>
       </div>
+      <div class="form-group row">
+        <div class="col-md-12">
+          <app-create-category></app-create-category>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label font-weight-medium" for="file-input">Logo</label>
+        <div class="col-md-9">
+          <div class="file-drop-area">
+            <div class="file-drop-icon ci-upload"></div>
+            <img *ngIf="!selectedFile" src="https://ecommercewebde.blob.core.windows.net/ecommerce/{{config.logo}}" style="width: 10%;">
+            <span class="file-drop-message">Arrastra y suelta aquí para subir</span>
+            <span class="contenedor-btn-file bordeado">
+              <i class="fas fa-file"></i>
+              Adjuntar file
+              <label for="btn-file"></label>
+              <input type="file" id="btn-file" #fileInput (change)="fileSelected($event)"  name="logo" [(ngModel)]="config.logo">
+            </span>
+           <!-- Vista previa de la imagen -->
+           <img [src]="selectedFile" *ngIf="selectedFile" class="img-thumbnail rounded-0" alt="Vista previa de la imagen" style="width: 20%;">
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-primary mr-3" >Guardar cambios</button>
     </div>
   </div>
-</div>
+</form>

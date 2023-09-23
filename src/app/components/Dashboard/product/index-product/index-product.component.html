@@ -26,6 +26,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" placeholder="title the product" name="filtro" [(ngModel)]="filtro" >
                 <button class="btn btn-dark" type="button" (click)="filtrar()">Filtrar</button>
+                <button class="btn btn-dark " type="button" (click)="dowloand_excel()">Exportar Data</button>
               </div>
     </div>
   
@@ -78,6 +79,7 @@
                                 <a  class="dropdown-item" routerLinkActive="active" [routerLink]="['/index/products/edit',products.id]" >Update</a>
                                 <a  class="dropdown-item" style="cursor:pointer;" data-toggle="modal"  [attr.data-target]="'#delete-'+products.id">Delete</a>
                                 <a  class="dropdown-item" routerLinkActive="active" [routerLink]="['/index/products/edit/inventary',products.id]" >Inventory</a>
+                                <a  class="dropdown-item" routerLinkActive="active" [routerLink]="['/index/products/galery',products.id]">Galery</a>
                               </div>
                             </div>
                           <div class="modal" id="delete-{{products.id}}" tabindex="-1" role="dialog">
