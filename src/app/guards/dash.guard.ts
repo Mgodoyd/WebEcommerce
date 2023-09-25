@@ -11,11 +11,15 @@ import { Router } from '@angular/router';
 })
 export class DashGuard  {
 
+  public token;
+
   constructor(private dashService: LoginService
-    , private router: Router) { }
+    , private router: Router) { 
+      this.token = this.dashService.getToken();
+    }
  
     canActivate(): boolean {
-      if (this.dashService.isLoggedIn) {
+      if (this.token) {
         // El usuario tiene un token válido, permite el acceso.
         return true;
       } else {

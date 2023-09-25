@@ -15,7 +15,7 @@ export class ProductComponent implements OnInit {
   
     public product : any = {
       inventory: {},
-      category: '',
+      category: {},
       state: '1',
     };
     public file: File | undefined;

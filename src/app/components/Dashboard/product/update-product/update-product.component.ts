@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class UpdateProductComponent implements OnInit  {
 
   public product : any = {
-    category: '',
+    category: {},
     state: '1',
   };
   public file: File | undefined;
@@ -43,6 +43,7 @@ export class UpdateProductComponent implements OnInit  {
           response => {
             this.product = response;
             console.log(this.product);
+            console.log(this.product.category.titles);
             this.imgSelect = this.url + this.product.frontpage;
             console.log(this.imgSelect);
           },
@@ -58,6 +59,7 @@ export class UpdateProductComponent implements OnInit  {
 
   actualizar(actualizarForm:any){
     if(actualizarForm.valid){
+      console.log(actualizarForm.value);
        var data : any ={};
 
        if(this.file != undefined){
@@ -69,10 +71,10 @@ export class UpdateProductComponent implements OnInit  {
        data.title = this.product.title;
        data.description = this.product.description;
        data.price = this.product.price;
-       data.category = this.product.category;
        data.stock = this.product.stock;
        data.state = this.product.state;
        data.content = this.product.content;
+       data.category = this.product.category.titles;
        
         this.load_btn = true;
         if(this.token != undefined){

@@ -65,16 +65,11 @@ export class LoginService {
   }
   
 
-  login(token: string) {
-    localStorage.setItem('token', token);
-    this.isLoggedIn = true;
-  }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expiration');
-    localStorage.removeItem('id');
-    this.isLoggedIn = false;
+    localStorage.clear();
+    //this.isLoggedIn = false;
+    this._router.navigate(['/login']);
   }
 
   getToken() {

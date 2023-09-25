@@ -15,13 +15,17 @@ export class UserService {
       private _router: Router){
         this.url = GLOBAL.url;
       }
-
+ 
       list_users(token: string): Observable<any> {
         let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
         return this._http.get(this.url + '/User', {headers: headers});
       }
 
-      get_user(id:ICliente,token: string): Observable<any> {
+      get_user_admin(id:any,token: string): Observable<any> {
+        let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
+        return this._http.get(this.url + '/User/admin/'+id, {headers: headers});
+      }
+      get_user(id:any,token: string): Observable<any> {
         let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
         return this._http.get(this.url + '/User/'+id, {headers: headers});
       }
@@ -35,8 +39,8 @@ export class UserService {
         return this._http.post(this.url + '/User',data, {headers: headers});
       }
 
-      update_user(id:any,data:ICliente,token: string): Observable<any> {
-        let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
+      update_user(id:any,data:ICliente): Observable<any> {
+        let headers = new HttpHeaders({'Content-Type': 'application/json'});
         return this._http.put(this.url + '/User/'+id,data, {headers: headers});
       }
       delete_user(id:ICliente,token: string): Observable<any> {

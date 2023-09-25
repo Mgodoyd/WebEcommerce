@@ -39,6 +39,10 @@ export class ConfigService {
       let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
       return this._http.get(this.url + '/Category', {headers: headers});
     }
+    list_categorys_public(): Observable<any> {
+      let headers = new HttpHeaders({'Content-Type': 'application/json'});
+      return this._http.get(this.url + '/Category/public', {headers: headers});
+    }
     create_category(data:any,token: string): Observable<any> {
       let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
       return this._http.post(this.url + '/Category',data, {headers: headers});

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfigService } from 'src/app/services/config.service';
 import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -12,20 +13,19 @@ export class HeaderComponent implements OnInit {
   public id;
   public userData:any;
   public users: any = null;
+  public categories : any = {}
 
 
   constructor(
     private _login_cliente: LoginService,
-    private _userService : UserService
+    private _userService : UserService,
+    private _configService : ConfigService
   ) { 
     
     this.token = localStorage.getItem('token');
     this.id = localStorage.getItem('id');
   }
 
-  get isLoggedIn() {
-    return this._login_cliente.isLoggedIn;
-  }
   
   logout() {
     this._login_cliente.logout();
@@ -33,7 +33,12 @@ export class HeaderComponent implements OnInit {
  
 
   ngOnInit(): void {
-  
+    this._configService.list_categorys_public().subscribe(
+      (data) => {
+        console.log(data);
+        this.categories = data;
+      }
+      );
 
     if (this.id !== null) {
       this._userService.get_user_public(this.id).subscribe(
@@ -56,16 +61,4 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  onLoginSuccess() {
-    // Obtén el token de localStorage
-    const token = localStorage.getItem('token');
-
-    // Verifica si token no es nulo antes de llamar a authService.login
-    if (token) {
-      this._login_cliente.login(token);
-    } else {
-      // Manejar el caso en el que no haya token (opcional)
-      console.error('No se encontró un token en el almacenamiento local.');
-    }
-  }
 }

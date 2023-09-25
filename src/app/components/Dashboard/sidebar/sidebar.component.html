@@ -6,14 +6,20 @@
   <button class="navbar-toggler d-block d-lg-none mr-3 ml-auto" type="button" data-toggle="offcanvas" data-target="componentsNav">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <ul class="navbar-nav ml-auto d-none d-lg-flex align-items-center">
-    <li class="nav-item" *ngIf="isLoggedIn">
-      <a [routerLink]="['/login']" (click)="logout()" class="nav-link py-0">
-        <i class="cxi-profile align-middle mt-n1 mr-2"></i>
-        Cerrar Sesión
-      </a>
-    </li>
-  </ul>
+  <li class="nav-item dropdown" *ngIf="token" style="margin-left: 94rem; margin-top: -1.5%">
+    <a  class="nav-link dropdown-toggle" data-toggle="dropdown" style="cursor: pointer;"
+      ><i class="cxi-profile nav-tool-icon"></i>
+      <span class="nav-tool-label">
+        <ng-container *ngIf="users">{{users.name}} {{users.lastname}}</ng-container>
+      </span></a
+    >
+    <ul class="dropdown-menu">
+          <a [routerLink]="['/login']" (click)="logout()" class="dropdown-item" style="cursor: pointer;">
+            <i class="cxi-logout me-2"></i>
+            Sign out
+          </a>
+    </ul>
+  </li>
 
 </header>
  

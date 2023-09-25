@@ -33,9 +33,9 @@
                         </div>
                         <div class="col-lg-4 form-group">	
                             <label for="">Categoría</label>
-                            <select class="form-control custom-select" id="select-input" name="category" [(ngModel)]="product.category">
-                              <option value="" selected disabled>Seleccionar</option>
-                              <option value="{{categorys.titles}}" *ngFor="let category of categorys">{{category.titles}}</option>
+                            <select class="form-control custom-select" id="select-input" name="category.titles" [(ngModel)]="product.category.titles" required>
+                              <option selected disabled>Seleccionar</option>
+                              <option *ngFor="let categories of categorys" [value]="categories.titles">{{ categories.titles }}</option>
                             </select>
                         </div>                       
                         

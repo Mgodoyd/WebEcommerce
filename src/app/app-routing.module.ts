@@ -33,6 +33,9 @@ import { InicioLoginComponent } from './components/Store/inicio-login/inicio-log
   /*Profile */
 import { ProfileComponent } from './components/Store/User/profile/profile.component';
 
+  /*Products*/
+import { IndexProductStoreComponent } from './components/Store/product/index-product-store/index-product-store.component'; 
+
 
 
 const routes: Routes = [
@@ -55,8 +58,9 @@ const routes: Routes = [
     { path: 'config', component: ConfigComponent, /*canActivate: [DashGuard]  */}, 
   ]},
   { path: 'category', component: CreateCategoryComponent, /*canActivate: [DashGuard]  */}, 
-  { path: 'profile', component: ProfileComponent, /*canActivate: [DashGuard]  */},
-  {path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: 'profile', component: ProfileComponent, canActivate: [DashGuard]  },
+  {path: 'products/store', component: IndexProductStoreComponent  },
+  {path: '**', redirectTo: '', pathMatch: 'full' } 
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

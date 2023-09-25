@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class EditUserComponent implements OnInit{
     public user : any = {
-      login: {},
+      login: { },
       rol: ''
     };
     public id: any;
@@ -30,12 +30,13 @@ export class EditUserComponent implements OnInit{
   ngOnInit() {
     this._route.params.subscribe(params => {
       this.id = params['id'];
-      this._userService.get_user(this.id,this.token).subscribe(
+      this._userService.get_user_admin(this.id,this.token).subscribe(
         response => {
-         if(response == undefined){
-           this.user = undefined
-        }else{
-        }
+          if(response == undefined){
+            this.user = undefined
+          }else{
+          }
+          console.log(response);
         this.user = response;
         console.log(this.user);
         },
@@ -50,7 +51,7 @@ export class EditUserComponent implements OnInit{
    if(updateForm.valid){
     console.log(updateForm.value)
     this.load_btn=true;
-    this._userService.update_user(this.id,this.user,this.token).subscribe(
+    this._userService.update_user(this.id,this.user).subscribe(
       response => {
         console.log(response);
         Swal.fire({

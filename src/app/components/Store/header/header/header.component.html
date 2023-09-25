@@ -36,7 +36,7 @@
                   <li class="nav-item d-lg-block d-none mb-0">
                   <a [routerLink]="['/login']" class="nav-tool">
                     <i class="cxi-profile nav-tool-icon"></i>
-                    <span class="nav-tool-label">Iniciar Sesión</span>
+                    <span class="nav-tool-label" style="cursor: pointer;">Iniciar Sesión</span>
                   </a>
                 </li>
                 </ng-container>
@@ -48,18 +48,17 @@
                     >
                     <ul class="dropdown-menu">
                         <a [routerLink]="['/profile']" routerLinkActive="active" class="dropdown-item">
-                            <i class="ci-profile me-2"></i>
+                            <i class="cxi-profile me-2"></i>
                             Profile
                           </a>
                           <a href="#" class="dropdown-item">
-                            <i class="ci-comment me-2"></i>
+                            <i class="cxi-comment me-2"></i>
                             Messages
                             <span class="badge rounded-pill bg-success ms-2">5</span>
                           </a>
-                          <a href="#" class="dropdown-item">
-                            <i class="ci-external-link me-2"></i>
-                            Settings
-                            <span class="badge rounded-pill bg-warning ms-2">1</span>
+                          <a (click)="logout()" class="dropdown-item" style="cursor: pointer;">
+                            <i class="cxi-logout me-2"></i>
+                            Sign out
                           </a>
                     </ul>
                   </li>
@@ -114,22 +113,12 @@
               <a [routerLink]="['inicio']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Inicio</a>
             </li>
             <li class="nav-item dropdown">
-              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
-                >Shop</a
+              <a [routerLink]="['/products/store']" routerLinkActive="active" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                >Store</a
               >
               <ul class="dropdown-menu">
-                <li>
-                  <a href="shop-catalog.html" class="dropdown-item"
-                    >Catalog with Filters</a
-                  >
-                </li>
-                <li>
-                  <a href="shop-single.html" class="dropdown-item"
-                    >Single Product</a
-                  >
-                </li>
-                <li>
-                  <a href="checkout.html" class="dropdown-item">Checkout</a>
+                <li *ngFor="let category of categories">
+                  <a href="#" class="dropdown-item category__link"> <i class="{{category.icon}}"></i>&nbsp; {{category.titles}}</a>
                 </li>
               </ul>
             </li>

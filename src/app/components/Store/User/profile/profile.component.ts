@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
       console.log(this.token)
       console.log(this.userData)
       if(this.token)
-      this._userService.update_user(id_user,this.userData,this.token).subscribe(
+      this._userService.update_user(id_user,this.userData).subscribe(
         (response) => {
           console.log(response);
           Swal.fire({

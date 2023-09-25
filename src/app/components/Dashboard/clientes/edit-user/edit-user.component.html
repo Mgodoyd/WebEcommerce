@@ -8,7 +8,7 @@
       <p class="text-muted">Este módulo actualiza todos los usuarios de la tienda.</p>
       
     </div>
-  </div>
+  </div> 
 
 <div class="card box-shadow-sm" style="margin-left: 370px; margin-right: 15px;">
         <div class="card-header">
@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-md-4 form-group">
                   <label for="validationCustom01" class="form-label">Correo electrónico</label>
-                  <input class="form-control" type="text" placeholder="Correo electrónico"  required name="email" [(ngModel)]="user.login.email">
+                  <input class="form-control" type="text" placeholder="Correo electrónico"  required name="email" [(ngModel)]="user.login && user.login.email">
                 </div>
 
                 <div class="col-md-4 form-group">
@@ -40,7 +40,7 @@
                   </div>
                 <div class="col-md-4 form-group">
                   <label for="validationCustom01" class="form-label">Password</label>
-                  <input class="form-control" type="password" placeholder="Password"  required name="password" [(ngModel)]="user.login.password">
+                  <input class="form-control" type="password" placeholder="Password"  required name="password" [(ngModel)]="user.login && user.login.password">
                 </div>
                 <div class="col-md-4">
                   <label for="validationCustom01" class="form-label">Dirección</label>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="validationCustom01" class="form-label">Rol</label>
-                    <select class="form-select" aria-label="Default select example" name="rol" [(ngModel)]="user.login.rol">
+                    <select class="form-select" aria-label="Default select example" name="rol" [(ngModel)]="user.login && user.login.rol">
                         <option selected disabled >Seleccionar</option>
                         <option value="cliente">Cliente</option>
                         <option value="administrador">Administrador</option>
