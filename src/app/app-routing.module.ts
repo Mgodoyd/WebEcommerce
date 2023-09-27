@@ -35,6 +35,11 @@ import { ProfileComponent } from './components/Store/User/profile/profile.compon
 
   /*Products*/
 import { IndexProductStoreComponent } from './components/Store/product/index-product-store/index-product-store.component'; 
+import { ViewProductComponent } from './components/Store/product/view-product/view-product.component'; 
+
+  /*Cart*/
+import { CartComponent } from './components/Store/product/cart/cart.component';
+
 
 
 
@@ -60,6 +65,9 @@ const routes: Routes = [
   { path: 'category', component: CreateCategoryComponent, /*canActivate: [DashGuard]  */}, 
   { path: 'profile', component: ProfileComponent, canActivate: [DashGuard]  },
   {path: 'products/store', component: IndexProductStoreComponent  },
+  {path: 'products/store/category/:category', component: IndexProductStoreComponent  },
+  {path: 'products/store/view/:id', component: ViewProductComponent  },
+  {path: 'cart', component: CartComponent,  canActivate: [DashGuard]  },
   {path: '**', redirectTo: '', pathMatch: 'full' } 
 ];
 @NgModule({

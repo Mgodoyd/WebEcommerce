@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { NouisliderModule } from 'ng2-nouislider';
+import { LightgalleryModule } from 'lightgallery/angular';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -29,7 +30,9 @@ import { CreateCategoryComponent } from './components/Dashboard/category/create-
 import { GaleryProductsComponent } from './components/Dashboard/product/galery-products/galery-products.component';
 import { HeaderComponent } from './components/Store/header/header/header.component';
 import { ProfileComponent } from './components/Store/User/profile/profile.component';
-import { IndexProductStoreComponent } from './components/Store/product/index-product-store/index-product-store.component'; 
+import { IndexProductStoreComponent } from './components/Store/product/index-product-store/index-product-store.component';
+import { ViewProductComponent } from './components/Store/product/view-product/view-product.component';
+import { CartComponent } from './components/Store/product/cart/cart.component'; 
 
 
 
@@ -56,6 +59,8 @@ import { IndexProductStoreComponent } from './components/Store/product/index-pro
     HeaderComponent,
     ProfileComponent,
     IndexProductStoreComponent,
+    ViewProductComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +70,8 @@ import { IndexProductStoreComponent } from './components/Store/product/index-pro
     NgbModule,
     NgbPaginationModule,
     EditorModule,
-    NouisliderModule 
+    NouisliderModule,
+    LightgalleryModule 
   ],
   providers: [LoginService],
   bootstrap: [AppComponent]

@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   public userData:any;
   public users: any = null;
   public categories : any = {}
-
+  public op_cart = false;
 
   constructor(
     private _login_cliente: LoginService,
@@ -58,6 +58,16 @@ export class HeaderComponent implements OnInit {
           console.log(error);
         }
       );
+    }
+  }
+
+  op_modalcart(){
+    if(!this.op_cart){
+      this.op_cart = true;
+      $('#cart').addClass('show');
+    }else{
+      this.op_cart = false;
+      $('#cart').removeClass('show');
     }
   }
 

@@ -49,6 +49,11 @@ export class ProducService {
               return this._http.get(this.url + '/products/'+id, {headers: headers});
             }
 
+            get_product_public(id:any): Observable<any> {
+              let headers = new HttpHeaders({'Content-Type': 'application/json'});
+              return this._http.get(this.url + '/products/public/'+id, {headers: headers});
+            }
+
             update_product(id:IProduct,data:any,token: string): Observable<any> {
               if(data.frontpage){
                 let headers = new HttpHeaders({'Authorization': token});
