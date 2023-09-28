@@ -48,4 +48,8 @@ export class UserService {
         return this._http.delete(this.url + '/User/'+id, {headers: headers});
       }
       
+      create_address(data:any,token: string): Observable<any> {
+        let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
+        return this._http.post(this.url + '/Address',data, {headers: headers});
+      }
 }

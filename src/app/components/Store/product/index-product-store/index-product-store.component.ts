@@ -1,7 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 import { ConfigService } from 'src/app/services/config.service';
+import { LoginService } from 'src/app/services/login.service';
 import { ProducService } from 'src/app/services/product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-index-product-store',
@@ -20,9 +23,21 @@ export class IndexProductStoreComponent implements OnInit {
   public page =1;
   public pageSize = 5;
   public sort_by='Defecto';
+  public cart : any = {
+    amount: '',
+    productId: '',
+    userId:'',
+  };
+  public token;
+  public userdata:any;
+  public btn_cart = false;
   constructor(private _configService : ConfigService,
     private _productService : ProducService,
-    private _router : ActivatedRoute) { }
+    private _router : ActivatedRoute,
+    private _loginService : LoginService,
+    private _cartService : CartService) { 
+      this.token = this._loginService.getToken();
+    }
 
   ngOnInit(): void {
   this._configService.list_categorys_public().subscribe(
@@ -153,6 +168,60 @@ orden_por() {
   // Actualizar la vista después de ordenar
   this.load_data = false;
 }
+
+add_product_cart(index: number) {
+  var userJSON = JSON.parse(localStorage.getItem('user') || '{}');
+  this.userdata = userJSON.id;
+  console.log(this.userdata);
+
+  this.cart.amount = 1;
+  console.log(index)
+  if (this.cart.amount <= this.product[0].stock) {
+    console.log(this.product[0].stock);
+
+    let data = {
+      amount: this.cart.amount,
+      productId: index,
+      userId: this.userdata,
+    };
+
+    this.btn_cart = true;
+    console.log(data);
+
+    if (this.token) {
+      this._cartService.create_cart(data, this.token).subscribe(
+        (response: any) => {
+          console.log(response);
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Producto agregado al carrito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+
+          this.btn_cart = false;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'La máxima cantidad disponible es ' + this.product[0].stock + ' unidades',
+      });
+    }
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Ingrese la cantidad',
+    });
+  }
+}
+
 
 
 }

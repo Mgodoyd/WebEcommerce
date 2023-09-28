@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from 'src/app/services/cart.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
+import { ProducService } from '../../../../services/product.service';
+import Swal from 'sweetalert2';
+//import {io} from 'socket.io-client';
 
 @Component({
   selector: 'app-header',
@@ -15,11 +19,16 @@ export class HeaderComponent implements OnInit {
   public users: any = null;
   public categories : any = {}
   public op_cart = false;
-
+  public cart_arr : any = {};
+  public product : any = {};
+  public subtotal = 0;
+  //public socket = io('http://localhost:32768')
   constructor(
     private _login_cliente: LoginService,
     private _userService : UserService,
-    private _configService : ConfigService
+    private _configService : ConfigService,
+    private _cartService : CartService,
+    private _productService : ProducService
   ) { 
     
     this.token = localStorage.getItem('token');
@@ -50,6 +59,18 @@ export class HeaderComponent implements OnInit {
           if (localStorage.getItem('user')) {
             this.users = JSON.parse(localStorage.getItem('user') || '{}');
             console.log(this.users);
+
+            if(this.token)
+            this._cartService.get_cart(this.users.id, this.token).subscribe(
+              response => {
+                console.log(response);
+                this.cart_arr = response;
+                this.calcular_cart();
+              },
+              error => {
+                console.log(error);
+              }
+              );
           } else {
             this.users = ''; 
           }
@@ -59,7 +80,9 @@ export class HeaderComponent implements OnInit {
         }
       );
     }
+   
   }
+
 
   op_modalcart(){
     if(!this.op_cart){
@@ -71,4 +94,49 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  calcular_cart() {
+    
+      this.cart_arr.forEach((element: any) => {
+        this.subtotal += parseInt(element.products.price) ;
+      
+      });
+    
+  }
+
+  delete_cart(id:any){
+    if(this.token)
+    this._cartService.delete_cart(id, this.token).subscribe(
+      response => {
+        console.log(response);
+        Swal.fire({
+          icon : 'success',
+          title : 'Producto eliminado correctamente',
+          timer : 1000,
+          showConfirmButton : false
+        })
+        this.ngOnInit();
+      },
+      error => {
+        console.log(error);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: 'error',
+          title: 'Error al eliminar el producto',
+        });
+      }
+      );
+  
+  }
+  
 }

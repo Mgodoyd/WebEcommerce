@@ -40,6 +40,11 @@ import { ViewProductComponent } from './components/Store/product/view-product/vi
   /*Cart*/
 import { CartComponent } from './components/Store/product/cart/cart.component';
 
+  /*address*/
+import { AddressComponent } from './components/Store/User/address/address.component';
+
+
+
 
 
 
@@ -64,6 +69,7 @@ const routes: Routes = [
   ]},
   { path: 'category', component: CreateCategoryComponent, /*canActivate: [DashGuard]  */}, 
   { path: 'profile', component: ProfileComponent, canActivate: [DashGuard]  },
+  { path: 'profile/address', component: AddressComponent, canActivate: [DashGuard]  },
   {path: 'products/store', component: IndexProductStoreComponent  },
   {path: 'products/store/category/:category', component: IndexProductStoreComponent  },
   {path: 'products/store/view/:id', component: ViewProductComponent  },
