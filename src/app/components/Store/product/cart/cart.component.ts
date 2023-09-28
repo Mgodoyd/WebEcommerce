@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { AddressService } from 'src/app/services/address.service';
 import { CartService } from 'src/app/services/cart.service';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
+
+declare var Cleave:any;
+declare var StickySidebar:any;
 
 @Component({
   selector: 'app-cart',
@@ -15,10 +19,13 @@ export class CartComponent implements OnInit {
   public users : any = {};
   public subtotal = 0;
   public total_apagar = 0;
-
+  public address : any = {};
+  public price_envio = 0;
+  public selectedOption: any;
   constructor(
     private _cartService: CartService,
-    private _loginService: LoginService
+    private _loginService: LoginService,
+    private _addressService :AddressService
   ) { 
     this.token = _loginService.getToken();
     this.users = JSON.parse(localStorage.getItem('user') || '{}');
@@ -36,6 +43,23 @@ export class CartComponent implements OnInit {
         console.log(error);
       }
       );
+      
+      setTimeout(() => {
+        new Cleave('#cc-number', {
+         creditCard: true,
+         onCreditCardTypeChanged: function (type:any) {
+           // update UI ...
+         }  
+        });
+        new Cleave('#cc-exp-date', {
+          date: true,
+          datePattern: ['m', 'y']
+        });
+
+        var sidebar = new StickySidebar('.sidebar-sticky', {topSpacing: 20});
+      });
+
+      this.get_address_main();
   }
   calcular_cart() {
     
@@ -92,4 +116,21 @@ export class CartComponent implements OnInit {
   
   }
 
+  get_address_main(){
+    if(this.token)
+    this._addressService.get_address_main(this.users.id, this.token).subscribe(
+      response => {
+        console.log(response);
+        this.address = response;
+      },
+      error => {
+        console.log(error);
+      }
+      );
+  
+  }
+
+  calcular_total(){
+    this.total_apagar = this.subtotal + this.price_envio;
+  }
 }
