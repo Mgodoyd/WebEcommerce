@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AddressService } from 'src/app/services/address.service';
 import { CartService } from 'src/app/services/cart.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -6,6 +6,12 @@ import Swal from 'sweetalert2';
 
 declare var Cleave:any;
 declare var StickySidebar:any;
+declare var paypal:any;
+
+
+interface HtmlInputEvent extends Event{
+  target : HTMLInputElement & EventTarget;
+} 
 
 @Component({
   selector: 'app-cart',
@@ -14,6 +20,8 @@ declare var StickySidebar:any;
 })
 export class CartComponent implements OnInit {
 
+  
+ @ViewChild('paypalButton',{static:true}) paypalElement : ElementRef | undefined;
   public token;
   public cart_arr : any = {};
   public users : any = {};
@@ -60,6 +68,39 @@ export class CartComponent implements OnInit {
       });
 
       this.get_address_main();
+
+      if (this.paypalElement && this.paypalElement.nativeElement) {
+      paypal.Buttons({
+        style: {
+            layout: 'horizontal'
+        },
+        createOrder: (data:any,actions:any)=>{
+    
+            return actions.order.create({
+              purchase_units : [{
+                description : 'Nombre del pago',
+                amount : {
+                  currency_code : 'USD',
+                  value: 999
+                },
+              }]
+            });
+          
+        },
+        onApprove : async (data:any,actions:any)=>{
+          const order = await actions.order.capture();
+    
+          
+        },
+        onError :(_error: Error) =>{
+         
+        },
+        onCancel: function (data:any,actions:any){
+          
+        }
+      }).render(this.paypalElement.nativeElement);
+      }
+    
   }
   calcular_cart() {
     
