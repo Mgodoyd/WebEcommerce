@@ -37,7 +37,7 @@
 
             <!-- Order review -->
             <h2 class="h4 mb-4">1. Order Review</h2>
-            <div class="bg-secondary rounded mb-5">
+            <div class="bg-secondary rounded mb-5" *ngIf="cart_arr.length >= 1">
               <!-- Item -->
               <div class="media px-2 px-sm-4 py-4 border-bottom" *ngFor="let cart of cart_arr">
                 <a [routerLink]="['/products/store/view/', cart.products.id]" style="min-width: 80px;">
@@ -70,6 +70,15 @@
               </div>
               <div class="px-3 px-sm-4 py-4 text-right">
                 <span class="text-muted">Subtotal:<strong class="text-dark font-size-lg ml-2">${{subtotal}}</strong></span>
+              </div>
+            </div>
+
+            <div class="bg-secundary rounded mb-5 p-3" *ngIf="cart_arr.length == 0">
+              <div class="row text-center">
+                <div class="col-log-12">
+                  <dt>Upps!</dt>
+                  <dd>No tiene productos en el carrito</dd>
+                </div>
               </div>
             </div>
 
@@ -106,7 +115,7 @@
             <!-- Shipping -->
             <h2 class="h4 mb-4">3. Shipping Method</h2>
             <div class="custom-control custom-radio mb-3">
-              <input (change)="calcular_total()"  type="radio" class="custom-control-input" id="store-pickup" name="shipping" [(ngModel)]="selectedOption" [value]="0" (ngModelChange)="price_envio = $event">
+              <input (change)="calcular_total(envio1)"  type="radio" class="custom-control-input" id="store-pickup" name="shipping" [(ngModel)]="selectedOption" [value]="0" (ngModelChange)="price_envio = $event">
               <label for="store-pickup" class="custom-control-label d-flex align-items-center">
                 <span>
                   <strong class="d-block">Pick up from store</strong>
@@ -116,7 +125,7 @@
               </label>
             </div>
             <div class="custom-control custom-radio mb-3">
-              <input (change)="calcular_total()" type="radio" class="custom-control-input" id="store-pickup" name="shipping" [(ngModel)]="selectedOption" [value]="10" (ngModelChange)="price_envio = $event">
+              <input (change)="calcular_total(envio2)" type="radio" class="custom-control-input" id="store-pickup" name="shipping" [(ngModel)]="selectedOption" [value]="10" (ngModelChange)="price_envio = $event">
               <label for="ups" class="custom-control-label d-flex align-items-center">
                 <span>
                   <strong class="d-block">UPS Ground Shipping</strong>
@@ -209,7 +218,7 @@
             <h2 class="h4 mb-4">5. Additional Information (optional)</h2>
             <div class="form-group">
               <label for="ch-notes">Order notes</label>
-              <textarea id="ch-notes" class="form-control form-control-lg" rows="5" placeholder="Notes about your order, e.g. special noted for delivery."></textarea>
+              <textarea id="ch-notes" class="form-control form-control-lg" rows="5" placeholder="Notes about your order, e.g. special noted for delivery." name="note" [(ngModel)]="sale.note"></textarea>
             </div>
           </div>
 
@@ -222,7 +231,7 @@
                 <div class="form-group">
                   <label for="promo-code">Apply a promo code</label>
                   <div class="input-group input-group-lg">
-                    <input type="text" id="promo-code" class="form-control" placeholder="Enter promo code">
+                    <input type="text" id="promo-code" class="form-control" placeholder="Enter promo code" name="coupon" [(ngModel)]="sale.coupon">
                     <div class="input-group-append">
                       <button type="button" class="btn btn-primary">&nbsp;&nbsp;Apply&nbsp;&nbsp;</button>
                     </div>
