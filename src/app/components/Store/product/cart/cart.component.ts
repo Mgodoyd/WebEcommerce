@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { error } from 'console';
 import { AddressService } from 'src/app/services/address.service';
 import { CartService } from 'src/app/services/cart.service';
@@ -11,9 +12,6 @@ declare var StickySidebar:any;
 declare var paypal:any;
 
 
-interface HtmlInputEvent extends Event{
-  target : HTMLInputElement & EventTarget;
-} 
 
 @Component({
   selector: 'app-cart',
@@ -37,16 +35,23 @@ export class CartComponent implements OnInit {
   };
   public envio1 = 'free';
   public envio2 = 'express';
+  public amount :any;
+  public error_coupon = '';
+
   constructor(
     private _cartService: CartService,
     private _loginService: LoginService,
     private _addressService :AddressService,
-    private _saleService : SalesService
+    private _saleService : SalesService,
+    private _router:Router
   ) { 
     this.token = _loginService.getToken();
     this.users = JSON.parse(localStorage.getItem('user') || '{}');
     this.sale.userId = this.users.id;
+    this.amount = 1;
   }
+
+  handler:any = null;
 
   ngOnInit(): void {
     if(this.token)
@@ -60,7 +65,7 @@ export class CartComponent implements OnInit {
             productId : element.products.id,
             subtotal : element.products.price,
             userId : this.users.id,
-            amount : element.amount
+            amount : this.amount
           });
         });
     
@@ -97,10 +102,10 @@ export class CartComponent implements OnInit {
     
             return actions.order.create({
               purchase_units : [{
-                description : 'Nombre del pago',
+                description : 'Store Web',
                 amount : {
                   currency_code : 'USD',
-                  value: 999
+                  value: this.total_apagar
                 },
               }]
             });
@@ -111,6 +116,7 @@ export class CartComponent implements OnInit {
           this.sale.transaction = order.purchase_units[0].payments.captures[0].id;
           console.log(this.sale);
           this.createSale();
+          this._router.navigate(['/']);
         },
         onError :(_error: Error) =>{
           
@@ -120,6 +126,8 @@ export class CartComponent implements OnInit {
         }
       }).render(this.paypalElement.nativeElement);
     }
+
+    this.loadStripe();
     
   }
   
@@ -242,5 +250,62 @@ export class CartComponent implements OnInit {
     this.sale.subtotal = this.total_apagar;
     this.sale.envio_price = this.price_envio;
     this.sale.envio_title = title;
+  }
+
+  pay(amount: any) {    
+ 
+    var handler = (<any>window).StripeCheckout.configure({
+      key: 'pk_test_51NvqlTAqYvH0uzuSJc17HcjIMGB2J2jfPUSpX7XER13KMtgQhArsBtghJKqXHNBFtNrKZx9loFxFoXtyruJ5XbLW00Kjlpg8ro',
+      locale: 'auto',
+      token: (token: any) => { 
+        console.log(token);
+        this.sale.transaction = token.id;
+        console.log(this.sale.transaction);
+        this.createSale();
+       this._router.navigate(['/']);
+      }
+    });
+ 
+    handler.open({
+      name: 'Store Web',
+      description: 'Pago de productos',
+      amount: amount * 100
+    });
+ 
+  }
+ 
+  loadStripe() {
+     
+    if(!window.document.getElementById('stripe-script')) {
+      var s = window.document.createElement("script");
+      s.id = "stripe-script";
+      s.type = "text/javascript";
+      s.src = "https://checkout.stripe.com/checkout.js";
+      s.onload = () => {
+        this.handler = (<any>window).StripeCheckout.configure({
+          key: 'pk_test_51NvqlTAqYvH0uzuSJc17HcjIMGB2J2jfPUSpX7XER13KMtgQhArsBtghJKqXHNBFtNrKZx9loFxFoXtyruJ5XbLW00Kjlpg8ro',
+          locale: 'auto',
+          token: function (token: any) {
+            // You can access the token ID with `token.id`.
+            // Get the token ID to your server-side code for use.
+            console.log(token)
+          }
+        });
+      }
+       
+      window.document.body.appendChild(s);
+    }
+  }
+
+  validar_coupon(){
+   if(this.sale.coupon){
+    if(this.sale.coupon.toString().length >= 25){
+      this.error_coupon = '';
+    }else{
+      this.error_coupon = 'El cupón es incorrecto, debe tener menos de  25 caracteres';
+    }
+   }else{
+    this.error_coupon = 'El cupón no es válido';
+   }
   }
 }
