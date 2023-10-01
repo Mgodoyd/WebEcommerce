@@ -25,6 +25,11 @@ export class ProducService {
               let headers = new HttpHeaders({'Content-Type': 'application/json'});
               return this._http.get(this.url + '/products/public'+filtro, {headers: headers});
           }
+
+          list_products_public_home(): Observable<any> {
+            let headers = new HttpHeaders({'Content-Type': 'application/json'});
+            return this._http.get(this.url + '/products/public', {headers: headers});
+        }
             
             create_product(data:any,file: File, token: string): Observable<any> {
               let headers = new HttpHeaders({'Authorization': token});

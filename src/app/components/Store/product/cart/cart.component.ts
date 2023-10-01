@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { error } from 'console';
 import { AddressService } from 'src/app/services/address.service';
 import { CartService } from 'src/app/services/cart.service';
+import { CouponService } from 'src/app/services/coupon.service';
 import { LoginService } from 'src/app/services/login.service';
 import { SalesService } from 'src/app/services/sales.service';
 import Swal from 'sweetalert2';
@@ -37,13 +38,15 @@ export class CartComponent implements OnInit {
   public envio2 = 'express';
   public amount :any;
   public error_coupon = '';
+  public descuento = 0;
 
   constructor(
     private _cartService: CartService,
     private _loginService: LoginService,
     private _addressService :AddressService,
     private _saleService : SalesService,
-    private _router:Router
+    private _router:Router,
+    private _couponService: CouponService
   ) { 
     this.token = _loginService.getToken();
     this.users = JSON.parse(localStorage.getItem('user') || '{}');
@@ -301,6 +304,29 @@ export class CartComponent implements OnInit {
    if(this.sale.coupon){
     if(this.sale.coupon.toString().length >= 25){
       this.error_coupon = '';
+      if(this.token)
+      this._couponService.get_coupon_validate(this.sale.coupon, this.token).subscribe(
+        response =>{
+          console.log(response);
+          if(response != null){
+            this.error_coupon = '';
+
+            if(response.type == 'valor fijo'){
+              this.descuento = response.value;
+              this.total_apagar = this.subtotal - this.descuento;
+            }else if(response.type == 'Porcentaje'){
+              this.descuento = (this.total_apagar * response.value) / 100;
+              this.total_apagar = this.subtotal - this.descuento;
+            }
+
+          }else{
+            this.error_coupon = 'El cupón no es válido';
+          }
+        },
+        error =>{
+          console.log(error);
+          this.error_coupon = 'El cupón no es válido';
+        });
     }else{
       this.error_coupon = 'El cupón es incorrecto, debe tener menos de  25 caracteres';
     }

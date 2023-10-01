@@ -33,7 +33,9 @@ import { ProfileComponent } from './components/Store/User/profile/profile.compon
 import { IndexProductStoreComponent } from './components/Store/product/index-product-store/index-product-store.component';
 import { ViewProductComponent } from './components/Store/product/view-product/view-product.component';
 import { CartComponent } from './components/Store/product/cart/cart.component';
-import { AddressComponent } from './components/Store/User/address/address.component'; 
+import { AddressComponent } from './components/Store/User/address/address.component';
+import { ContactComponent } from './components/Store/contact/contact.component';
+import { IndexContactComponent } from './components/Dashboard/contact/index-contact/index-contact.component'; 
 
 
 
@@ -63,6 +65,8 @@ import { AddressComponent } from './components/Store/User/address/address.compon
     ViewProductComponent,
     CartComponent,
     AddressComponent,
+    ContactComponent,
+    IndexContactComponent,
   ],
   imports: [
     BrowserModule,

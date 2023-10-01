@@ -23,6 +23,11 @@ export class CouponService {
         let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
         return this._http.get(this.url + '/Coupon/'+id, {headers: headers});
       }
+
+      get_coupon_validate(tokens:any,token: string): Observable<any> {
+        let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
+        return this._http.get(this.url + '/Coupon/validate/'+tokens, {headers: headers});
+      }
       create_coupon(data:any,token: string): Observable<any> {
         let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
         return this._http.post(this.url + '/Coupon',data, {headers: headers});

@@ -21,6 +21,8 @@ import { UpdateCouponComponent } from './components/Dashboard/coupon/update-coup
 import { ConfigComponent } from './components/Dashboard/config/config/config.component';
     /*Category */
 import { CreateCategoryComponent } from './components/Dashboard/category/create-category/create-category.component';
+    /*Contact*/
+import { IndexContactComponent } from './components/Dashboard/contact/index-contact/index-contact.component';
 
 /*Guards*/
 import { DashGuard } from '../app/guards/dash.guard';
@@ -42,6 +44,9 @@ import { CartComponent } from './components/Store/product/cart/cart.component';
 
   /*address*/
 import { AddressComponent } from './components/Store/User/address/address.component';
+
+  /*contact */
+import { ContactComponent } from './components/Store/contact/contact.component';
 
 
 
@@ -67,13 +72,15 @@ const routes: Routes = [
     { path: 'coupon/edit/:id', component: UpdateCouponComponent, /*canActivate: [DashGuard]  */}, 
     { path: 'config', component: ConfigComponent, /*canActivate: [DashGuard]  */}, 
   ]},
-  { path: 'category', component: CreateCategoryComponent, /*canActivate: [DashGuard]  */}, 
+  { path: 'category', component: CreateCategoryComponent, /*canActivate: [DashGuard]  */},
+  { path: 'index/contact', component: IndexContactComponent, canActivate: [DashGuard]  }, 
   { path: 'profile', component: ProfileComponent, canActivate: [DashGuard]  },
   { path: 'profile/address', component: AddressComponent, canActivate: [DashGuard]  },
   {path: 'products/store', component: IndexProductStoreComponent  },
   {path: 'products/store/category/:category', component: IndexProductStoreComponent  },
   {path: 'products/store/view/:id', component: ViewProductComponent  },
   {path: 'cart', component: CartComponent,  canActivate: [DashGuard]  },
+  {path: 'contact', component: ContactComponent },
   {path: '**', redirectTo: '', pathMatch: 'full' } 
 ];
 @NgModule({
