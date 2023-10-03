@@ -35,7 +35,12 @@ import { ViewProductComponent } from './components/Store/product/view-product/vi
 import { CartComponent } from './components/Store/product/cart/cart.component';
 import { AddressComponent } from './components/Store/User/address/address.component';
 import { ContactComponent } from './components/Store/contact/contact.component';
-import { IndexContactComponent } from './components/Dashboard/contact/index-contact/index-contact.component'; 
+import { IndexContactComponent } from './components/Dashboard/contact/index-contact/index-contact.component';
+import { IndexOrdersComponent } from './components/Store/User/orders/index-orders/index-orders.component';
+import { DetalleOrdersComponent } from './components/Store/User/orders/detalle-orders/detalle-orders.component';
+import { IndexSalesComponent } from './components/Dashboard/sales/index-sales/index-sales.component';
+import { DetalleSaleComponent } from './components/Dashboard/sales/detalle-sale/detalle-sale.component';
+import { InicioComponent } from './components/Dashboard/inicio/inicio.component';
 
 
 
@@ -67,6 +72,11 @@ import { IndexContactComponent } from './components/Dashboard/contact/index-cont
     AddressComponent,
     ContactComponent,
     IndexContactComponent,
+    IndexOrdersComponent,
+    DetalleOrdersComponent,
+    IndexSalesComponent,
+    DetalleSaleComponent,
+    InicioComponent,
   ],
   imports: [
     BrowserModule,

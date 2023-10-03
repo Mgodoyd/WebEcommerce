@@ -12,10 +12,10 @@ declare var $:any;
 })
 export class IndexContactComponent implements OnInit {
 
-  public contacts: any = {};
+  public contacts= Array();
   
   public page =1;
-  public pageSize = 1;
+  public pageSize = 5;
 
   public token;
   public load_data = true;

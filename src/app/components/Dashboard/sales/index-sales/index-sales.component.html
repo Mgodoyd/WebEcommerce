@@ -1,0 +1,86 @@
+<app-sidebar></app-sidebar>
+<!-- Page title-->
+<div class="border-bottom pt-5 mt-2 mb-5" style="margin-left:15%;">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Ventas</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+      <p class="text-muted">Este módulo lista todas las ventas de la tienda.</p>
+      
+    </div>
+</div>
+
+<div class="card box-shadow-sm" style="margin-left: 14.2%;">
+    <div class="card-header">
+        <h5 style="margin-bottom: 0px;">Filtro de ventas</h5>
+    </div>
+    <div class="card-header">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="#venta">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-primary">Filtrar</button>
+    </div>
+    <div class="card-body">
+       <ng-container *ngFor="let sale of sales | slice: (page-1)*pageSize : (page-1) * pageSize + pageSize">
+        <div class="row mt-3 justify-content-between">
+            <div class="col">
+                <h3 class="h5 mb-2 nav-dark">
+                    <a  class="nav-link"> {{sale.user.name}} {{sale.user.lastname}}</a>
+                </h3>
+            </div>
+            <div class="col text-right">
+                <span class="badge badge-primary mb-3">{{sale.state}}</span>
+                <div class="dropdown">
+                    <a style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="cxi-settings"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a [routerLink]="['/index/sales/view/', sale.id]" class="dropdown-item">Ver Detalles</a>
+                      </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <ul class="nav nav-muted mb-2 pb-1">
+                    <li class="nav-item mr-2">
+                      <span class="badge badge-dark mr-3">#{{sale.transaction}}</span>
+                      <span class="text-border px-1">|</span>
+                    </li>
+                    <li class="nav-item mr-2">
+                      <a  class="nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal">
+                        {{sale.createdDate|date}}
+                      </a>
+                      <span class="text-border px-1">|</span>
+                    </li>
+                    <li class="nav-item mr-2">
+                      <a href="#" class="nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal">
+                        <i class="cxi-truck mt-n1 mr-2 font-size-base align-middle"></i>
+                       {{sale.envio_title}}
+                      </a>
+                    </li>
+                  </ul>
+            </div>
+            <div class="col-12 mb-3">
+                <div class="d-flex align-items-center">
+                    <span class="h5 d-inline-block mb-0">${{sale.subtotal}}</span>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+       </ng-container>
+    </div>
+    <div class="card-footer">
+        <ngb-pagination
+        [collectionSize]="sales.length" 
+        [(page)]="page" 
+        [pageSize]="pageSize">
+      </ngb-pagination>
+    </div>
+</div> 

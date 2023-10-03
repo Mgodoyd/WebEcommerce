@@ -21,7 +21,7 @@
               <h5 >Filtro de Mensajes</h5>
           </div>
          <div class="card-body" *ngIf="!load_data">
-            <div class="mb-4 pb-4 border-bottom" *ngFor="let contact of contacts">
+            <div class="mb-4 pb-4 border-bottom" *ngFor="let contact of contacts | slice: (page - 1) * pageSize : (page - 1) * pageSize + pageSize">
                 <div class="row">
                   <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
                     <h2 class="mb-2 fs-lg">{{contact.customer}}</h2>

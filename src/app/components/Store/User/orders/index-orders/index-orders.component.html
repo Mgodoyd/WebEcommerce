@@ -1,0 +1,132 @@
+<app-header></app-header>
+<nav class="bg-secondary mb-3" aria-label="breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb breadcrumb-alt mb-0">
+        <li class="breadcrumb-item">
+          <a  [routerLink]="['/']" ><i class="cxi-home"></i></a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">My Orders</li>
+      </ol>
+    </div>
+  </nav>
+   <!-- Page container -->
+   <section class="container pt-3 pt-lg-4 pb-5 pb-lg-6">
+    <div class="row pb-2 pb-lg-0">
+
+      <!-- Account menu (sticky sidebar) -->
+      <aside class="col-xl-3 col-lg-4 pb-3 mb-4 mb-lg-0">
+        <div class="sidebar-sticky" data-sidebar-sticky-options='{
+          "topSpacing": 120,
+          "minWidth": 991
+        }'>
+          <div class="sidebar-sticky-inner">
+            <div class="card">
+              <div class="card-body" *ngIf="users">
+                <h5 class="card-title mb-1">{{users.name}} {{users.lastname}}</h5>
+                <p class="card-text text-muted mb-lg-0">{{users.login.email}}</p>
+                <a href="#account-menu" class="btn btn-primary btn-block d-lg-none" data-toggle="collapse">Account Menu</a>
+              </div>
+              <div id="account-menu" class="collapse d-lg-block">
+                <div class="list-group list-group-flush border-top">
+                  <a  [routerLink]="['/profile']" class="list-group-item list-group-item-action d-flex align-items-center">
+                    <i class="cxi-profile font-size-lg mr-2"></i>
+                    <span>My profile</span>
+                  </a>
+                  <a [routerLink]="['/profile/address']" routerLinkActive="active" class="list-group-item list-group-item-action d-flex align-items-center">
+                    <i class="cxi-bag font-size-lg mr-2"></i>
+                    <span>My Address</span>
+                  </a>
+                  <a [routerLink]="['/profile/orders']" routerLinkActive="active" class="list-group-item list-group-item-action d-flex align-items-center">
+                    <i class="cxi-heart font-size-lg mr-2"></i>
+                    <span>My Orders</span>
+                  </a>
+                  <a href="account-recently-viewed.html" class="list-group-item list-group-item-action d-flex align-items-center">
+                    <i class="cxi-eye font-size-lg mr-2"></i>
+                    <span>Recently viewed</span>
+                  </a>
+                  <a href="account-reviews.html" class="list-group-item list-group-item-action d-flex align-items-center">
+                    <i class="cxi-star font-size-lg mr-2"></i>
+                    <span>My reviews</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Content -->
+      <div class="col-lg-8 ml-auto">
+        <div class="d-flex align-items-center justify-content-between mb-4 pb-sm-2">
+            <h1 class="h2 mb-0">My orders</h1>
+            <div class="form-inline">
+              <label for="sort-orders" class="d-none d-sm-block font-weight-bold mr-2 pr-1">Sort orders</label>
+              <select id="sort-orders" class="custom-select">
+                <option>All</option>
+                <option>Delivered</option>
+                <option>In Progress</option>
+                <option>Delayed</option>
+                <option>Canceled</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Orders accordion -->
+          <div class="accordion-alt" *ngIf="!load_data" id="orders">
+
+            <!-- Order -->
+            
+
+            <!-- Order -->
+            <ng-container *ngIf="orders.length >=1">
+
+                <div class="card border-bottom" *ngFor="let order of orders | slice: (page - 1) * pageSize : (page - 1) * pageSize + pageSize">
+                  <div class="card-header accordion-heading py-1">
+                    <a [routerLink]="['/profile/orders/view/',order.id]" class="d-flex flex-wrap justify-content-between py-3" data-toggle="collapse" aria-expanded="false">
+                      <span class="pr-2"># {{order.transaction}}</span>
+                      <span class="font-size-sm text-muted text-nowrap px-2">
+                        <i class="cxi-clock font-size-base align-middle mt-n1 mr-1"></i>
+                        {{order.createdDate|date}}
+                      </span>
+                      <span class="badge badge-info">{{order.state}}</span>
+                      <span class="text-dark pl-1">${{order.subtotal}}</span>
+                    </a>
+                  </div>
+                  
+                </div>
+            </ng-container>
+            <ng-container *ngIf="orders.length == 0">
+                <div class="card border-bottom">
+                    <div class="card-header accordion-heading py-1">
+                      <a  class="d-flex flex-wrap justify-content-between py-3" >
+                        <span class="text-muted">No tienes una orden en tu cuenta!</span>
+                      </a>
+                    </div>
+                    
+                  </div>
+            </ng-container>
+           
+          </div>
+
+          <div class="row"  *ngIf="load_data">
+            <div class="col-12 text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 mt-3">
+                <ngb-pagination
+                [collectionSize]="orders.length" 
+                [(page)]="page" 
+                [pageSize]="pageSize">
+              </ngb-pagination>
+            </div>
+          </div>
+         
+      </div>
+    </div>
+  </section>
+<app-footer></app-footer>

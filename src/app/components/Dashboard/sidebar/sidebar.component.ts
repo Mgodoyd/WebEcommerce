@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
+import { SalesService } from 'src/app/services/sales.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class SidebarComponent implements OnInit {
   public id:any;
 
   constructor(private authService: LoginService,
-    private _userService : UserService){
+    private _userService : UserService,
+    private _saleService : SalesService){
     this.token = this.authService.getToken();
   }
  
@@ -38,4 +40,5 @@ export class SidebarComponent implements OnInit {
   logout() {
     this.authService.logout();
   }
+
 }
