@@ -12,7 +12,11 @@ import Swal from 'sweetalert2';
 export class ProfileComponent implements OnInit {
 
   public id: any;
-  public userData: any;
+  public userData: any ={
+    login: {
+      password: '',
+    }
+  };
   public users: any = null;
   public token;
 

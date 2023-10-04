@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -35,7 +35,8 @@ export class IndexProductStoreComponent implements OnInit {
     private _productService : ProducService,
     private _router : ActivatedRoute,
     private _loginService : LoginService,
-    private _cartService : CartService) { 
+    private _cartService : CartService,
+    private _routers : Router) { 
       this.token = this._loginService.getToken();
     }
 
@@ -206,7 +207,25 @@ add_product_cart(index: number) {
           console.log(error);
         }
       );
-    } else {
+    } else if(!this.token) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'error',
+        title: 'Debes iniciar sesión para agregar productos al carrito'
+      })
+      this._routers.navigate(['/login']);
+    }else{
       Swal.fire({
         icon: 'error',
         title: 'Oops...',

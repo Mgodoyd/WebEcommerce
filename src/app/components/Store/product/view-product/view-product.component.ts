@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { LoginService } from 'src/app/services/login.service';
 import { ProducService } from 'src/app/services/product.service';
@@ -30,7 +30,8 @@ export class ViewProductComponent implements OnInit {
      constructor( private _router:ActivatedRoute,
       private _productService: ProducService,
       private _cartService : CartService,
-      private _loginService : LoginService) { 
+      private _loginService : LoginService,
+      private _routers : Router) { 
         this.token = this._loginService.getToken();
       }
 
@@ -167,12 +168,32 @@ export class ViewProductComponent implements OnInit {
               console.log(error);
             }
           );
-        } else {
+        } else if(!this.token) {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'error',
+            title: 'Debes iniciar sesión para agregar productos al carrito'
+          })
+          this._routers.navigate(['/login']);
+          
+        }else{
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'La máxima cantidad disponible es ' + this.product.stock + ' unidades',
           });
+
         }
       } else {
         Swal.fire({

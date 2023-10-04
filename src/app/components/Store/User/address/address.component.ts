@@ -55,7 +55,7 @@ export class AddressComponent  implements OnInit{
         }
       );
     }
-    this.get_address();
+    this.get_address(); 
    }
    get_address(){
     this.users = JSON.parse(localStorage.getItem('user') || '{}');
@@ -113,7 +113,8 @@ export class AddressComponent  implements OnInit{
     }
    }
 
-   get_address_id(id: any) {
+   get_address_id(id: any) { 
+    console.log(id);
     if (this.token) {
       this._addressService.get_address(id, this.token).subscribe(
         (response) => {
@@ -133,12 +134,14 @@ export class AddressComponent  implements OnInit{
   
   update_address(id: any) {
     // Ahora puedes acceder a this.address_id porque has esperado a que se complete get_address_id
+    console.log(id);
     console.log(this.address_id);
     this.data = this.address_id;
     this.data.main = true;
     console.log(this.data);
   
     if (this.token) {
+      console.log(id);
       this._addressService.update_address(id, this.data, this.token).subscribe(
         (response) => {
           console.log(response);
@@ -153,18 +156,21 @@ export class AddressComponent  implements OnInit{
           // Obtener todas las direcciones del usuario
           this._addressService.get_addresss_user(this.users.id, this.token).subscribe(
             (addresses) => {
+              console.log(addresses);
               // Recorrer todas las direcciones y establecer main en false, excepto la principal
               addresses.forEach((address:any) => {
-                if (address.id !== id) {
+                if (address.Id !== id) {
+                  console.log(address.Id)
+                  console.log(id)
                   address.main = false;
                   // Actualizar cada dirección en la base de datos
-                  this._addressService.update_address(address.id, address, this.token).subscribe(
+                  this._addressService.update_address(address.Id, address, this.token).subscribe(
                     () => {
                       console.log(`Dirección ${address.id} actualizada con main = false`);
                       this.get_address();
                     },
                     (error) => {
-                      console.log(`Error al actualizar dirección ${address.id}: ${error}`);
+                      console.log(`Error al actualizar dirección ${address.id}:` + error);
                     }
                   );
                 }
