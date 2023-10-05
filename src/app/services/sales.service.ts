@@ -54,4 +54,9 @@ export class SalesService {
       let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
       return this._http.get(this.url + '/Sale/total', {headers: headers});
     }
+
+    send_order(id:any,data:any,token: string): Observable<any> {
+      let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
+      return this._http.put(this.url + '/Sale/'+id,data, {headers: headers});
+    }
 }

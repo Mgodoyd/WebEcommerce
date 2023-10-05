@@ -88,7 +88,10 @@
                         <i class="cxi-clock font-size-base align-middle mt-n1 mr-1"></i>
                         {{order.createdDate|date}}
                       </span>
-                      <span class="badge badge-info">{{order.state}}</span>
+                      <span *ngIf="order.state === 'procesando'" class="badge badge-primary mb-3">{{order.state}}</span>
+                      <span *ngIf="order.state === 'En Tránsito'" class="badge badge-warning mb-3">{{order.state}}</span>
+                      <span *ngIf="order.state === 'Entregado'" class="badge badge-success mb-3">{{order.state}}</span>
+                      <span *ngIf="order.state === 'Cancelado'" class="badge badge-danger mb-3">{{order.state}}</span>
                       <span class="text-dark pl-1">${{order.subtotal}}</span>
                     </a>
                   </div>

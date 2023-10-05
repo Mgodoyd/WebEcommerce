@@ -4,6 +4,7 @@ import { error } from 'console';
 import { LoginService } from 'src/app/services/login.service';
 import { SalesService } from 'src/app/services/sales.service';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detalle-orders',
@@ -75,4 +76,59 @@ export class DetalleOrdersComponent implements OnInit {
     }
   }
   
+  received_order(id:any){
+
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡Confirmas de Recibido el pedido!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#4dbd74',
+        cancelButtonColor: '#f5365c',
+        confirmButtonText: 'Si, recibido!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let data: any;
+          data = this.orders
+          data.state = 'Entregado'
+      
+          if(this.token)
+          this._saleService.send_order(id,data,this.token).subscribe(
+            (response) => {
+              console.log(response);
+            },
+            (error) => {
+              console.log(error);
+            });
+        }
+      })
+      
+    }
+
+    cancel_order(id:any){
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡De Cancelar el pedido!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#4dbd74',
+        cancelButtonColor: '#f5365c',
+        confirmButtonText: 'Si, cancelar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let data: any;
+          data = this.orders
+          data.state = 'Cancelado'
+      
+          if(this.token)
+          this._saleService.send_order(id,data,this.token).subscribe(
+            (response) => {
+              console.log(response);
+            },
+            (error) => {
+              console.log(error);
+            });
+        }
+      })
+    }
 }

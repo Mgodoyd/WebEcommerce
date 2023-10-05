@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import * as $ from 'jquery';
 import { ProducService } from 'src/app/services/product.service';
 import { LoginService } from 'src/app/services/login.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -25,7 +26,9 @@ export class ProductComponent implements OnInit {
     public load_btn = false;  
     public categorys : any = {};
 
-    constructor(private _productService : ProducService, private _loginService : LoginService) {
+    constructor(private _productService : ProducService,
+       private _loginService : LoginService,
+       private _routers : Router) {
       this.config = {
         height:500
       }
@@ -57,6 +60,7 @@ export class ProductComponent implements OnInit {
                 });
                 this.load_btn = false;
                 registroForm.resetForm();
+                this._routers.navigate(['/index/products']);
               },
               error => {
                 console.log(<any>error);

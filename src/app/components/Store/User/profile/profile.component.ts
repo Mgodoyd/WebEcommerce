@@ -35,12 +35,12 @@ export class ProfileComponent implements OnInit {
       this._userService.get_user_public(this.id).subscribe(
         (response) => {
           console.log(response);
-          this.userData = response;
+          this.userData = response; 
           console.log(this.userData);
-          localStorage.setItem('user', JSON.stringify(this.userData));
+         /* localStorage.setItem('user', JSON.stringify(this.userData));
           // Actualiza users con los datos del usuario
           this.users = JSON.parse(localStorage.getItem('user') || '{}');
-          console.log(this.users);
+          console.log(this.users);*/
         },
         (error) => {
           console.log(error);
@@ -64,6 +64,7 @@ export class ProfileComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           })
+          this.ngOnInit();
         },
         (error) => {
           console.log(error);

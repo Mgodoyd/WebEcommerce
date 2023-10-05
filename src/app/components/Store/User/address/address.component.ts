@@ -190,5 +190,24 @@ export class AddressComponent  implements OnInit{
     }
   }
   
-   
+  elimnar_address(id:any){
+    if(this.token)
+    this._addressService.delete_address(id,this.token).subscribe(
+      (response) => {
+        console.log(response);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Dirección eliminada correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.get_address();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  
+  }
 }

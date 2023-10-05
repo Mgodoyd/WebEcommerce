@@ -40,4 +40,9 @@ export class AddressService {
         let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
         return this._http.put(this.url + '/Address/'+id,data, {headers: headers});
       }
+
+      delete_address(id:any,token: string): Observable<any> {
+        let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
+        return this._http.delete(this.url + '/Address/'+id, {headers: headers});
+      }
 }

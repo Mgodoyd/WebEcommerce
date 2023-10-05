@@ -62,4 +62,6 @@ export class IndexOrdersComponent implements OnInit{
       console.log(error);
     });
   }
+
+ 
 }

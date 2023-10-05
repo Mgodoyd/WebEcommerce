@@ -23,6 +23,9 @@ export class InicioComponent implements OnInit {
   public orders={
     totalVentas: 0,
   }
+  public orders3={
+    totalVentasCompletado: 0,
+  }
 
   constructor(
     private authService: LoginService,
@@ -72,6 +75,7 @@ export class InicioComponent implements OnInit {
       this._saleService.get_total_sales(this.token).subscribe(
         (response) => {
           console.log(response);
+          this.orders3 = response;
         },
         (error) => {
           console.log(error);

@@ -109,25 +109,29 @@
 
           <div class="col-12" *ngIf="address_user.length >= 1">
             <div class="row">
-          <ng-container *ngFor="let addresss of address_user">
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="row"  >
-                      <div class="col-md-3 col-sm-4 mb-sm0 mb-3">
-                        <h3 class="mb-2 font-size-sm text-muted">{{addresss.addressee}}</h3>
-                        <span class="d-block mb-3 font-size-sm text-muted">{{addresss.zip}}</span>
-                        <a class="badge badge-success" *ngIf="addresss.main">Dirección de envio</a>
-                        <a class="badge badge-primary" style="cursor: pointer;" *ngIf="!addresss.main" (click)="get_address_id(addresss.Id)" >Establecer Dirección</a> 
+              <ng-container *ngFor="let addresss of address_user">
+                <div class="card mb-3 position-relative">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
+                        <h3 class="mb-2 font-size-sm text-muted">{{ addresss.addressee }}</h3>
+                        <!-- Botón de eliminación con posición absoluta -->
+                        <a  class="btn text-danger btn-link font-size-base text-decoration-none pr-0 position-absolute" style="top: -9px; right: -650px;" (click)="elimnar_address(addresss.Id)" >
+                          <i class="cxi-delete font-size-lg mt-n1 mr-2"></i>
+                        </a>
+                        <span class="d-block mb-3 font-size-sm text-muted">{{ addresss.zip }}</span>
+                        <a class="badge badge-success" *ngIf="addresss.main">Dirección de envío</a>
+                        <a class="badge badge-primary" style="cursor: pointer;" *ngIf="!addresss.main" (click)="get_address_id(addresss.Id)">Establecer Dirección</a>
                       </div>
                       <div class="col">
-                        <p class="mb-3">{{users.address}}</p>
-                        <p class="mb-3">{{addresss.country}}</p>
+                        <p class="mb-3">{{ users.address }}</p>
+                        <p class="mb-3">{{ addresss.country }}</p>
                       </div>
                     </div>
                   </div>
-              
                 </div>
               </ng-container>
+              
               </div>
             </div>
         </div>

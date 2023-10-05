@@ -44,6 +44,7 @@ export class UpdateProductComponent implements OnInit  {
             this.product = response;
             console.log(this.product);
             console.log(this.product.category.titles);
+            console.log(this.product.frontpage);
             this.imgSelect = this.url + this.product.frontpage;
             console.log(this.imgSelect);
           },
@@ -64,9 +65,9 @@ export class UpdateProductComponent implements OnInit  {
 
        if(this.file != undefined){
          data.frontpage = this.file;
-       }/*else{
-        data.frontpage = this.imgSelect;
-       }*/
+       }else{
+        data.frontpage = /*'C:\\fakepath\\'+ */this.product.frontpage;
+       }
        
        data.title = this.product.title;
        data.description = this.product.description;
@@ -80,7 +81,7 @@ export class UpdateProductComponent implements OnInit  {
         if(this.token != undefined){
 
           console.log(data),
-          this._productService.update_product(this.id,data,this.token).subscribe(
+          this._productService.updateProduct(this.id,data,this.token).subscribe(
             response=>{
               console.log(response);
               Swal.fire({

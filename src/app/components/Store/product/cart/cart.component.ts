@@ -120,6 +120,8 @@ export class CartComponent implements OnInit {
           console.log(this.sale);
           this.createSale();
           this._router.navigate(['/']);
+          this.ngOnInit();
+        
         },
         onError :(_error: Error) =>{
           
@@ -266,6 +268,7 @@ export class CartComponent implements OnInit {
         console.log(this.sale.transaction);
         this.createSale();
        this._router.navigate(['/']);
+       this.ngOnInit();
       }
     });
  

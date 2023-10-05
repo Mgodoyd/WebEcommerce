@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(this.userData));
           if (localStorage.getItem('user')) {
             this.users = JSON.parse(localStorage.getItem('user') || '{}');
-            console.log(this.users);
+            console.log(this.users); 
 
             if(this.token)
             this._cartService.get_cart(this.users.id, this.token).subscribe(

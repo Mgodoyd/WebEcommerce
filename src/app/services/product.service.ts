@@ -38,7 +38,6 @@ export class ProducService {
               formData.append('description', data.description);
               formData.append('price', data.price);
               formData.append('category', data.category.toString());
-              formData.append('state', data.state.toString());
               formData.append('content', data.content);
               formData.append('stock',data.stock.toString());
               formData.append('ImageFile', file);
@@ -59,27 +58,28 @@ export class ProducService {
               return this._http.get(this.url + '/products/public/'+id, {headers: headers});
             }
 
-            update_product(id:IProduct,data:any,token: string): Observable<any> {
-              if(data.frontpage){
-                let headers = new HttpHeaders({'Authorization': token});
+            updateProduct(id: any, data: any, token: string): Observable<any> {
+              let headers = new HttpHeaders({ 'Authorization': token });
+            
+              // Si se proporciona una imagen nueva, crea un FormData para enviar la imagen
+              if (data.frontpage) {
                 const formData = new FormData();
                 formData.append('title', data.title);
                 formData.append('description', data.description);
                 formData.append('price', data.price);
-                formData.append('state', data.state.toString());
                 formData.append('content', data.content);
-                formData.append('stock',data.stock.toString());
+                formData.append('stock', data.stock.toString());
                 formData.append('ImageFile', data.frontpage);
-                formData.append('category.titles',data.category);
+                formData.append('frontpage', data.frontpage);
+                formData.append('category.titles', data.category);
             
-                console.log(formData.getAll('category.titles'));
-              
-                return this._http.put(this.url + '/products/'+id, formData, {headers: headers});
-              }else{
-                let headers = new HttpHeaders({'Authorization': token});
-                return this._http.put(this.url + '/products/'+id, data, {headers: headers});
+                return this._http.put(this.url + '/products/' + id, formData, { headers: headers });
+              } else {
+                // Si no se proporciona una imagen nueva, envía los datos sin imagen
+                return this._http.put(this.url + '/products/' + id, data, { headers: headers });
               }
             }
+            
             
             delete_product(id:IProduct,token: string): Observable<any> {
               let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
