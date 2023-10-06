@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-/*dashboard*/
+/*dashboard*/ 
 import { InicioComponent } from './components/Dashboard/inicio/inicio.component';
     /*users*/
 import { IndexClienteComponent } from './components/Dashboard/clientes/index-users/index-user.component';
@@ -34,6 +34,7 @@ import { DashGuard } from '../app/guards/dash.guard';
 /* Store*/
 import { LoginComponent } from './components/Store/login/login.component';
 import { InicioLoginComponent } from './components/Store/inicio-login/inicio-login.component';
+import { UpdatePasswordComponent } from './components/Store/update-password/update-password.component';
 
   /*Profile */
 import { ProfileComponent } from './components/Store/User/profile/profile.component';
@@ -60,6 +61,7 @@ const routes: Routes = [
   
   { path: '', component: InicioLoginComponent,/* canActivate: [DashGuard] */},
   { path: 'login', component: LoginComponent},
+  { path: 'update-password', component: UpdatePasswordComponent},
   { path: 'dashboard', component: InicioComponent , /*canActivate: [DashGuard]*/},
   { path : 'index',children: [
     { path: 'users', component: IndexClienteComponent, /*canActivate: [DashGuard]  */},

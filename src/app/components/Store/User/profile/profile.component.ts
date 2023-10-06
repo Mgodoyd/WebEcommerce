@@ -37,10 +37,10 @@ export class ProfileComponent implements OnInit {
           console.log(response);
           this.userData = response; 
           console.log(this.userData);
-         /* localStorage.setItem('user', JSON.stringify(this.userData));
+          localStorage.setItem('user', JSON.stringify(this.userData));
           // Actualiza users con los datos del usuario
           this.users = JSON.parse(localStorage.getItem('user') || '{}');
-          console.log(this.users);*/
+          console.log(this.users);
         },
         (error) => {
           console.log(error);
@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  actualizar(actualizarForm:NgForm){
+  actualizar(actualizarForm:NgForm){ 
     let id_user = this.userData.id;
     if(actualizarForm.valid){
       console.log(this.token)

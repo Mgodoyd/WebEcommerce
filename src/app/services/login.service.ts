@@ -76,8 +76,18 @@ export class LoginService {
     return localStorage.getItem('token');
   }
 
-  _login_cliente(data: ILogin): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.post(this.url + '/Login/login', data, { headers: headers });
-  }
+        _login_cliente(data: ILogin): Observable<any> {
+          let headers = new HttpHeaders().set('Content-Type', 'application/json');
+          return this._http.post(this.url + '/Login/login', data, { headers: headers });
+        }
+
+        _createUser(data:any): Observable<any> {
+          let headers = new HttpHeaders().set('Content-Type', 'application/json');
+          return this._http.post(this.url + '/User/public', data, { headers: headers });
+        }
+
+        _updatePassword(email:any,data:any): Observable<any> {
+          let headers = new HttpHeaders().set('Content-Type', 'application/json');
+          return this._http.put(this.url + '/Login/'+email, data, { headers: headers });
+        }
 }

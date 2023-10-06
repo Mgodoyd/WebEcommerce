@@ -50,27 +50,43 @@
                 <div class="px-md-5">
                     <h3 class="modal-title mt-4 mb-0 text-center">Registro rápido</h3>
                     <p class="font-size-sm text-muted text-center">Sign in to your account using email and password provided during registration.</p>
-                    <form >
+                    <form #registroUser="ngForm" (ngSubmit)="registroNewUser(registroUser)" >
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <label for="signin-email">Nombres completos</label>
-                                    <input type="email" class="form-control"  placeholder="Names" required="">
+                                    <label for="signin-email">Name</label>
+                                    <input type="email" class="form-control"  placeholder="name" required="" name="name" [(ngModel)]="newUser.name">
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="signin-email">Apellidos completos</label>
-                                    <input type="email" class="form-control"  placeholder="Fullname" required="">
+                                    <label for="signin-email">Lastname</label>
+                                    <input type="email" class="form-control"  placeholder="lastname" required=""  name="lastname" [(ngModel)]="newUser.lastname">
                                 </div>
                             </div>
+                            <div class="row">
+                              <div class="col-lg-6">
+                                  <label for="address">Address</label>
+                                  <input type="text" class="form-control"  placeholder="address" required=""  name="address" [(ngModel)]="newUser.address">
+                              </div>
+                              <div class="col-lg-6">
+                                  <label for="phone">Phone</label>
+                                  <input type="number" class="form-control"  placeholder="phone" required=""  name="phone" [(ngModel)]="newUser.phone">
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12">
+                                <label for="nit">Nit</label>
+                                <input type="text" class="form-control"  placeholder="nit" required=""  name="nit" [(ngModel)]="newUser.nit">
+                            </div>
+                        </div>
                         </div>
                         <div class="form-group">
                             <label for="signin-email">Email</label>
-                            <input type="email" class="form-control" placeholder="Your email address" required="">
+                            <input type="email" class="form-control" placeholder="Your email address" required=""  name="email" [(ngModel)]="newUser.login.email">
                         </div>
                         <div class="form-group">
                             <label for="signin-password" class="form-label">Password</label>
                             <div class="cs-password-toggle input-group-overlay">
-                            <input type="password" class="form-control appended-form-control" id="signin-password" placeholder="Your password" required="">
+                            <input type="password" class="form-control appended-form-control" id="signin-password" placeholder="Your password" required=""  name="password" [(ngModel)]="newUser.login.password">
                             <div class="input-group-append-overlay">
                                 <label class="btn cs-password-toggle-btn input-group-text">
                                 <input type="checkbox" class="custom-control-input">
@@ -80,12 +96,25 @@
                             </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                          <label for="signin-password" class="form-label">Confirm Password</label>
+                          <div class="cs-password-toggle input-group-overlay">
+                          <input type="password" class="form-control appended-form-control" id="signin-password" placeholder="Your password" required="" >
+                          <div class="input-group-append-overlay">
+                              <label class="btn cs-password-toggle-btn input-group-text">
+                              <input type="checkbox" class="custom-control-input">
+                              <i class="cxi-eye cs-password-toggle-indicator"></i>
+                              <span class="sr-only">Show password</span>
+                              </label>
+                          </div>
+                          </div>
+                      </div>
                         <div class="d-flex justify-content-between align-items-center form-group">
                             <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="remember-me" checked="">
                             <label for="remember-me" class="custom-control-label">Remember me</label>
                             </div>
-                            <a href="#" class="font-size-sm text-decoration-none">Forgot password?</a>
+                            <a [routerLink]="['/update-password']" class="font-size-sm text-decoration-none">Forgot password?</a>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Sign in</button>
                         <p class="font-size-sm pt-4 mb-0">

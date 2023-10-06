@@ -41,6 +41,7 @@ import { DetalleOrdersComponent } from './components/Store/User/orders/detalle-o
 import { IndexSalesComponent } from './components/Dashboard/sales/index-sales/index-sales.component';
 import { DetalleSaleComponent } from './components/Dashboard/sales/detalle-sale/detalle-sale.component';
 import { InicioComponent } from './components/Dashboard/inicio/inicio.component';
+import { UpdatePasswordComponent } from './components/Store/update-password/update-password.component';
 
 
 
@@ -68,7 +69,7 @@ import { InicioComponent } from './components/Dashboard/inicio/inicio.component'
     ProfileComponent,
     IndexProductStoreComponent,
     ViewProductComponent,
-    CartComponent,
+    CartComponent, 
     AddressComponent,
     ContactComponent,
     IndexContactComponent,
@@ -77,6 +78,7 @@ import { InicioComponent } from './components/Dashboard/inicio/inicio.component'
     IndexSalesComponent,
     DetalleSaleComponent,
     InicioComponent,
+    UpdatePasswordComponent,
   ],
   imports: [
     BrowserModule,

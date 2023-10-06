@@ -57,28 +57,8 @@ export class CartComponent implements OnInit {
   handler:any = null;
 
   ngOnInit(): void {
-    if(this.token)
-    this._cartService.get_cart(this.users.id, this.token).subscribe(
-      response => {
-        console.log(response);
-        this.cart_arr = response;
-
-        this.cart_arr.forEach((element: any) => {
-          this.sale.nsale.push ({
-            productId : element.products.id,
-            subtotal : element.products.price,
-            userId : this.users.id,
-            amount : this.amount
-          });
-        });
-    
-        this.calcular_cart();
-      },
-      error => {
-        console.log(error);
-      }
-      );
-      
+  
+      this.get_cart();
       setTimeout(() => {
         new Cleave('#cc-number', {
          creditCard: true,
@@ -119,9 +99,10 @@ export class CartComponent implements OnInit {
           this.sale.transaction = order.purchase_units[0].payments.captures[0].id;
           console.log(this.sale);
           this.createSale();
+          setTimeout(() => {
           this._router.navigate(['/']);
-          this.ngOnInit();
-        
+          this.get_cart();
+          },2000);
         },
         onError :(_error: Error) =>{
           
@@ -136,6 +117,29 @@ export class CartComponent implements OnInit {
     
   }
   
+  get_cart(){
+    if(this.token)
+    this._cartService.get_cart(this.users.id, this.token).subscribe(
+      response => {
+        console.log(response);
+        this.cart_arr = response;
+
+        this.cart_arr.forEach((element: any) => {
+          this.sale.nsale.push ({
+            productId : element.products.id,
+            subtotal : element.products.price,
+            userId : this.users.id,
+            amount : this.amount
+          });
+        });
+    
+        this.calcular_cart();
+      },
+      error => {
+        console.log(error);
+      }
+      );
+  }
   createSale(){
               if(this.token)
               this._saleService.create_sale(this.sale, this.token).subscribe(
@@ -209,7 +213,7 @@ export class CartComponent implements OnInit {
           icon: 'success',
           title: 'Producto eliminado correctamente',
         });
-        this.ngOnInit();
+        
       },
       error => {
         console.log(error);
@@ -267,8 +271,10 @@ export class CartComponent implements OnInit {
         this.sale.transaction = token.id;
         console.log(this.sale.transaction);
         this.createSale();
-       this._router.navigate(['/']);
-       this.ngOnInit();
+        setTimeout(() => {
+          this._router.navigate(['/']);
+          this.get_cart();
+          },2000);
       }
     });
  
