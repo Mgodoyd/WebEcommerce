@@ -1,84 +1,137 @@
 <app-sidebar></app-sidebar>
-   <!-- Page title-->
-  <div class="container" style="margin-right: 0%;">
-    <div class="row">
-      <div class="col-md-12">
-        <!-- Contenido izquierdo -->
-        <div class="border-bottom pt-20 mt-2 mb-5">
-          <h2 class="mt-2 mt-md-4 mb-3 pt-3">Mensajes</h2>
-          <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
-            <p class="text-muted">Este módulo lista todos los mensajes de la tienda.</p>
-          </div>
+<!-- Page title-->
+<div class="container" style="margin-right: 0%">
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Contenido izquierdo -->
+      <div class="border-bottom mt-5 mb-5">
+        <h2 class="mt-2 mt-md-4 mb-3 pt-3">Messages</h2>
+        <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+          <p class="text-muted">This module lists all store messages.</p>
         </div>
       </div>
     </div>
+  </div>
 </div>
-<div class="justify-content-center" style="margin-left: 355px;">
-  <div class="col-md-12" > 
-      <!-- Contenido del filtro de clientes -->
-      <div class="card box-shadow-sm">
-          <div class="card-header">
-              <h5 >Filtro de Mensajes</h5>
-          </div>
-         <div class="card-body" *ngIf="!load_data">
-            <div class="mb-4 pb-4 border-bottom" *ngFor="let contact of contacts | slice: (page - 1) * pageSize : (page - 1) * pageSize + pageSize">
-                <div class="row">
-                  <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
-                    <h2 class="mb-2 fs-lg">{{contact.customer}}</h2>
-                    <span class="d-block mb-3 fs-sm text-muted">{{contact.createdDate|date}}</span>
-                    <div class="mt-n1 star-rating">
-                      <span class="badge bg-primary" *ngIf="contact.state == 'Abierto'">{{contact.state}}</span>
-                      <span class="badge bg-danger" *ngIf="contact.state == 'Cerrado'">{{contact.state}}</span>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <p class="mb-3">
-                      <a class="me-1 fw-bold text-decoration-none">{{contact.email}}</a>
-                     {{contact.message}}
-                    </p>
-                    <div class="d-flex justify-content-between">
-                      <a class="nav-link p-0 fs-sm" data-toggle="modal" [attr.data-target]="'#estadoModal-'+contact.id">
-                        <i class="cxi-chat me-2 fs-base align-middle mt-n1"></i>
-                        Cerrar Mensaje
-                      </a>
+<div class="justify-content-center mb-5" style="margin-left: 355px">
+  <div class="col-md-12">
+    <!-- Contenido del filtro de clientes -->
+    <div class="card box-shadow-sm">
+      <div class="card-header">
+        <h5>Message Filter</h5>
+      </div>
+      <div class="card-body" *ngIf="!load_data">
+        <div
+          class="mb-4 pb-4 border-bottom"
+          *ngFor="
+            let contact of contacts
+              | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize
+          "
+        >
+          <div class="row">
+            <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
+              <h2 class="mb-2 fs-lg">{{ contact.customer }}</h2>
+              <span class="d-block mb-3 fs-sm text-muted">{{
+                contact.createdDate | date
+              }}</span>
+              <div class="mt-n1 star-rating">
+                <span
+                  class="badge bg-primary"
+                  *ngIf="contact.state == 'Abierto'"
+                  >{{ contact.state }}</span
+                >
+                <span
+                  class="badge bg-danger"
+                  *ngIf="contact.state == 'Cerrado'"
+                  >{{ contact.state }}</span
+                >
+              </div>
+            </div>
+            <div class="col">
+              <p class="mb-3">
+                <a class="me-1 fw-bold text-decoration-none">{{
+                  contact.email
+                }}</a>
+                {{ contact.message }}
+              </p>
+              <div class="d-flex justify-content-between">
+                <a
+                  class="nav-link p-0 fs-sm"
+                  data-toggle="modal"
+                  [attr.data-target]="'#estadoModal-' + contact.id"
+                >
+                  <i class="cxi-chat me-2 fs-base align-middle mt-n1"></i>
+                  Close Message
+                </a>
 
-                      <div class="modal fade" id="estadoModal-{{contact.id}}" tabindex="-1" style="display:none;" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title">Cerrar Mensaje</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <p class="fs-sm">Desea cerrar este correo?</p>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
-                              <button type="button" class="btn btn-primary btn-sm" (click)="cerrar(contact.id)">Sí, eliminar</button>
-                            </div>
-                          </div>
-                        </div>
+                <div
+                  class="modal fade"
+                  id="estadoModal-{{ contact.id }}"
+                  tabindex="-1"
+                  style="display: none"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Close Message</h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <p class="fs-sm">Do you want to close this email?</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary btn-sm"
+                          data-bs-dismiss="modal"
+                          (click)="closeDeleteModal(contact.id)"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-primary btn-sm"
+                          (click)="cerrar(contact.id)"
+                        >
+                          Yes, delete
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-         </div>
-         
-         <div class="card-body" *ngIf="load_data">
-          <div class="row">
-            <div class="col-12 text-center">
-              <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
             </div>
           </div>
-         </div>
-        <div class="card-footer">
-               <ngb-pagination
-                [collectionSize]="contacts.length" 
-                [(page)]="page" 
-                [pageSize]="pageSize">
-              </ngb-pagination>
         </div>
-  </div>    
+      </div>
+
+      <div class="card-body" *ngIf="load_data">
+        <div class="row">
+          <div class="col-12 text-center">
+            <div
+              class="spinner-border"
+              style="width: 3rem; height: 3rem"
+              role="status"
+            >
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <ngb-pagination
+          [collectionSize]="contacts.length"
+          [(page)]="page"
+          [pageSize]="pageSize"
+        >
+        </ngb-pagination>
+      </div>
+    </div>
+  </div>
+</div>

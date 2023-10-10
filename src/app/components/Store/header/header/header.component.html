@@ -72,10 +72,14 @@
                 (click)="op_modalcart()"
               >
                 <i class="cxi-cart nav-tool-icon"></i>
-                <span
+                <span *ngIf="cart_arr.length > 0; else noCart"
                   class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs"
-                  >{{cart_arr.length}}</span
-                >
+                  >{{cart_arr.length}}</span>
+                
+                <ng-template #noCart>
+                  <span class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs">0</span>
+                </ng-template>
+                
               </a>
             </li>
             <li class="nav-item align-self-center mb-0" *ngIf="users == undefined">

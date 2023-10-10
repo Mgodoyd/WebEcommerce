@@ -1,85 +1,171 @@
 <app-sidebar></app-sidebar>
 
-        <!-- Page title-->
-        <div class="border-bottom pt-5 mt-2 mb-5">
-            <h1 class="mt-2 mt-md-4 mb-3 pt-5"  style="margin-left: 380px;margin-right: 15px;">Productos</h1>
-            <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
-              <p class="text-muted">Este módulo lista todos los productos de la tienda.</p>
-              
+<!-- Page title-->
+<div
+  class="border-bottom pt-5 mt-2 mb-5"
+  style="margin-left: 380px; margin-right: 15px"
+>
+  <h1 class="mt-2 mt-md-4 mb-3 pt-5">Product</h1>
+  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+    <p class="text-muted">This module lists all the products in the store.</p>
+  </div>
+</div>
+
+<ng-container *ngIf="product">
+  <form #actualizarForm="ngForm" (ngSubmit)="actualizar(actualizarForm)">
+    <div
+      class="card box-shadow-sm mb-5"
+      style="margin-left: 370px; margin-right: 15px"
+    >
+      <div class="card-header">
+        <h5 style="margin-bottom: 0px">Product update</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-lg-12 form-group">
+                <label for="">Title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Title"
+                  required
+                  name="title"
+                  [(ngModel)]="product.title"
+                />
+              </div>
+              <div class="col-lg-4 form-group">
+                <label for="">Stock</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Cantidad inicial"
+                  required
+                  name="stock"
+                  [(ngModel)]="product.stock"
+                />
+              </div>
+              <div class="col-lg-4 form-group">
+                <label for="">Price</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Precio"
+                  required
+                  name="price"
+                  [(ngModel)]="product.price"
+                />
+              </div>
+              <div class="col-lg-4 form-group">
+                <label for="">Category</label>
+                <select
+                  class="form-control custom-select"
+                  id="select-input"
+                  name="category.titles"
+                  [(ngModel)]="product.category.titles"
+                  required
+                >
+                  <option selected disabled>Seleccionar</option>
+                  <option
+                    *ngFor="let categories of categorys"
+                    [value]="categories.titles"
+                  >
+                    {{ categories.titles }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-lg-12 form-group">
+                <label for="">Description </label>
+                <textarea
+                  class="form-control"
+                  placeholder="description"
+                  required
+                  rows="3"
+                  name="description"
+                  [(ngModel)]="product.description"
+                ></textarea>
+              </div>
+              <div class="col-lg-12 form-group">
+                <label for="">Content </label>
+                <textarea
+                  class="form-control"
+                  required
+                  rows="15"
+                  name="content"
+                  [(ngModel)]="product.content"
+                ></textarea>
+              </div>
             </div>
           </div>
-
-  <ng-container *ngIf="product">
-    <form #actualizarForm="ngForm" (ngSubmit)="actualizar(actualizarForm)" >
-        <div class="card box-shadow-sm" style="margin-left: 370px; margin-right: 15px;">
-          <div class="card-header">
-              <h5 style="margin-bottom: 0px;">Actualizacion de producto</h5>
-          </div>
-          <div class="card-body">
-                <div class="row">
-                  <div class="col-lg-8">
-                      <div class="row">
-                        <div class="col-lg-12 form-group">	
-                            <label for="">Title</label>
-                            <input type="text" class="form-control" placeholder="Title" required name="title" [(ngModel)]="product.title" >
-                        </div>
-                        <div class="col-lg-4 form-group">	
-                            <label for="">Stock</label>
-                            <input type="number" class="form-control" placeholder="Cantidad inicial" required name="stock" [(ngModel)]="product.stock">
-                        </div>
-                        <div class="col-lg-4 form-group">	
-                            <label for="">Precio</label>
-                            <input type="number" class="form-control" placeholder="Precio" required name="price"[(ngModel)]="product.price">
-                        </div>
-                        <div class="col-lg-4 form-group">	
-                            <label for="">Categoría</label>
-                            <select class="form-control custom-select" id="select-input" name="category.titles" [(ngModel)]="product.category.titles" required>
-                              <option selected disabled>Seleccionar</option>
-                              <option *ngFor="let categories of categorys" [value]="categories.titles">{{ categories.titles }}</option>
-                            </select>
-                        </div>                       
-                        
-
-                        <div class="col-lg-12 form-group">
-                            <label for="">Descripción </label>
-                            <textarea class="form-control" placeholder="description" required rows="3" name="description" [(ngModel)]="product.description"></textarea>
-                        </div>
-                        <div class="col-lg-12 form-group" >
-                          <label for="">Content </label>
-                          <textarea class="form-control" required rows="15" name="content" [(ngModel)]="product.content"></textarea>
-                        </div>
-
-                      </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="row">
-                      <div class="col-lg-12 form-group">	
-                        <label for="">Portada</label>
-                        <div class="custom-file">
-                            <input class="custom-file-input" type="file" id="file-input" (change)="fileChangeEvent($event)" name="frontpage" [(ngModel)]="product.frontpage">
-                            <label class="custom-file-label" id="input-portada" for="file-input" style="white-space:nowrap">{{ product.frontpage ? product.frontpage : 'Seleccionar imagen' }}</label>
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <img [src]="imgSelect" class="img-thumbnail" alt="Rounded image">
-                    </div>
-                    </div>                      
-                  </div>
+          <div class="col-lg-4">
+            <div class="row">
+              <div class="col-lg-12 form-group">
+                <label for="">Frontpage</label>
+                <div class="custom-file">
+                  <input
+                    class="custom-file-input"
+                    type="file"
+                    id="file-input"
+                    (change)="fileChangeEvent($event)"
+                    name="frontpage"
+                    [(ngModel)]="product.frontpage"
+                  />
+                  <label
+                    class="custom-file-label"
+                    id="input-portada"
+                    for="file-input"
+                    style="white-space: nowrap"
+                    >{{
+                      product.frontpage
+                        ? product.frontpage
+                        : "Seleccionar imagen"
+                    }}</label
+                  >
                 </div>
+              </div>
+              <div class="col-lg-8">
+                <img
+                  [src]="imgSelect"
+                  class="img-thumbnail"
+                  alt="Rounded image"
+                />
+              </div>
+            </div>
           </div>
-          <div class="card-footer">
-            <button *ngIf="!load_btn" class="btn btn-primary mr-3" type="submit">Actualizar Product</button>
-            <button *ngIf="load_btn"type="button" class="btn btn-secondary" disabled>
-              <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
-              updating...
-            </button>
-              <button class="btn btn-warning" routerLinkActive="active" [routerLink]="['/index/products']">Regresar</button>
-          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button *ngIf="!load_btn" class="btn btn-success mr-3" type="submit">
+          Update Product
+        </button>
+        <button
+          *ngIf="load_btn"
+          type="button"
+          class="btn btn-secondary mr-3"
+          disabled
+        >
+          <span
+            class="spinner-grow spinner-grow-sm me-2"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          updating...
+        </button>
+        <button
+          class="btn btn-warning"
+          routerLinkActive="active"
+          [routerLink]="['/index/products']"
+        >
+          Back
+        </button>
+      </div>
     </div>
-       </form>
-  </ng-container>
-  <ng-container *ngIf="product == undefined">
-    <div class="card-body">
-        <h2 class="text-center">No se encontro el Usuario </h2>
-    </div>
-  </ng-container>      
+  </form>
+</ng-container>
+<ng-container *ngIf="product == undefined">
+  <div class="card-body">
+    <h2 class="text-center">User not found</h2>
+  </div>
+</ng-container>

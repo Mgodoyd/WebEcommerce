@@ -8,28 +8,30 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.scss']
+  styleUrls: ['./inicio.component.scss'],
 })
 export class InicioComponent implements OnInit {
   public token;
   public myChart: Chart | undefined;
-  public orderData: { state: string, total: number }[] = [];
+  public orderData: { state: string; total: number }[] = [];
   public order = {
     totalVentas: 0,
-  }
-  public order_={
+  };
+  public order_ = {
     totalVentas: 0,
-  }
-  public orders={
+    totalCancelado: 0,
+  };
+  public orders = {
     totalVentas: 0,
-  }
-  public orders3={
+  };
+  public orders3 = {
     totalVentasCompletado: 0,
-  }
+  };
 
+  public resto: any;
   constructor(
     private authService: LoginService,
-    private _saleService: SalesService,
+    private _saleService: SalesService
   ) {
     this.token = this.authService.getToken();
   }
@@ -42,6 +44,7 @@ export class InicioComponent implements OnInit {
     this.get_total();
   }
 
+  //Método para obtener todas las ventas en cantidad y estado
   getAllSale() {
     if (this.token) {
       this._saleService.get_sales(this.token).subscribe(
@@ -49,7 +52,7 @@ export class InicioComponent implements OnInit {
           console.log(response);
           this.orderData = response.map((order: any) => ({
             state: order.state,
-            total: order.total
+            total: order.total,
           }));
           console.log(this.orderData);
           // Calcula el recuento de órdenes por estado
@@ -61,6 +64,7 @@ export class InicioComponent implements OnInit {
               orderCounts[order.state] = 1;
             }
           });
+
           this.renderChart(orderCounts);
         },
         (error) => {
@@ -70,6 +74,7 @@ export class InicioComponent implements OnInit {
     }
   }
 
+  //Método para obtener todas las ventas
   init_data() {
     if (this.token) {
       this._saleService.get_total_sales(this.token).subscribe(
@@ -84,85 +89,95 @@ export class InicioComponent implements OnInit {
     }
   }
 
+  //Método para renderizar el gráfico
   renderChart(orderCounts: { [key: string]: number }) {
     const canvas = document.getElementById('myChart') as HTMLCanvasElement;
 
     if (canvas !== null) {
       const ctx = canvas.getContext('2d');
       if (ctx !== null) {
-        const estados = [...new Set(this.orderData.map(order => order.state))];
+        const estados = [
+          ...new Set(this.orderData.map((order) => order.state)),
+        ];
         const totales = Object.values(orderCounts);
 
         new Chart(ctx, {
           type: 'doughnut',
           data: {
             labels: estados,
-            datasets: [{
-              label: 'Orders by State',
-              data: totales,
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-              ],
-              borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 205, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-              ],
-              borderWidth: 1
-            }]
+            datasets: [
+              {
+                label: 'Orders by State',
+                data: totales,
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 205, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                ],
+                borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 205, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                ],
+                borderWidth: 1,
+              },
+            ],
           },
           options: {
             responsive: true,
             scales: {
               y: {
-                beginAtZero: true
-              }
-            }
-          }
+                beginAtZero: true,
+              },
+            },
+          },
         });
       }
     }
   }
 
-  get_total_vendido(){
-    if(this.token)
-    this._saleService.get_total_sales(this.token).subscribe(
-      (response) => {
-        console.log(response);
-        this.order = response;
-      },
-      (error) => {
-        console.log(error);
-      }
-      );
-  }
-  get_total_sales(){
-    if(this.token)
-    this._saleService.get_total_vendido(this.token).subscribe(
-      (response) => {
-        console.log(response);
-        this.order_ = response;
-      },
-      (error) => {
-        console.log(error);
-      }
+  //Método para obtener el  total de ventas
+  get_total_vendido() {
+    if (this.token)
+      this._saleService.get_total_sales(this.token).subscribe(
+        (response) => {
+          console.log(response);
+          this.order = response;
+        },
+        (error) => {
+          console.log(error);
+        }
       );
   }
 
-  get_total(){
-    if(this.token)
-    this._saleService.get_total_sales_final(this.token).subscribe(
-      (response) => {
-        console.log(response);
-        this.orders = response;
-      },
-      (error) => {
-        console.log(error);
-      }
+  //Método para obtener el monto total de ventas venidas
+  get_total_sales() {
+    if (this.token)
+      this._saleService.get_total_vendido(this.token).subscribe(
+        (response) => {
+          console.log(response);
+          this.order_ = response;
+          console.log(this.order_);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  //Método para obtener el monto total de ventas finalizadas estado Entregado
+  get_total() {
+    if (this.token)
+      this._saleService.get_total_sales_final(this.token).subscribe(
+        (response) => {
+          console.log(response);
+          this.orders = response;
+        },
+        (error) => {
+          console.log(error);
+        }
       );
   }
 }

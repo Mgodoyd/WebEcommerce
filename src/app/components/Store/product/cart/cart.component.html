@@ -37,7 +37,7 @@
 
             <!-- Order review -->
             <h2 class="h4 mb-4">1. Order Review</h2>
-            <div class="bg-secondary rounded mb-5" *ngIf="cart_arr.length >= 1">
+            <div class="bg-secondary rounded mb-5" *ngIf="cart_arr.length >= 1; else noCart ">
               <!-- Item -->
               <div class="media px-2 px-sm-4 py-4 border-bottom" *ngFor="let cart of cart_arr; let i = index">
                 <a [routerLink]="['/products/store/view/', cart.products.id]" style="min-width: 80px;">
@@ -73,14 +73,14 @@
               </div>
             </div>
 
-            <div class="bg-secundary rounded mb-5 p-3" *ngIf="cart_arr.length == 0">
+            <ng-template #noCart>
               <div class="row text-center">
                 <div class="col-log-12">
                   <dt>Upps!</dt>
                   <dd>No tiene productos en el carrito</dd>
                 </div>
               </div>
-            </div>
+            </ng-template>
 
             <!-- Adresses -->
             <h2 class="h4 mb-4">2. Shipping &amp; Billing Address</h2>

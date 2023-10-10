@@ -8,63 +8,74 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-users',
   templateUrl: './create-users.component.html',
-  styleUrls: ['./create-users.component.scss']
+  styleUrls: ['./create-users.component.scss'],
 })
 export class CreateUsersComponent implements OnInit {
-
-   public user : any = {
+  public user: any = {
     login: {},
-    rol: ''
-   };
-   public token;
-   public load_btn=false;
+    rol: '',
+  };
+  public token;
+  public load_btn = false;
   constructor(
-    private _userService : UserService,
-    private _loginService : LoginService,
-    private _router : Router
+    private _userService: UserService,
+    private _loginService: LoginService,
+    private _router: Router
   ) {
     this.token = this._loginService.getToken();
-   }
-
-  ngOnInit(): void {
   }
 
+  ngOnInit(): void {}
 
+  //Metodo para registrar un usuario
   registro(registroForm: NgForm) {
     if (registroForm.invalid) {
-      Swal.fire({
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
         icon: 'error',
-        title: 'Oops...',
-        text: 'Por favor, completa todos los campos correctamente.',
+        text: 'All fields are required.',
       });
     } else {
       console.log(this.user);
-      if (this.token !== null) { // Comprueba que token no sea null
-        this.load_btn=true;
+      if (this.token !== null) {
+        // Comprueba que token no sea null
+        this.load_btn = true;
         this._userService.create_user(this.user, this.token).subscribe(
-          response => {
+          (response) => {
             console.log(response);
           },
-          error => {
+          (error) => {
             console.log(error);
           }
         );
         Swal.fire({
           icon: 'success',
           title: 'Éxito',
-          text: 'Usuario registrado con éxito.',
+          text: 'Registered user successfully.',
         });
-        this.load_btn=false;
+        this.load_btn = false;
+        setTimeout(() => {
+          this._router.navigate(['/dashboard/users']);
+        }, 1000);
         registroForm.resetForm();
-
       } else {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'El token de autenticación es nulo. Por favor, inicia sesión nuevamente.',
+          text: 'The authentication token is null. Please log in again.',
         });
       }
     }
   }
-  
 }

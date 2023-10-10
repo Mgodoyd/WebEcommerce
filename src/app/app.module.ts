@@ -5,7 +5,6 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { NouisliderModule } from 'ng2-nouislider';
 import { LightgalleryModule } from 'lightgallery/angular';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './components/Dashboard/sidebar/sidebar.component';
@@ -43,8 +42,6 @@ import { DetalleSaleComponent } from './components/Dashboard/sales/detalle-sale/
 import { InicioComponent } from './components/Dashboard/inicio/inicio.component';
 import { UpdatePasswordComponent } from './components/Store/update-password/update-password.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +66,7 @@ import { UpdatePasswordComponent } from './components/Store/update-password/upda
     ProfileComponent,
     IndexProductStoreComponent,
     ViewProductComponent,
-    CartComponent, 
+    CartComponent,
     AddressComponent,
     ContactComponent,
     IndexContactComponent,
@@ -89,9 +86,9 @@ import { UpdatePasswordComponent } from './components/Store/update-password/upda
     NgbPaginationModule,
     EditorModule,
     NouisliderModule,
-    LightgalleryModule 
+    LightgalleryModule,
   ],
   providers: [LoginService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { } 
+export class AppModule {}

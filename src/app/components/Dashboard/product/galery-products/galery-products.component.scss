@@ -1,89 +1,97 @@
 .file-drop-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    border: 2px dashed #9f9999;
-    padding: 20px;
-    text-align: center;
-  
-    .file-drop-icon {
-      font-size: 50px;
-      color: #000;
-      margin-bottom: 15px;
-    }
-  
-    .file-drop-message {
-      color: #000;
-      margin-bottom: 15px;
-    }
-  
-    .file-drop-input {
-       background-color: #000;
-         color: #fff;
-    }
-    
-  
-    .file-drop-btn {
-      background-color: #007bff;
-      border-color: #007bff;
-      color: #fff;
-      padding: 2% 4% 2% 4%;
-      margin-top: 3%;
-  
-      &:hover {
-        background-color: #0069d9;
-        border-color: #0062cc;
-      }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: 2px dashed #9f9999;
+  padding: 20px;
+  text-align: center;
+
+  .file-drop-icon {
+    font-size: 50px;
+    color: #000;
+    margin-bottom: 15px;
+  }
+
+  .file-drop-message {
+    color: #000;
+    margin-bottom: 15px;
+  }
+
+  .file-drop-input {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .file-drop-btn {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    padding: 2% 4% 2% 4%;
+    margin-top: 3%;
+
+    &:hover {
+      background-color: #0069d9;
+      border-color: #0062cc;
     }
   }
-  .contenedor-btn-file input[type="file"] {
-    appearance: none;
-    display: none;
-    visibility: hidden;
-    opacity: 0;
-    z-index: -1;
+}
+.contenedor-btn-file input[type="file"] {
+  appearance: none;
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  z-index: -1;
 }
 .contenedor-btn-file {
-    display: inline-block;
-    position: relative;
-    background-color: #186CC3;
-    color: #fff;
-    border: 0;
-    padding: 12px 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, .15);
-    overflow: hidden;
-    transition: ease-out 120ms background-color;
+  display: inline-block;
+  position: relative;
+  background-color: #186cc3;
+  color: #fff;
+  border: 0;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: ease-out 120ms background-color;
 }
 .contenedor-btn-file:hover {
-    background-color: #16579B;
+  background-color: #16579b;
 }
 .contenedor-btn-file:active {
-    background-color: #114378;
+  background-color: #114378;
 }
 .contenedor-btn-file > i {
-    margin-right: 15px;
+  margin-right: 15px;
 }
 
 .contenedor-btn-file label {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    cursor: pointer;
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  cursor: pointer;
 }
 
 .contenedor-btn-file.bordeado {
-    background-color: #fff;
-    border: 2px solid #186CC3;
-    color: #186CC3;
+  background-color: #fff;
+  border: 2px solid #186cc3;
+  color: #186cc3;
 }
 .contenedor-btn-file.bordeado:hover {
-    background-color: #186CC3;
-    color: #fff;
+  background-color: #186cc3;
+  color: #fff;
+}
+
+.card-header {
+  background-color: #7673734c;
+  padding: 20px;
+}
+.card-footer {
+  background-color: #7673734c;
+  padding: 10px;
 }

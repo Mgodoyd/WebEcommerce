@@ -59,18 +59,8 @@ export class HeaderComponent implements OnInit {
           if (localStorage.getItem('user')) {
             this.users = JSON.parse(localStorage.getItem('user') || '{}');
             console.log(this.users); 
-
-            if(this.token)
-            this._cartService.get_cart(this.users.id, this.token).subscribe(
-              response => {
-                console.log(response);
-                this.cart_arr = response;
-                this.calcular_cart();
-              },
-              error => {
-                console.log(error);
-              }
-              );
+            this.get_cart();
+           
           } else {
             this.users = ''; 
           }
@@ -81,6 +71,21 @@ export class HeaderComponent implements OnInit {
       );
     }
    
+  }
+
+  get_cart(){
+    if(this.token)
+    this._cartService.get_cart(this.users.id, this.token).subscribe(
+      response => {
+        console.log(response);
+        this.cart_arr = response;
+        this.calcular_cart();
+       
+      },
+      error => {
+        console.log(error);
+      }
+      );
   }
 
 
@@ -114,7 +119,7 @@ export class HeaderComponent implements OnInit {
           timer : 1000,
           showConfirmButton : false
         })
-        this.ngOnInit();
+        this.get_cart();
       },
       error => {
         console.log(error);

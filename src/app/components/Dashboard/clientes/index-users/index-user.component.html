@@ -1,121 +1,209 @@
 <app-sidebar></app-sidebar>
-   <!-- Page title-->
-  <!-- Page title-->
-  <div class="container" style="margin-right: 0%;">
-    <div class="row">
-      <div class="col-md-12">
-        <!-- Contenido izquierdo -->
-        <div class="border-bottom pt-20 mt-2 mb-5">
-          <h2 class="mt-2 mt-md-4 mb-3 pt-3">Usuarios</h2>
-          <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
-            <p class="text-muted">Este módulo lista todos los usuarios de la tienda.</p>
-            <p class="font-size-sm font-weight-medium pl-md-4"><a class="text-nowrap" routerLinkActive="active" [routerLink]="['/index/users/create']" rel="noopener">Registrar nuevo<i class="cxi-angle-right font-size-base align-middle ml-1"></i></a></p>
-          </div>
+<!-- Page title-->
+<!-- Page title-->
+<div class="container mt-5" style="margin-right: 0%">
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Contenido izquierdo -->
+      <div class="border-bottom pt-20 mt-2 mb-5">
+        <h2 class="mt-2 mt-md-4 mb-3 pt-3">Users</h2>
+        <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+          <p class="text-muted">
+            This module lists all the users of the store.
+          </p>
+          <p class="font-size-sm font-weight-medium pl-md-4">
+            <a
+              class="text-nowrap"
+              routerLinkActive="active"
+              [routerLink]="['/index/users/create']"
+              rel="noopener"
+              >Add new<i
+                class="cxi-angle-right font-size-base align-middle ml-1"
+              ></i
+            ></a>
+          </p>
         </div>
       </div>
     </div>
+  </div>
 </div>
-<div class="justify-content-center" style="margin-left: 355px;">
-  <div class="col-md-12" > 
-      <!-- Contenido del filtro de clientes -->
-      <div class="card box-shadow-sm">
-          <div class="card-header">
-              <h5 >Filtro de Usuarios</h5>
-          </div>
-          <div class="card-header text-center">
-            <form class="form-inline pt-2">
-              <label class="sr-only" for="inline-form-input-name">Apellidos</label>
-              <input class="form-control mb-3 mr-sm-4" type="text" id="inline-form-input-name" placeholder="name" [(ngModel)]="name" name="name" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchUser()">
-              
-              <label class="sr-only" for="inline-form-input-username">Correo</label>
-              <div class="input-group mb-3 mr-sm-4">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">@</div>
-                </div>
-                <input class="form-control" type="text" id="inline-form-input-username" placeholder="Email" [(ngModel)]="email" name="email" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchUser()">
-              </div>
-            </form>
-            
-    </div>
-  
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th>#</th>
-                      <th>Name</th>
-                      <th>Last Name</th>
-                      <th>Address</th>
-                      <th>Phone</th>
-                      <th>Nit</th>
-                      <th>Emial</th>
-                      <th>Rol</th>
-                      <th>Opcions</th>
-                    </tr>
-                  </thead>
-                  <tbody *ngIf="load_data">
-                    <tr>
-                      <td class="text-center"  colspan="9">
-                    <!-- Custom size border spinner -->
-                      <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                      </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <ng-container *ngIf="!load_data">
-                    <tbody  *ngFor="let user of users| slice: (page-1)*pageSize : (page-1) * pageSize + pageSize" >
-                      <tr>
-                        <th>{{user.id}}</th>
-                        <td>{{user.name}}</td>
-                        <td>{{user.lastname}}</td>
-                        <td>{{user.address}}</td>
-                        <td>{{user.phone}}</td>
-                        <td>{{user.nit}}</td>
-                        <td>{{user.login.email}}</td>
-                        <td>{{user.login.rol}}</td>
-                        <td>
-                          <div class="btn-group dropdown">
-                              <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Actions
-                              </button>
-                              <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item" routerLinkActive="active" [routerLink]="['/index/users/edit/',user.id]" >Update</a>
-                                <a href="#" class="dropdown-item" style="cursor:pointer;" data-toggle="modal"  [attr.data-target]="'#delete-'+user.id">Delete</a>
-                              </div>
-                            </div>
-                            <!-- Modal markup -->
-                          <div class="modal" id="delete-{{user.id}}" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title">Eliminar, {{ user.name }}  {{ user.lastname }}</h5>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                  <p class="fs-sm">Desea eliminar este usuario?</p>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
-                                  <button type="button" class="btn btn-primary btn-sm" (click)="eliminar(user.id)">Sí, eliminar</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </ng-container>
-                  
-                </table>
+<div class="justify-content-center mb-5" style="margin-left: 355px">
+  <div class="col-md-12">
+    <!-- Contenido del filtro de clientes -->
+    <div class="card box-shadow-sm">
+      <div class="card-header">
+        <h5>User Filter</h5>
+      </div>
+      <div class="card-header text-center">
+        <form class="form-inline pt-2">
+          <label class="sr-only" for="inline-form-input-name">Lastname</label>
+          <input
+            class="form-control mb-3 mr-sm-4"
+            type="text"
+            id="inline-form-input-name"
+            placeholder="name"
+            [(ngModel)]="name"
+            name="name"
+            [ngModelOptions]="{ standalone: true }"
+            (ngModelChange)="searchUser()"
+          />
+
+          <label class="sr-only" for="inline-form-input-username">Email</label>
+          <div class="input-group mb-3 mr-sm-4">
+            <div class="input-group-prepend">
+              <div class="input-group-text">@</div>
             </div>
+            <input
+              class="form-control"
+              type="text"
+              id="inline-form-input-username"
+              placeholder="Email"
+              [(ngModel)]="email"
+              name="email"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="searchUser()"
+            />
+          </div>
+        </form>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Last Name</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Nit</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Opcions</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="load_data">
+              <tr>
+                <td class="text-center" colspan="9">
+                  <!-- Custom size border spinner -->
+                  <div
+                    class="spinner-border"
+                    style="width: 3rem; height: 3rem"
+                    role="status"
+                  >
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            <ng-container *ngIf="!load_data">
+              <tbody
+                *ngFor="
+                  let user of users
+                    | slice
+                      : (page - 1) * pageSize
+                      : (page - 1) * pageSize + pageSize
+                "
+              >
+                <tr>
+                  <th>{{ user.id }}</th>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.lastname }}</td>
+                  <td>{{ user.address }}</td>
+                  <td>{{ user.phone }}</td>
+                  <td>{{ user.nit }}</td>
+                  <td>{{ user.login.email }}</td>
+                  <td>{{ user.login.rol }}</td>
+                  <td>
+                    <div class="btn-group dropdown">
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Actions
+                      </button>
+                      <div class="dropdown-menu">
+                        <a
+                          href="#"
+                          class="dropdown-item"
+                          routerLinkActive="active"
+                          [routerLink]="['/index/users/edit/', user.id]"
+                          >Update</a
+                        >
+                        <a
+                          href="#"
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          data-toggle="modal"
+                          [attr.data-target]="'#delete-' + user.id"
+                          >Delete</a
+                        >
+                      </div>
+                    </div>
+                    <!-- Modal markup -->
+                    <div
+                      class="modal"
+                      id="delete-{{ user.id }}"
+                      tabindex="-1"
+                      role="dialog"
+                    >
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">
+                              Delete, {{ user.name }} {{ user.lastname }}
+                            </h5>
+                            <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div class="modal-body">
+                            <p class="fs-sm">
+                              Do you want to delete this user?
+                            </p>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-secondary btn-sm"
+                              data-bs-dismiss="modal"
+                              (click)="CloseModal(user.id)"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-primary btn-sm"
+                              (click)="eliminar(user.id)"
+                            >
+                              Yes, delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </ng-container>
+          </table>
         </div>
-        <div class="card-footer">
-               <ngb-pagination
-                [collectionSize]="users.length" 
-                [(page)]="page" 
-                [pageSize]="pageSize">
-              </ngb-pagination>
-        </div>
-  </div>    
+      </div>
+      <div class="card-footer">
+        <ngb-pagination
+          [collectionSize]="users.length"
+          [(page)]="page"
+          [pageSize]="pageSize"
+        >
+        </ngb-pagination>
+      </div>
+    </div>
+  </div>
+</div>

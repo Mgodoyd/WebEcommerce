@@ -102,7 +102,7 @@ export class CartComponent implements OnInit {
           setTimeout(() => {
           this._router.navigate(['/']);
           this.get_cart();
-          },2000);
+          },1500);
         },
         onError :(_error: Error) =>{
           
@@ -161,7 +161,7 @@ export class CartComponent implements OnInit {
                     icon: 'success',
                     title: 'Compra realizada correctamente',
                   });
-                  this.ngOnInit();
+                  this.get_cart();
                 },
                 error => {
                    console.log(error);
@@ -213,7 +213,7 @@ export class CartComponent implements OnInit {
           icon: 'success',
           title: 'Producto eliminado correctamente',
         });
-        
+        this.get_cart();
       },
       error => {
         console.log(error);
@@ -274,7 +274,7 @@ export class CartComponent implements OnInit {
         setTimeout(() => {
           this._router.navigate(['/']);
           this.get_cart();
-          },2000);
+          },1500);
       }
     });
  

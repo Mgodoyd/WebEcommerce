@@ -3,9 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
 
-declare var jQuery: any;
 declare var $: any;
-declare var iziToast: any;
 
 @Component({
   selector: 'app-index-user',
@@ -16,26 +14,27 @@ export class IndexClienteComponent implements OnInit {
   public users: Array<any> = [];
   public name: string = '';
   public email: string = '';
-  
-  public page =1;
+
+  public page = 1;
   public pageSize = 6;
 
   public token;
   public load_data = true;
 
-
   @ViewChild('form') form: ElementRef | undefined;
 
-  constructor(private _userService: UserService, private _loginService : LoginService) {
-     this.token = this._loginService.getToken();
+  constructor(
+    private _userService: UserService,
+    private _loginService: LoginService
+  ) {
+    this.token = this._loginService.getToken();
   }
 
   ngOnInit(): void {
     this.listuser();
   }
 
-  
-
+  //Metodo para listar todos los usuarios
   listuser = (): void => {
     // Verifica que this.token no sea null ni undefined antes de usarlo
     if (this.token !== null && this.token !== undefined) {
@@ -50,9 +49,9 @@ export class IndexClienteComponent implements OnInit {
         }
       );
     }
-  }; 
-  
-  
+  };
+
+  //Metodo para buscar un usuario
   searchUser = (): void => {
     if (this.name || this.email) {
       // Filtrar la lista de clientes en función del nombre y/o correo
@@ -83,33 +82,38 @@ export class IndexClienteComponent implements OnInit {
     }
   };
 
-  eliminar(id:any){
-    if (this.token !== null && this.token !== undefined) {
-    this._userService.delete_user(id,this.token).subscribe(
-      (response) => {
-        console.log(response);
-        
-        Swal.fire({
-          icon: 'success',
-          title: 'Éxito',
-          text: 'Usuario eliminado correctamente.',
-        });
-
-        $('#delete-'+id).modal('hide');
-        $('.model-backdrop').hide();
-
-        this.listuser();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }else{
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: 'Error al eliminar el usuario.',
-    });
+  CloseModal(id: any) {
+    $('#delete-' + id).modal('hide');
   }
-}
+
+  //Metodo para eliminar un usuario
+  eliminar(id: any) {
+    if (this.token !== null && this.token !== undefined) {
+      this._userService.delete_user(id, this.token).subscribe(
+        (response) => {
+          console.log(response);
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'Successfully deleted user.',
+          });
+
+          $('#delete-' + id).modal('hide');
+          $('.model-backdrop').hide();
+
+          this.listuser();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Error deleting user.',
+      });
+    }
+  }
 }

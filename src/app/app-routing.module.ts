@@ -52,41 +52,36 @@ import { CartComponent } from './components/Store/product/cart/cart.component';
   /*contact */
 import { ContactComponent } from './components/Store/contact/contact.component';
 
-
-
-
-
-
 const routes: Routes = [
   
   { path: '', component: InicioLoginComponent,/* canActivate: [DashGuard] */},
   { path: 'login', component: LoginComponent},
   { path: 'update-password', component: UpdatePasswordComponent},
-  { path: 'dashboard', component: InicioComponent , /*canActivate: [DashGuard]*/},
+  { path: 'dashboard', component: InicioComponent , canActivate: [DashGuard]},
   { path : 'index',children: [
-    { path: 'users', component: IndexClienteComponent, /*canActivate: [DashGuard]  */},
-    { path: 'users/create', component: CreateUsersComponent, /*canActivate: [DashGuard]  */},
-    { path: 'users/edit/:id', component: EditUserComponent, /*canActivate: [DashGuard]  */},
-    { path: 'products', component: IndexProductComponent, /*canActivate: [DashGuard]  */}, 
-    { path: 'products/create', component: ProductComponent, /*canActivate: [DashGuard]  */},
-    { path: 'products/edit/:id', component: UpdateProductComponent, /*canActivate: [DashGuard]  */},
-    { path: 'products/edit/inventary/:id', component: InventoryComponent, /*canActivate: [DashGuard]  */},
-    { path: 'products/galery/:id', component: GaleryProductsComponent, /*canActivate: [DashGuard]  */},
-    { path: 'coupon', component: IndexCouponComponent, /*canActivate: [DashGuard]  */},
-    { path: 'coupon/create', component: CreateCouponComponent, /*canActivate: [DashGuard]  */}, 
-    { path: 'coupon/edit/:id', component: UpdateCouponComponent, /*canActivate: [DashGuard]  */}, 
-    { path: 'sales', component: IndexSalesComponent, /*canActivate: [DashGuard]  */},
-    { path: 'sales/view/:id', component: DetalleSaleComponent, /*canActivate: [DashGuard]  */},
-    { path: 'config', component: ConfigComponent, /*canActivate: [DashGuard]  */}, 
+    { path: 'users', component: IndexClienteComponent, canActivate: [DashGuard]  },
+    { path: 'users/create', component: CreateUsersComponent, canActivate: [DashGuard]  },
+    { path: 'users/edit/:id', component: EditUserComponent, canActivate: [DashGuard]  },
+    { path: 'products', component: IndexProductComponent, canActivate: [DashGuard]  }, 
+    { path: 'products/create', component: ProductComponent, canActivate: [DashGuard]  },
+    { path: 'products/edit/:id', component: UpdateProductComponent, canActivate: [DashGuard]},
+    { path: 'products/edit/inventary/:id', component: InventoryComponent, canActivate: [DashGuard]  },
+    { path: 'products/galery/:id', component: GaleryProductsComponent, canActivate: [DashGuard]  },
+    { path: 'coupon', component: IndexCouponComponent, canActivate: [DashGuard]  },
+    { path: 'coupon/create', component: CreateCouponComponent, canActivate: [DashGuard]  }, 
+    { path: 'coupon/edit/:id', component: UpdateCouponComponent, canActivate: [DashGuard]  }, 
+    { path: 'sales', component: IndexSalesComponent, canActivate: [DashGuard]  },
+    { path: 'sales/view/:id', component: DetalleSaleComponent, canActivate: [DashGuard]  },
+    { path: 'config', component: ConfigComponent, canActivate: [DashGuard] }, 
   ]},
-  { path: 'category', component: CreateCategoryComponent, /*canActivate: [DashGuard]  */},
+  { path: 'category', component: CreateCategoryComponent, canActivate: [DashGuard]  },
   { path: 'index/contact', component: IndexContactComponent, canActivate: [DashGuard]  }, 
   { path: 'profile', component: ProfileComponent, canActivate: [DashGuard]  },
   { path: 'profile/address', component: AddressComponent, canActivate: [DashGuard]  },
   { path: 'profile/orders', component: IndexOrdersComponent, canActivate: [DashGuard]},
   { path: 'profile/orders/view/:id', component: DetalleOrdersComponent, canActivate: [DashGuard]},
   { path: 'products/store', component: IndexProductStoreComponent  },
-  { path: 'products/store/category/:category', component: IndexProductStoreComponent  },
+  { path: 'products/store/category/:category', component: IndexProductStoreComponent, canActivate: [DashGuard] },
   { path: 'products/store/view/:id', component: ViewProductComponent  },
   { path: 'cart', component: CartComponent,  canActivate: [DashGuard]  },
   { path: 'contact', component: ContactComponent },

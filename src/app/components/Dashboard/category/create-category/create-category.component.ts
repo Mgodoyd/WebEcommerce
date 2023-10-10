@@ -7,36 +7,62 @@ declare var $: any;
 @Component({
   selector: 'app-create-category',
   templateUrl: './create-category.component.html',
-  styleUrls: ['./create-category.component.scss']
+  styleUrls: ['./create-category.component.scss'],
 })
 export class CreateCategoryComponent implements OnInit {
-  public category:any= {};
+  public category: any = {};
   public token;
-  public id: any
+  public id: any;
 
-  constructor(private _loginService: LoginService,
-    private _configService: ConfigService,) { 
-      this.token = this._loginService.getToken();
+  constructor(
+    private _loginService: LoginService,
+    private _configService: ConfigService
+  ) {
+    this.token = this._loginService.getToken();
   }
 
   ngOnInit(): void {
     this.listCategorys();
   }
 
+  //Método para registrar una categoría, validando que los campos no estén vacíos antes de enviar la petición
   registro() {
     if (this.token) {
-      const newCategory = { titles: this.category.titles, icon: this.category.icon }; // Crear un nuevo objeto de categoría
+      if (!this.category.titles || !this.category.icon) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: 'error',
+          title: 'All fields are required',
+        });
+        return;
+      }
+
+      const newCategory = {
+        titles: this.category.titles,
+        icon: this.category.icon,
+      }; // Crear un nuevo objeto de categoría
       this._configService.create_category(newCategory, this.token).subscribe(
-        response => {
+        (response) => {
           console.log(response);
           Swal.fire({
             icon: 'success',
             title: 'Éxito',
-            text: 'Category registrada con éxito.',
+            text: 'Category successfully registered.!',
           });
           this.listCategorys(); // Actualizar la lista de categorías después de la inserción
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );
@@ -44,57 +70,73 @@ export class CreateCategoryComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Todos los campos son obligatorios!',
+        text: 'Server error occurred.',
       });
     }
   }
-  
 
-listCategorys() {
-  if (this.token) {
-    this._configService.list_categorys(this.token).subscribe(
-      response => {
-        console.log(response);
-        this.category = response;
-      },
-      error => {
-        console.log(error);
-      }
-    );
+  //Método para listar las categorías
+  listCategorys() {
+    if (this.token) {
+      this._configService.list_categorys(this.token).subscribe(
+        (response) => {
+          console.log(response);
+          this.category = response;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
-}
 
-openDeleteModal(id: any) {
-  // Abre el modal de eliminación para la categoría con el ID proporcionado
-  $('#delete-' + id).modal('show');
-}
-eliminar(id:any){
-  if (this.token !== null && this.token !== undefined) {
-  this._configService.delete_category(id,this.token).subscribe(
-    (response) => {
-      console.log(response);
-      
+  //Manejo del modal
+  openDeleteModal(id: any) {
+    $('#delete-' + id).modal('show');
+  }
+  closeDeleteModal(id: any) {
+    $('#delete-' + id).modal('hide');
+  }
+
+  //Método para eliminar una categoría
+  eliminar(id: any) {
+    if (this.token !== null && this.token !== undefined) {
+      this._configService.delete_category(id, this.token).subscribe(
+        (response) => {
+          console.log(response);
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({
+            icon: 'success',
+            text: 'Category deleted correctly.',
+          });
+
+          $('#delete-' + id).modal('hide');
+          $('.model-backdrop').hide();
+
+          this.listCategorys();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
       Swal.fire({
-        icon: 'success',
-        title: 'Éxito',
-        text: 'Category eliminado correctamente.',
+        icon: 'error',
+        title: 'Error',
+        text: 'Error when deleting category.',
       });
-
-      $('#delete-'+id).modal('hide');
-      $('.model-backdrop').hide();
-
-      this.listCategorys();
-    },
-    (error) => {
-      console.log(error);
     }
-  );
-}else{
-  Swal.fire({
-    icon: 'error',
-    title: 'Error',
-    text: 'Error al eliminar el usuario.',
-  });
-}
-}
+  }
 }

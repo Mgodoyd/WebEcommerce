@@ -1,60 +1,75 @@
 <app-sidebar></app-sidebar>
-<div class="container" style="margin-right: 0%;">
-    <div class="row">
-      <div class="col-md-12">
-        <!-- Contenido izquierdo -->
-        <div class="border-bottom pt-20 mt-2 mb-5">
-          <h2 class="mt-2 mt-md-4 mb-3 pt-3">Dashboard</h2>
-          <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+<div class="container mt-5" style="margin-right: 0%">
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Contenido izquierdo -->
+      <div class="border-bottom pt-20 mt-2 mb-5">
+        <h2 class="mt-2 mt-md-4 mb-3 pt-3">Dashboard</h2>
+        <div
+          class="d-flex flex-wrap flex-md-nowrap justify-content-between"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="justify-content-center mb-5" style="margin-left: 355px">
+  <div class="col-md-12">
+    <!-- Contenido del filtro de clientes -->
+    <div class="card box-shadow-sm">
+      <div class="card-header">
+        <h5>Total sales</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  Total Orders: {{ orders.totalVentas }}
+                </h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  Completed Orders: {{ orders3.totalVentasCompletado }}
+                </h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  Total Sold: ${{ order_.totalVentas }}
+                </h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  Total Canceled: ${{ order_.totalCancelado }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráfico -->
+        <div class="row mt-3" style="width: 50%; margin-left: 25%">
+          <div class="col-12 d-flex justify-content-center align-items-center">
+            <canvas id="myChart"></canvas>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-  <div class="justify-content-center" style="margin-left: 355px;">
-    <div class="col-md-12"> 
-      <!-- Contenido del filtro de clientes -->
-      <div class="card box-shadow-sm">
-        <div class="card-header">
-          <h5>Total Ventas</h5>
-        </div>
-        <div class="card-body">
-          <div class="row">
-
-            <div class="col-4">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Total Ordenes: {{orders.totalVentas}}</h5>
-                  </div>
-                </div>
-              </div>
-
-            <div class="col-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Ordenes Completadas: {{orders3.totalVentasCompletado}}</h5>
-                </div>
-              </div>
-            </div>
-            
-            <div class="col-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Total Vendido: ${{order_.totalVentas}} </h5>
-                </div>
-              </div>
-            </div>
-          </div>
-  
-          <!-- Gráfico -->
-          <div class="row mt-3">
-            <div class="col-12">
-              <canvas id="myChart"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
+</div>
