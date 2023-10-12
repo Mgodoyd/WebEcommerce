@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -6,6 +6,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { ProducService } from 'src/app/services/product.service';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
+
 
 @Component({
   selector: 'app-index-product-store',
@@ -44,7 +45,8 @@ export class IndexProductStoreComponent implements OnInit {
     private _loginService: LoginService,
     private _cartService: CartService,
     private _routers: Router,
-    private _userService: UserService
+    private _userService: UserService,
+    private cdr: ChangeDetectorRef
   ) {
     this.token = this._loginService.getToken();
     this.id = localStorage.getItem('id');
@@ -263,6 +265,7 @@ export class IndexProductStoreComponent implements OnInit {
             });
             this.btn_cart = false;
             this.get_cart();
+            this.cdr.detectChanges();
           },
           (error: any) => {
             console.log(error);

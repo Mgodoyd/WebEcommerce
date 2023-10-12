@@ -87,10 +87,16 @@
           >
             <a
               class="nav-tool pr-lg-0"
-              style="cursor: pointer"
-              data-bs-toggle="collapse"
+              data-toggle="collapse"
               href="#cart"
+              role="button"
             >
+              <!-- 
+              El collapse para que funciona user Bootstrap 4.6.0
+              class="nav-tool pr-lg-0"
+            style="cursor: pointer"
+            data-bs-toggle="collapse"
+            href="#cart" -->
               <!-- (click)="op_modalcart()" -->
               <i class="cxi-cart nav-tool-icon"></i>
               <span
@@ -129,8 +135,8 @@
             <button
               class="navbar-toggler"
               type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarCollapse"
+              data-toggle="collapse"
+              data-target="#navbarCollapse"
             >
               <span class="cxi-grid"></span>
             </button>
@@ -204,11 +210,15 @@
     <button
       class="close mr-n1"
       type="button"
+      data-toggle="collapse"
+      data-target="#cart"
+    >
+      <!-- class="close mr-n1"
+      type="button"
       aria-expanded="false"
       aria-controls="cart"
       data-bs-toggle="collapse"
-      data-bs-target="#cart"
-    >
+      data-bs-target="#cart" -->
       <span class="h3 font-weight-normal mb-0" aria-hidden="true">×</span>
     </button>
   </div>
@@ -253,9 +263,7 @@
               />
               <div class="text-nowrap">
                 <strong class="text-danger">
-                  {{
-                    cart.products.price * cart.amount 
-                  }}
+                 $ {{ cart.products.price * cart.amount }}.00
                 </strong>
                 <!-- <s class="font-size-xs text-muted">$31.00</s> -->
               </div>
