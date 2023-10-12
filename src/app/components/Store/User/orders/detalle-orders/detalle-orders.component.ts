@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { error } from 'console';
 import { LoginService } from 'src/app/services/login.service';
 import { SalesService } from 'src/app/services/sales.service';
 import { UserService } from 'src/app/services/user.service';
@@ -9,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-detalle-orders',
   templateUrl: './detalle-orders.component.html',
-  styleUrls: ['./detalle-orders.component.scss']
+  styleUrls: ['./detalle-orders.component.scss'],
 })
 export class DetalleOrdersComponent implements OnInit {
   public id: any;
@@ -20,23 +19,24 @@ export class DetalleOrdersComponent implements OnInit {
     address: {},
     nsale: [],
   };
-  public products : any = {};
-  public load_data= true; 
+  public products: any = {};
+  public load_data = true;
 
   constructor(
     private _userService: UserService,
-    private _loginService : LoginService,
+    private _loginService: LoginService,
     private _saleService: SalesService,
     private _route: ActivatedRoute
   ) {
-    this.token= this._loginService.getToken();
-   }
+    this.token = this._loginService.getToken();
+  }
 
   ngOnInit() {
     // Obtén el id del usuario de localStorage
     this.id = localStorage.getItem('id');
 
     if (this.id !== null) {
+      //Método para obtener un usuario por id
       this._userService.get_user_public(this.id).subscribe(
         (response) => {
           console.log(response);
@@ -55,13 +55,14 @@ export class DetalleOrdersComponent implements OnInit {
     this.get_order_detail();
   }
 
-  get_order_detail(){
-    this._route.params.subscribe(params => {
+  // Método para obtener los detalles de un pedido
+  get_order_detail() {
+    this._route.params.subscribe((params) => {
       this.id = params['id'];
     });
 
-    if(this.token){
-      this._saleService.get_order_detail(this.id,this.token).subscribe(
+    if (this.token) {
+      this._saleService.get_order_detail(this.id, this.token).subscribe(
         (response) => {
           console.log(response);
           this.orders = response;
@@ -75,60 +76,62 @@ export class DetalleOrdersComponent implements OnInit {
       );
     }
   }
-  
-  received_order(id:any){
 
-      Swal.fire({
-        title: '¿Estás seguro?',
-        text: "¡Confirmas de Recibido el pedido!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#4dbd74',
-        cancelButtonColor: '#f5365c',
-        confirmButtonText: 'Si, recibido!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          let data: any;
-          data = this.orders
-          data.state = 'Entregado'
-      
-          if(this.token)
-          this._saleService.send_order(id,data,this.token).subscribe(
+  // Método para confirmar la recepción de un pedido por parte del usuario que lo realizó y actualizar el estado del pedido
+  received_order(id: any) {
+    Swal.fire({
+      title: '¿You are sure?',
+      text: '¡Confirm receipt of the order!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4dbd74',
+      cancelButtonColor: '#f5365c',
+      confirmButtonText: 'Yes, received!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let data: any;
+        data = this.orders;
+        data.state = 'Entregado';
+
+        if (this.token)
+          this._saleService.send_order(id, data, this.token).subscribe(
             (response) => {
               console.log(response);
             },
             (error) => {
               console.log(error);
-            });
-        }
-      })
-      
-    }
+            }
+          );
+      }
+    });
+  }
 
-    cancel_order(id:any){
-      Swal.fire({
-        title: '¿Estás seguro?',
-        text: "¡De Cancelar el pedido!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#4dbd74',
-        cancelButtonColor: '#f5365c',
-        confirmButtonText: 'Si, cancelar!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          let data: any;
-          data = this.orders
-          data.state = 'Cancelado'
-      
-          if(this.token)
-          this._saleService.send_order(id,data,this.token).subscribe(
+  // Método para cancelar un pedido por parte del usuario que lo realizó y actualizar el estado del pedido
+  cancel_order(id: any) {
+    Swal.fire({
+      title: '¿You re sure?',
+      text: '¡Cancel the order!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4dbd74',
+      cancelButtonColor: '#f5365c',
+      confirmButtonText: 'Yes, cancel!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let data: any;
+        data = this.orders;
+        data.state = 'Cancelado';
+
+        if (this.token)
+          this._saleService.send_order(id, data, this.token).subscribe(
             (response) => {
               console.log(response);
             },
             (error) => {
               console.log(error);
-            });
-        }
-      })
-    }
+            }
+          );
+      }
+    });
+  }
 }

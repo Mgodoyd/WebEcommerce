@@ -101,7 +101,7 @@ export class ConfigComponent implements OnInit {
       if (this.file != undefined) {
         data.logo = this.file;
       } else {
-        data.logo = /*'C:\\fakepath\\'+ */ this.logo;
+        data.logo = /*'C:\\fakepath\\'+ */ this.logo.name;
       }
       console.log(data.logo);
       data.title = this.config.title;

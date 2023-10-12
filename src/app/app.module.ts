@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { NouisliderModule } from 'ng2-nouislider';
 import { LightgalleryModule } from 'lightgallery/angular';
@@ -41,6 +41,7 @@ import { IndexSalesComponent } from './components/Dashboard/sales/index-sales/in
 import { DetalleSaleComponent } from './components/Dashboard/sales/detalle-sale/detalle-sale.component';
 import { InicioComponent } from './components/Dashboard/inicio/inicio.component';
 import { UpdatePasswordComponent } from './components/Store/update-password/update-password.component';
+import { SessionExpirationInterceptor } from './services/session-expiration.interceptor';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,12 @@ import { UpdatePasswordComponent } from './components/Store/update-password/upda
     NouisliderModule,
     LightgalleryModule,
   ],
-  providers: [LoginService],
+  providers: [LoginService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SessionExpirationInterceptor, // Agrega tu interceptor personalizado
+      multi: true
+    }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

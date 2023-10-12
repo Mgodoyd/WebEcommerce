@@ -66,7 +66,7 @@ export class CreateUsersComponent implements OnInit {
         });
         this.load_btn = false;
         setTimeout(() => {
-          this._router.navigate(['/dashboard/users']);
+          this._router.navigate(['/index/users']);
         }, 1000);
         registroForm.resetForm();
       } else {

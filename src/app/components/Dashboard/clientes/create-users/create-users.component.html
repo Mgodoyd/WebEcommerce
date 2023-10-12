@@ -52,7 +52,14 @@
             required
             name="email"
             [(ngModel)]="user.login.email"
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+            #email="ngModel" 
           />
+          <div *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div class="alert alert-danger" >
+              Please enter a valid email!.
+            </div>
+          </div>
         </div>
 
         <div class="col-md-4 form-group">
@@ -64,7 +71,14 @@
             required
             name="phone"
             [(ngModel)]="user.phone"
+            pattern="^\d{9}$"
+            #phone="ngModel" 
           />
+          <div *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+            <div class="alert alert-danger" >
+              Please enter a valid phone number!.
+            </div>
+          </div>
         </div>
         <div class="col-md-4 form-group">
           <label for="validationCustom01" class="form-label">Password</label>

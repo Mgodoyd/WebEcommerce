@@ -84,6 +84,7 @@ export class IndexClienteComponent implements OnInit {
 
   CloseModal(id: any) {
     $('#delete-' + id).modal('hide');
+    $('.modal-backdrop').removeClass('show');
   }
 
   //Metodo para eliminar un usuario

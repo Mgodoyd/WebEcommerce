@@ -35,21 +35,21 @@ export class LoginService {
       return false;
     }
 
-    const expirationDate = new Date(0);
-    expirationDate.setUTCSeconds(decodedToken.exp);
+    // const expirationDate = new Date(0);
+    // expirationDate.setUTCSeconds(decodedToken.exp);
 
-    const currentDate = new Date();
+    // const currentDate = new Date();
 
-    if (currentDate >= expirationDate) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Sesión expirada',
-        text: 'Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.',
-      });
-      this.logout();
-      this._router.navigate(['/login']);
-      return false;
-    }
+    // if (currentDate >= expirationDate) {
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Sesión expirada',
+    //     text: 'Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.',
+    //   });
+    //   this.logout();
+    //   this._router.navigate(['/login']);
+    //   return false;
+    // }
 
     const id = decodedToken.id;
     localStorage.setItem('id', id);
@@ -79,27 +79,27 @@ export class LoginService {
     return localStorage.getItem('token');
   }
 
-            //Servicio para iniciar sesion
-          _login_cliente(data: ILogin): Observable<any> {
-            let headers = new HttpHeaders().set('Content-Type', 'application/json');
-            return this._http.post(this.url + '/Login/login', data, {
-              headers: headers,
-            });
-          }
+  //Servicio para iniciar sesion
+  _login_cliente(data: ILogin): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.post(this.url + '/Login/login', data, {
+      headers: headers,
+    });
+  }
 
-          //Servicio para crear un usuario
-          _createUser(data: any): Observable<any> {
-            let headers = new HttpHeaders().set('Content-Type', 'application/json');
-            return this._http.post(this.url + '/User/public', data, {
-              headers: headers,
-            });
-          }
+  //Servicio para crear un usuario
+  _createUser(data: any): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.post(this.url + '/User/public', data, {
+      headers: headers,
+    });
+  }
 
-          //Servicio para actualizar la contraseña de un usuario
-          _updatePassword(email: any, data: any): Observable<any> {
-            let headers = new HttpHeaders().set('Content-Type', 'application/json');
-            return this._http.put(this.url + '/Login/' + email, data, {
-              headers: headers,
-            });
-          }
+  //Servicio para actualizar la contraseña de un usuario
+  _updatePassword(email: any, data: any): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.put(this.url + '/Login/' + email, data, {
+      headers: headers,
+    });
+  }
 }

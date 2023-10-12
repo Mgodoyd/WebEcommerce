@@ -43,6 +43,7 @@ export class IndexContactComponent implements OnInit {
   //Cerrar modal
   closeDeleteModal(id: any) {
     $('#estadoModal-' + id).modal('hide');
+    $('.modal-backdrop').removeClass('show');
   }
 
   //Método para el cambio de Abierto a Cerrado de un contacto

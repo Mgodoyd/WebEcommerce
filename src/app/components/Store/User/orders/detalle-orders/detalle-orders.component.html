@@ -1,222 +1,309 @@
 <app-header></app-header>
-<nav class="bg-secondary mb-3" aria-label="breadcrumb">
-    <div class="container">
-      <ol class="breadcrumb breadcrumb-alt mb-0">
-        <li class="breadcrumb-item">
-          <a  [routerLink]="['/']" ><i class="cxi-home"></i></a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">My Orders</li>
-      </ol>
-    </div>
-  </nav>
-   <!-- Page container -->
-   <section class="container pt-3 pt-lg-4 pb-5 pb-lg-6">
-    <div class="row pb-2 pb-lg-0">
-
-      <!-- Account menu (sticky sidebar) -->
-      <aside class="col-xl-3 col-lg-4 pb-3 mb-4 mb-lg-0">
-        <div class="sidebar-sticky" data-sidebar-sticky-options='{
+<nav class="bg-secondary mb-3 cooks" aria-label="breadcrumb">
+  <div class="container">
+    <ol class="breadcrumb breadcrumb-alt mb-0">
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/']"><i class="cxi-home"></i></a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">My Orders</li>
+    </ol>
+  </div>
+</nav>
+<!-- Page container -->
+<section class="container pt-3 pt-lg-4 pb-5 pb-lg-6">
+  <div class="row pb-2 pb-lg-0">
+    <!-- Account menu (sticky sidebar) -->
+    <aside class="col-xl-3 col-lg-4 pb-3 mb-4 mb-lg-0">
+      <div
+        class="sidebar-sticky"
+        data-sidebar-sticky-options='{
           "topSpacing": 120,
           "minWidth": 991
-        }'>
-          <div class="sidebar-sticky-inner">
-            <div class="card">
-              <div class="card-body" *ngIf="users">
-                <h5 class="card-title mb-1">{{users.name}} {{users.lastname}}</h5>
-                <p class="card-text text-muted mb-lg-0">{{users.login.email}}</p>
-                <a href="#account-menu" class="btn btn-primary btn-block d-lg-none" data-toggle="collapse">Account Menu</a>
-              </div>
-              <div id="account-menu" class="collapse d-lg-block">
-                <div class="list-group list-group-flush border-top">
-                  <a  [routerLink]="['/profile']"  class="list-group-item list-group-item-action d-flex align-items-center">
-                    <i class="cxi-profile font-size-lg mr-2"></i>
-                    <span>My profile</span>
-                  </a>
-                  <a [routerLink]="['/profile/address']" routerLinkActive="active" class="list-group-item list-group-item-action d-flex align-items-center">
-                    <i class="cxi-bag font-size-lg mr-2"></i>
-                    <span>My Address</span>
-                  </a>
-                  <a [routerLink]="['/profile/orders']" routerLinkActive="active" class="list-group-item list-group-item-action d-flex align-items-center">
-                    <i class="cxi-heart font-size-lg mr-2"></i>
-                    <span>My Orders</span>
-                  </a>
-                  <a href="account-recently-viewed.html" class="list-group-item list-group-item-action d-flex align-items-center">
+        }'
+      >
+        <div class="sidebar-sticky-inner">
+          <div class="card">
+            <div class="card-body" *ngIf="users">
+              <h5 class="card-title mb-1">
+                {{ users.name }} {{ users.lastname }}
+              </h5>
+              <p class="card-text text-muted mb-lg-0">
+                {{ users.login.email }}
+              </p>
+              <a
+                href="#account-menu"
+                class="btn btn-primary btn-block d-lg-none"
+                data-toggle="collapse"
+                >Account Menu</a
+              >
+            </div>
+            <div id="account-menu" class="collapse d-lg-block">
+              <div class="list-group list-group-flush border-top">
+                <a
+                  [routerLink]="['/profile']"
+                  class="list-group-item list-group-item-action d-flex align-items-center"
+                >
+                  <i class="cxi-profile font-size-lg mr-2"></i>
+                  <span>My profile</span>
+                </a>
+                <a
+                  [routerLink]="['/profile/address']"
+                  routerLinkActive="active"
+                  class="list-group-item list-group-item-action d-flex align-items-center"
+                >
+                  <i class="cxi-bag font-size-lg mr-2"></i>
+                  <span>My Address</span>
+                </a>
+                <a
+                  [routerLink]="['/profile/orders']"
+                  routerLinkActive="active"
+                  class="list-group-item list-group-item-action d-flex align-items-center"
+                >
+                  <i class="cxi-heart font-size-lg mr-2"></i>
+                  <span>My Orders</span>
+                </a>
+                <!-- <a href="account-recently-viewed.html" class="list-group-item list-group-item-action d-flex align-items-center">
                     <i class="cxi-eye font-size-lg mr-2"></i>
                     <span>Recently viewed</span>
                   </a>
                   <a href="account-reviews.html" class="list-group-item list-group-item-action d-flex align-items-center">
                     <i class="cxi-star font-size-lg mr-2"></i>
                     <span>My reviews</span>
-                  </a>
+                  </a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <div class="col-lg-8 ml-auto">
+      <div
+        class="d-flex align-items-center justify-content-between mb-4 pb-sm-2"
+      >
+        <h1 class="h2 mb-0">My order</h1>
+      </div>
+
+      <div class="row">
+        <div class="col-12 mb-4">
+          <div class="card card-body py-3 box-shadow">
+            <div class="row">
+              <div class="col-lg-6">
+                <table class="table mb-0">
+                  <tbody>
+                    <tr>
+                      <th class="border-0 py-2 pl-0">Order No:</th>
+                      <td class="border-0 py-2 px-0 text-muted">
+                        {{ orders.transaction }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th class="border-0 py-2 pl-0">Shipment:</th>
+                      <td class="border-0 py-2 px-0 text-muted">
+                        {{ orders.envio_title }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th class="border-0 py-2 pl-0">Shipped on:</th>
+                      <td class="border-0 py-2 px-0 text-muted">
+                        {{ orders.createdDate | date }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-lg-6">
+                <table class="table mb-0">
+                  <tbody>
+                    <tr *ngIf="orders.coupon != undefined">
+                      <th class="border-0 py-2 pl-0">Coupon:</th>
+                      <td class="border-0 py-2 px-0 text-muted">
+                        {{ orders.coupon }}
+                      </td>
+                    </tr>
+                    <tr *ngIf="orders.coupon == undefined">
+                      <th class="border-0 py-2 pl-0">Cuopon:</th>
+                      <td class="border-0 py-2 px-0 text-muted">N/A</td>
+                    </tr>
+                    <tr>
+                      <th class="border-0 py-2 pl-0">Country:</th>
+                      <td class="border-0 py-2 px-0 text-muted">
+                        {{ orders.address.country }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th class="border-0 py-2 pl-0">Status:</th>
+                      <td class="border-0 py-2 px-0 text-muted">
+                        <span
+                          *ngIf="orders.state === 'procesando'"
+                          class="badge badge-primary mb-3"
+                          >{{ orders.state }}</span
+                        >
+                        <span
+                          *ngIf="orders.state === 'En Tránsito'"
+                          class="badge badge-warning mb-3"
+                          >{{ orders.state }}</span
+                        >
+                        <span
+                          *ngIf="orders.state === 'Entregado'"
+                          class="badge badge-success mb-3"
+                          >{{ orders.state }}</span
+                        >
+                        <span
+                          *ngIf="orders.state === 'Cancelado'"
+                          class="badge badge-danger mb-3"
+                          >{{ orders.state }}</span
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <h5 class="border-0">Shipping Address:</h5>
+                <div class="col-md-3 col-sm-4 mb-sm0 mb-3">
+                  <h3 class="mb-2 font-size-sm text-muted">
+                    {{ orders.address.addressee }}
+                  </h3>
+                  <span class="d-block mt-3 font-size-sm text-muted">{{
+                    orders.address.zip
+                  }}</span>
+                  <a class="badge badge-success mt-3">Dirección de envio</a>
+                </div>
+                <div class="col">
+                  <p class="mb-3">{{ users.address }}</p>
+                  <span class="d-block mb-3 font-size-sm text-muted">{{
+                    orders.address.phone
+                  }}</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </aside>
+      </div>
 
-      <!-- Content -->
-      <div class="col-lg-8 ml-auto">
-        <div class="d-flex align-items-center justify-content-between mb-4 pb-sm-2">
-            <h1 class="h2 mb-0">My order</h1>
-            
-          </div>
-
-          <div class="row">
-            <div class="col-12 mb-4">
-              <div class="card card-body py-3 box-shadow ">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <table class="table mb-0">
-                      <tbody>
-                        <tr>
-                          <th class="border-0 py-2 pl-0">Order No:</th>
-                          <td class="border-0 py-2 px-0 text-muted">{{orders.transaction}}</td>
-                        </tr>
-                        <tr>
-                          <th class="border-0 py-2 pl-0">Shipment:</th>
-                          <td class="border-0 py-2 px-0 text-muted">{{orders.envio_title}}</td>
-                        </tr>
-                        <tr>
-                          <th class="border-0 py-2 pl-0">Shipped on:</th>
-                          <td class="border-0 py-2 px-0 text-muted"> {{orders.createdDate|date}}</td>
-                        </tr>
-                       
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="col-lg-6">
-                    <table class="table mb-0">
-                      <tbody>
-                      
-                        <tr *ngIf="orders.coupon != undefined">
-                          <th class="border-0 py-2 pl-0">Coupon:</th>
-                          <td class="border-0 py-2 px-0 text-muted">{{orders.coupon}}</td>
-                        </tr>
-                        <tr *ngIf="orders.coupon == undefined">
-                            <th class="border-0 py-2 pl-0">Cuopon:</th>
-                            <td class="border-0 py-2 px-0 text-muted">N/A</td>
-                          </tr>
-                        <tr>
-                          <th class="border-0 py-2 pl-0">Country:</th>
-                          <td class="border-0 py-2 px-0 text-muted">{{orders.address.country}}</td>
-                        </tr>
-                        <tr>
-                          <th class="border-0 py-2 pl-0">Status:</th>
-                          <td class="border-0 py-2 px-0 text-muted">
-                            <span *ngIf="orders.state === 'procesando'" class="badge badge-primary mb-3">{{orders.state}}</span>
-                            <span *ngIf="orders.state === 'En Tránsito'" class="badge badge-warning mb-3">{{orders.state}}</span>
-                            <span *ngIf="orders.state === 'Entregado'" class="badge badge-success mb-3">{{orders.state}}</span>
-                            <span *ngIf="orders.state === 'Cancelado'" class="badge badge-danger mb-3">{{orders.state}}</span>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                
-              </div>
-            </div>
-            <div class="col-12">
-                <div class="card mb-3">
-                    <div class="card-body">
-                      <div class="row"  >
-                            <div class="col-md-3 col-sm-4 mb-sm0 mb-3">
-                              <h3 class="mb-2 font-size-sm text-muted">{{orders.address.addressee}}</h3>
-                              <span class="d-block mt-3 font-size-sm text-muted">{{orders.address.zip}}</span>
-                              <a class="badge badge-success mt-3" >Dirección de envio</a>
-                            </div>
-                            <div class="col">
-                                <p class="mb-3">{{users.address}}</p>
-                                <span class="d-block mb-3 font-size-sm text-muted">{{orders.address.phone}}</span>
-                            </div>
-                          </div>
-                        </div>
-                    
-                      </div>
-            </div>
-          </div>
-          
-          <div class="card border-bottom">
-            <div id="order-1" class="collapse show" data-parent="#orders">
-              <div class="bg-secondary rounded mb-4">
-                <div class="table-responsive">
-                  <table class="table mb-0">
-                    <tbody>
-                      <tr *ngFor="let product of products">
-                        <td class="border-top-0">
-                          <div class="media pl-2 py-2">
-                            <a  style="min-width: 80px;">
-                                <img src="https://ecommercewebde.blob.core.windows.net/ecommerce/{{product.products.frontpage}}"  width="80" alt="Product thumb">
-                            </a>
-                            <div class="media-body pl-3">
-                              <h3 class="font-size-sm mb-3">
-                                <a href="shop-single.html" class="nav-link font-weight-bold">{{product.products.title}}</a>
-                              </h3>
-                              <!-- <ul class="list-unstyled font-size-xs mt-n2 mb-2">
+      <div class="card border-bottom">
+        <div id="order-1" class="collapse show" data-parent="#orders">
+          <div class="bg-secondary rounded mb-4">
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <tbody>
+                  <tr *ngFor="let product of products">
+                    <td class="border-top-0">
+                      <div class="media pl-2 py-2">
+                        <a style="min-width: 80px">
+                          <img
+                            src="https://ecommercewebde.blob.core.windows.net/ecommerce/{{
+                              product.products.frontpage
+                            }}"
+                            width="80"
+                            alt="Product thumb"
+                          />
+                        </a>
+                        <div class="media-body pl-3">
+                          <h3 class="font-size-sm mb-3">
+                            <a
+                              href="shop-single.html"
+                              class="nav-link font-weight-bold"
+                              >{{ product.products.title }}</a
+                            >
+                          </h3>
+                          <!-- <ul class="list-unstyled font-size-xs mt-n2 mb-2">
                                 <li class="mb-0"><span class="text-muted">Color:</span> Pink</li>
                                 <li class="mb-0"><span class="text-muted">Size:</span> S</li>
                               </ul> -->
-                            </div>
-                          </div>
-                        </td>
-                        <td class="border-top-0">
-                          <div class="py-2">
-                            <div class="font-size-xs text-muted mb-1">Price:</div>
-                            <div class="font-size-sm text-dark">${{product.products.price}}</div>
-                          </div>
-                        </td>
-                        <td class="border-top-0">
-                          <div class="py-2">
-                            <div class="font-size-xs text-muted mb-1">Quantity:</div>
-                            <div class="font-size-sm text-dark">{{product.amount}}</div>
-                          </div>
-                        </td>
-                        <td class="border-top-0">
-                          <div class="py-2 pr-3 text-right">
-                            <div class="font-size-xs text-muted mb-1">Subtotal:</div>
-                            <div class="font-size-sm font-weight-bold text-dark">${{product.subtotal}}</div>
-                          </div>
-                        </td>
-                      </tr>
-                     
-                      <tr>
-                        <td>
-                          <div class="py-3">
-                            <span class="font-size-xs text-muted">Shipping: </span>
-                            <span class="font-size-sm text-dark">${{orders.envio_price}}</span>
-                          </div>
-                        </td>
-                        <td>
-                            <div class="py-3">
-                            </div>
-                          </td>
-                          <td>
-                            <div class="py-3">
-                            </div>
-                          </td>
-                        <td>
-                          <div class="py-3 pr-5 text-right ">
-                            <span class="font-size-xs text-muted">Total: </span>
-                            <span class="font-size-sm font-weight-bold text-dark">${{orders.subtotal}}</span>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div class="d-flex justify-content-end align-items-center mb-4">
-                <ng-container *ngIf="orders.state !== 'Cancelado'">
-                    <a *ngIf="orders.state === 'En Tránsito'" (click)="received_order(orders.id)" class="btn btn-outline-success btn-sm mr-3">Recibido</a>
-                    <a *ngIf="orders.state === 'En Tránsito'" (click)="cancel_order(orders.id)" class="btn btn-outline-danger btn-sm mr-3">Cancelar</a>
-                </ng-container>
-                <a [routerLink]="['/profile/orders']" class="btn btn-outline-primary btn-sm mr-3">Regresar</a>
-            </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="border-top-0">
+                      <div class="py-2">
+                        <div class="font-size-xs text-muted mb-1">Price:</div>
+                        <div class="font-size-sm text-dark">
+                          ${{ product.products.price }}
+                        </div>
+                      </div>
+                    </td>
+                    <td class="border-top-0">
+                      <div class="py-2">
+                        <div class="font-size-xs text-muted mb-1">
+                          Quantity:
+                        </div>
+                        <div class="font-size-sm text-dark">
+                          {{ product.amount }}
+                        </div>
+                      </div>
+                    </td>
+                    <td class="border-top-0">
+                      <div class="py-2 pr-3 text-right">
+                        <div class="font-size-xs text-muted mb-1">
+                          Subtotal:
+                        </div>
+                        <div class="font-size-sm font-weight-bold text-dark">
+                          ${{ product.subtotal }}
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div class="py-3">
+                        <span class="font-size-xs text-muted">Shipping: </span>
+                        <span class="font-size-sm text-dark"
+                          >${{ orders.envio_price }}</span
+                        >
+                      </div>
+                    </td>
+                    <td>
+                      <div class="py-3"></div>
+                    </td>
+                    <td>
+                      <div class="py-3"></div>
+                    </td>
+                    <td>
+                      <div class="py-3 pr-5 text-right">
+                        <span class="font-size-xs text-muted">Total: </span>
+                        <span class="font-size-sm font-weight-bold text-dark"
+                          >${{ orders.subtotal }}</span
+                        >
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-         
+          <div class="d-flex justify-content-end align-items-center mb-4">
+            <ng-container *ngIf="orders.state !== 'Cancelado'">
+              <a
+                *ngIf="orders.state === 'En Tránsito'"
+                (click)="received_order(orders.id)"
+                class="btn btn-outline-success btn-sm mr-3"
+                >Received</a
+              >
+              <a
+                *ngIf="orders.state === 'En Tránsito'"
+                (click)="cancel_order(orders.id)"
+                class="btn btn-outline-danger btn-sm mr-3"
+                >Cancel</a
+              >
+            </ng-container>
+            <a
+              [routerLink]="['/profile/orders']"
+              class="btn btn-outline-primary btn-sm mr-3"
+              >Back</a
+            >
+          </div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 <app-footer></app-footer>

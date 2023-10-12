@@ -6,31 +6,32 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-index-orders',
   templateUrl: './index-orders.component.html',
-  styleUrls: ['./index-orders.component.scss']
+  styleUrls: ['./index-orders.component.scss'],
 })
-export class IndexOrdersComponent implements OnInit{
+export class IndexOrdersComponent implements OnInit {
   public id: any;
   public userData: any;
   public users: any = null;
   public token;
-  public orders= Array();
-  public load_data = true
-  public page =1;
+  public orders = Array();
+  public load_data = true;
+  public page = 1;
   public pageSize = 5;
 
   constructor(
     private _userService: UserService,
-    private _loginService : LoginService,
+    private _loginService: LoginService,
     private _saleService: SalesService
   ) {
-    this.token= this._loginService.getToken();
-   }
+    this.token = this._loginService.getToken();
+  }
 
   ngOnInit() {
     // Obtén el id del usuario de localStorage
     this.id = localStorage.getItem('id');
 
     if (this.id !== null) {
+      //Método para obtener un usuario por id
       this._userService.get_user_public(this.id).subscribe(
         (response) => {
           console.log(response);
@@ -49,19 +50,20 @@ export class IndexOrdersComponent implements OnInit{
     this.init_orders();
   }
 
-  init_orders(){
+  // Método para obtener los pedidos de un usuario
+  init_orders() {
     this.users = JSON.parse(localStorage.getItem('user') || '{}');
-   if(this.token)
-   this._saleService.get_order(this.users.id,this.token).subscribe(
-    (response) => {
-      console.log(response);
-      this.orders = response;
-      this.load_data = false
-    },
-    (error) => {
-      console.log(error);
-    });
+    if (this.token)
+      this._saleService.get_order(this.users.id, this.token).subscribe(
+        (response) => {
+          console.log(response);
+          this.orders = response;
+          this.load_data = false;
+        },
+        (error) => {
+          console.log(error);
+          this.load_data = true;
+        }
+      );
   }
-
- 
 }

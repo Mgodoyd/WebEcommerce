@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { error } from 'console';
 import { AddressService } from 'src/app/services/address.service';
 import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
@@ -9,37 +8,37 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-address',
   templateUrl: './address.component.html',
-  styleUrls: ['./address.component.scss']
+  styleUrls: ['./address.component.scss'],
 })
-export class AddressComponent  implements OnInit{
-
-  public id:any;
-  public userData:any;
-  public users:any;
+export class AddressComponent implements OnInit {
+  public id: any;
+  public userData: any;
+  public users: any;
   public address: any = {
     country: '',
     dpi: '',
     main: false,
-  }
-  public address_user:any ={};
-  public token:any;
-  public address_id:any ={};
-  public data:any;
-  public load_data= true
+  };
+  public address_user: any = {};
+  public token: any;
+  public address_id: any = {};
+  public data: any;
+  public load_data = true;
 
-   constructor(
+  constructor(
     private _userService: UserService,
-    private _addressService : AddressService,
-    private _loginService : LoginService
-   ){
+    private _addressService: AddressService,
+    private _loginService: LoginService
+  ) {
     this.token = this._loginService.getToken();
-   }
+  }
 
-   ngOnInit(): void {
-        // Obtén el id del usuario de localStorage
+  ngOnInit(): void {
+    // Obtén el id del usuario de localStorage
     this.id = localStorage.getItem('id');
 
     if (this.id !== null) {
+      //Método para obtener un usuario por id
       this._userService.get_user_public(this.id).subscribe(
         (response) => {
           console.log(response);
@@ -55,65 +54,80 @@ export class AddressComponent  implements OnInit{
         }
       );
     }
-    this.get_address(); 
-   }
-   get_address(){
-    this.users = JSON.parse(localStorage.getItem('user') || '{}');
-     console.log(this.users);
-    if(this.token)
-    this._addressService.get_addresss_user(this.users.id,this.token).subscribe(
-      (response) => {
-        console.log(response);
-        this.load_data = false;
-        this.address_user = response;
-        console.log(this.address_user);
-      },
-      error => {
-        console.log(error);
-      }
-    );
-   }
+    this.get_address();
+  }
 
-   add_address(registroForm:NgForm){
-    if(registroForm.valid){
+  // Método para obtener las direcciones del usuario
+  get_address() {
+    this.users = JSON.parse(localStorage.getItem('user') || '{}');
+    console.log(this.users);
+    if (this.token)
+      this._addressService
+        .get_addresss_user(this.users.id, this.token)
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.load_data = false;
+            this.address_user = response;
+            console.log(this.address_user);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+  }
+
+  // Método para agregar una dirección
+  add_address(registroForm: NgForm) {
+    if (registroForm.valid) {
       let data = {
-        addressee : this.address.addressee,
-        dpi : this.address.dpi,
-        zip : this.address.zip,
+        addressee: this.address.addressee,
+        dpi: this.address.dpi,
+        zip: this.address.zip,
         country: this.address.country,
-        phone : this.address.phone,
-        main : this.address.main,
-        userId : this.users.id
-      }
-       console.log(data);
-      if(this.token)
-      this._addressService.create_address(data,this.token).subscribe(
+        phone: this.address.phone,
+        main: this.address.main,
+        userId: this.users.id,
+      };
+      console.log(data);
+
+      this._addressService.create_address(data, this.token).subscribe(
         (response) => {
           console.log(response);
-          Swal.fire({
+          const Toast = Swal.mixin({
+            toast: true,
             position: 'top-end',
-            icon: 'success',
-            title: 'Dirección agregada correctamente',
             showConfirmButton: false,
-            timer: 1500
-          })
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({
+            icon: 'success',
+            text: 'Address added successfully.',
+          });
           registroForm.reset();
           this.get_address();
         },
-      (error) => {
-        console.log(error);
-      }
+        (error) => {
+          console.log(error);
+        }
       );
-    }else{
+    } else {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Los datos no son válidos!',
-      })
+        text: 'All fields are required!',
+      });
     }
-   }
+  }
 
-   get_address_id(id: any) { 
+  // Método para obtener una dirección por id
+  get_address_id(id: any) {
     console.log(id);
     if (this.token) {
       this._addressService.get_address(id, this.token).subscribe(
@@ -121,7 +135,7 @@ export class AddressComponent  implements OnInit{
           console.log(response);
           this.address_id = response;
           console.log(this.address_id);
-  
+
           // Llamar a update_address después de obtener la información
           this.update_address(id);
         },
@@ -131,7 +145,8 @@ export class AddressComponent  implements OnInit{
       );
     }
   }
-  
+
+  // Método para actualizar una dirección
   update_address(id: any) {
     // Ahora puedes acceder a this.address_id porque has esperado a que se complete get_address_id
     console.log(id);
@@ -139,48 +154,67 @@ export class AddressComponent  implements OnInit{
     this.data = this.address_id;
     this.data.main = true;
     console.log(this.data);
-  
+
     if (this.token) {
       console.log(id);
       this._addressService.update_address(id, this.data, this.token).subscribe(
         (response) => {
           console.log(response);
-          Swal.fire({
+          const Toast = Swal.mixin({
+            toast: true,
             position: 'top-end',
-            icon: 'success',
-            title: 'Dirección Principal actualizada correctamente',
             showConfirmButton: false,
-            timer: 1500
-          });
-          
-          // Obtener todas las direcciones del usuario
-          this._addressService.get_addresss_user(this.users.id, this.token).subscribe(
-            (addresses) => {
-              console.log(addresses);
-              // Recorrer todas las direcciones y establecer main en false, excepto la principal
-              addresses.forEach((address:any) => {
-                if (address.Id !== id) {
-                  console.log(address.Id)
-                  console.log(id)
-                  address.main = false;
-                  // Actualizar cada dirección en la base de datos
-                  this._addressService.update_address(address.Id, address, this.token).subscribe(
-                    () => {
-                      console.log(`Dirección ${address.id} actualizada con main = false`);
-                      this.get_address();
-                    },
-                    (error) => {
-                      console.log(`Error al actualizar dirección ${address.id}:` + error);
-                    }
-                  );
-                }
-              });
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
             },
-            (error) => {
-              console.log(`Error al obtener las direcciones del usuario: ${error}`);
-            }
-          );
-          
+          });
+
+          Toast.fire({
+            icon: 'success',
+            text: 'Primary Address successfully updated.',
+          });
+          // Obtener todas las direcciones del usuario
+          this._addressService
+            .get_addresss_user(this.users.id, this.token)
+            .subscribe(
+              (addresses) => {
+                console.log(addresses);
+                // Recorrer todas las direcciones y establecer main en false, excepto la principal
+                addresses.forEach((address: any) => {
+                  if (address.Id !== id) {
+                    console.log(address.Id);
+                    console.log(id);
+                    address.main = false;
+                    // Actualizar cada dirección en la base de datos
+                    this._addressService
+                      .update_address(address.Id, address, this.token)
+                      .subscribe(
+                        () => {
+                          console.log(
+                            `Dirección ${address.Id} actualizada con main = false`
+                          );
+                          this.get_address();
+                        },
+                        (error) => {
+                          console.log(
+                            `Error al actualizar dirección ${address.id}:` +
+                              error
+                          );
+                        }
+                      );
+                  }
+                });
+              },
+              (error) => {
+                console.log(
+                  `Error al obtener las direcciones del usuario: ${error}`
+                );
+              }
+            );
+
           this.get_address();
         },
         (error) => {
@@ -189,25 +223,34 @@ export class AddressComponent  implements OnInit{
       );
     }
   }
-  
-  elimnar_address(id:any){
-    if(this.token)
-    this._addressService.delete_address(id,this.token).subscribe(
-      (response) => {
-        console.log(response);
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Dirección eliminada correctamente',
-          showConfirmButton: false,
-          timer: 1500
-        })
-        this.get_address();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  
+
+  // Método para eliminar una dirección
+  elimnar_address(id: any) {
+    if (this.token)
+      this._addressService.delete_address(id, this.token).subscribe(
+        (response) => {
+          console.log(response);
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({
+            icon: 'success',
+            text: 'Address deleted successfully.',
+          });
+          this.get_address();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 }

@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { LoginService } from '../../../services/login.service';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,18 +13,22 @@ export class LoginComponent implements OnInit {
   public usuario: any = {};
   public token;
   public newUser: any = {
-    login : {},
+    login: {},
   };
+  public confirmPassword: string;
+  public confirmPasswordTouched: boolean = false;
 
-  constructor(private _login_cliente: LoginService, private _router : Router) {
+  constructor(private _login_cliente: LoginService, private _router: Router) {
     this.token = this._login_cliente.getToken();
-    if(this.token){
+    if (this.token) {
       this._router.navigate(['/']);
     }
+    this.confirmPassword = '';
   }
 
   ngOnInit(): void {}
 
+  //Metodo para iniciar sesion
   login(loginForm: NgForm) {
     if (loginForm.valid) {
       console.log(this.user);
@@ -44,9 +47,8 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('token', response.token);
             localStorage.setItem('expiration', response.exp);
 
-
             this._login_cliente.isAuthenticate();
-            
+
             const Toast = Swal.mixin({
               toast: true,
               position: 'top-end',
@@ -68,7 +70,7 @@ export class LoginComponent implements OnInit {
         (error) => {
           console.log(error);
           if (error.status === 401) {
-            const errorMessage = 'Credenciales incorrectas'; // Mensaje de error personalizado para 401
+            const errorMessage = 'Incorrect credentials'; // Mensaje de error personalizado para 401
             const Toast = Swal.mixin({
               toast: true,
               position: 'top-end',
@@ -91,31 +93,33 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  registroNewUser(registroUser:NgForm){
-    if(registroUser.valid){
+  //Metodo para registrar un nuevo usuario
+  registroNewUser(registroUser: NgForm) {
+    if (registroUser.valid) {
       this._login_cliente._createUser(this.newUser).subscribe(
-        response => {
+        (response) => {
           console.log(response);
           Swal.fire({
             icon: 'success',
-            title: 'Cuenta creada',
-            text: 'Tu cuenta ha sido creada con éxito. Por favor, inicia sesión.',
+            title: 'Created account',
+            text: 'Your account has been created successfully. Please log in.',
           });
           registroUser.reset();
         },
-        error => {
+        (error) => {
           console.log(error);
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'Ha ocurrido un error. Por favor, inténtalo de nuevo.',
+            text: 'Server error.',
           });
-        });
-    }else{
+        }
+      );
+    } else {
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Por favor, rellena todos los campos.',
+        text: 'All fields are required.',
       });
     }
   }

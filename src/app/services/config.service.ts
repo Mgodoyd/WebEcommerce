@@ -29,7 +29,7 @@ export class ConfigService {
               if(data.logo){
               const formData = new FormData();
               formData.append('ImageFile', data.logo);
-            //  formData.append('logo', data.logo);
+              formData.append('logo', data.logo);
               formData.append('title', data.title);
               formData.append('serie', data.serie);
               formData.append('correlative', data.correlative);

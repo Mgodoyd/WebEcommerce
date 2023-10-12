@@ -2,7 +2,7 @@
 <main class="cs-page-wrapper">
 
   <!-- Breadcrumb -->
-  <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+  <nav class="bg-secondary mb-3 cooks" aria-label="breadcrumb">
     <div class="container">
       <ol class="breadcrumb breadcrumb-alt mb-0">
         <li class="breadcrumb-item">
@@ -53,8 +53,8 @@
           <!-- Price -->
           <div class="d-flex align-items-center mb-sm-0 mb-4">
             <span class="h3 d-inline-block mb-0 text-danger">${{product.price}}</span>
-            <del class="d-inline-block ml-2 pl-1 font-size-lg text-muted">$31.00</del>
-            <span class="ml-4 p-2 badge badge-danger font-size-base font-weight-bold">- 50%</span>
+            <!-- <del class="d-inline-block ml-2 pl-1 font-size-lg text-muted">$31.00</del>
+            <span class="ml-4 p-2 badge badge-danger font-size-base font-weight-bold">- 50%</span> -->
           </div>
 
           <!-- Rating -->
@@ -100,14 +100,13 @@
             </div>
           </div>
           <div class="col-lg-6 order-lg-4 order-4">
-            <button *ngIf="!btn_cart" class="btn btn-block btn-primary" (click)="add_product_cart()">
+            <button *ngIf="!btn_cart" class="btn btn-block btn-success " (click)="add_product_cart()">
               <i class="cxi-cart mr-2"></i>
               Add to cart
             </button>
-            <button *ngIf="btn_cart" type="button" class="btn btn-primary" disabled>
-              <span class="spinner-grow spinner-grow-sm mr2" role="status" aria-hidden="true">
-                Loading...
-              </span>
+            <button *ngIf="btn_cart" type="button" class="btn btn-secondary add">
+              <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+              Loading...
             </button>
           </div>
           <div class="col-lg-4 col-8 order-lg-5 order-2">
@@ -259,7 +258,7 @@
                 <del class="d-inline-block ml-2 pl-1 text-muted mb-3">$31.00</del>
               </div>
               
-              <button type="button" class="btn btn-primary btn-block">
+              <button type="button" class="btn btn-success btn-block">
                 <i class="cxi-cart align-middle mt-n1 mr-2"></i>
                 Add to cart
               </button>
@@ -370,7 +369,7 @@
 
         <!-- Button + sorting -->
         <div class="d-flex align-items-center justify-content-between mb-4 pb-2 pb-sm-4">
-          <a href="#modal-review" data-toggle="modal" class="btn btn-primary">Leave a review</a>
+          <a href="#modal-review" data-toggle="modal" class="btn btn-success">Leave a review</a>
           <div class="form-inline">
             <label for="sort-orders" class="d-none d-sm-block font-weight-bold mr-2 pr-1">Sort by</label>
             <select id="sort-orders" class="custom-select">
@@ -557,10 +556,10 @@
             </h3>
             <div class="d-flex align-items-center">
               <span class="h5 d-inline-block text-danger mb-3">${{product.price}}</span>
-              <del class="d-inline-block ml-2 pl-1 text-muted mb-3">$31.00</del>
+              <!-- <del class="d-inline-block ml-2 pl-1 text-muted mb-3">$31.00</del> -->
             </div>
             
-            <button type="button" class="btn btn-primary btn-block">
+            <button type="button" class="btn btn-success btn-block">
               <i class="cxi-cart align-middle mt-n1 mr-2"></i>
               Add to cart
             </button>
@@ -590,24 +589,26 @@
 
               <!-- Item -->
          
-                <div  *ngFor="let item of products" class="card card-product mx-auto" >
-                  <div class="card-product-img">
-                    <a [routerLink]="['/products/store/view/', item.id]" target="_blank" class="card-img-top">
-                        <img src="https://ecommercewebde.blob.core.windows.net/ecommerce/{{item.frontpage}}"  alt="Product image">
-                      </a>
-                      <div class="card-product-widgets-bottom">
-                        <a [routerLink]="['/products/store/view/', item.id]" target="_blank" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left" title="Add to wishlist"></a>
-                      </div>
-                    </div>
-                    <div class="card-body bg-0 pb-2">
-                      <h3 class="card-product-title text-truncate mb-2">
-                        <a  [routerLink]="['/products/store/view/', item.id]" target="_blank" class="nav-link">{{item.title}}</a>
-                    </h3>
-                    <div class="d-flex align-items-center">
-                      <span class="h5 d-inline-block mb-0">${{item.price}}</span>
-                    </div>
+              <div *ngFor="let item of products" class="imgcard text-center">
+                <div class="card-product-img">
+                  <a [routerLink]="['/products/store/view/', item.id]" target="_blank" class="card-img-top">
+                    <img  class="cardimg" src="https://ecommercewebde.blob.core.windows.net/ecommerce/{{item.frontpage}}" alt="Product image">
+                  </a>
+                  <div class="card-product-widgets-bottom">
+                    <a [routerLink]="['/products/store/view/', item.id]" target="_blank" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left" title="Add to wishlist"></a>
                   </div>
                 </div>
+                <hr style="margin-left: 10%;">
+                <div class="card-body bg-0 pb-2">
+                  <h3 class="card-product-title text-truncate mb-2">
+                    <a [routerLink]="['/products/store/view/', item.id]" target="_blank" class="nav-link">{{item.title}}</a>
+                  </h3>
+                  <div class="d-flex align-items-center justify-content-center"> <!-- Centrar horizontalmente -->
+                    <span class="h5 d-inline-block mb-0">${{item.price}}</span>
+                  </div>
+                </div>
+              </div>
+              
              
             
             </div>
