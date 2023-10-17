@@ -40,3 +40,44 @@
 //         margin-right:2% !important
 //     }
 // }
+
+  
+.panel{
+  margin-left: 14%;
+  right: 1% ;
+}
+.title{
+  margin-right: 33.5%;
+}
+@media (max-width: 3500px) {
+    
+    .panel{
+      margin-left: 15%;
+      right: 1% ;
+    }
+
+    .title{
+      margin-left:390px;
+    }
+}
+@media  (max-width: 2000px) {
+
+.panel{
+  margin-left: 22%;
+  right: 1%;
+}
+.title{
+  margin-right: 0%;
+}
+}
+@media  (max-width: 500px) {
+.panel{
+  margin-left: 10px;
+  right: 10px;
+  width:95%;
+}
+
+.title{
+  margin-left: 10px;
+}
+}

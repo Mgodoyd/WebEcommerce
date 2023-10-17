@@ -4,26 +4,22 @@
   data-scroll-header
   data-fixed-element
 >
-  <a class="navbar-brand d-lg-none" href="dev-setup.html">
+  <!-- <a class="navbar-brand d-lg-none" href="dev-setup.html">
     <img
       src="assets/img/components/logo/logo-dark.svg"
       alt="Createx"
       width="130"
     />
-  </a>
+  </a> -->
   <button
-    class="navbar-toggler d-block d-lg-none mr-3 ml-auto"
+    class="navbar-toggler d-block d-lg-none mr-5 menu"
     type="button"
-    data-toggle="offcanvas"
-    data-target="componentsNav"
+    data-toggle="collapse"
+    data-target="#componentsNav"
   >
-    <span class="navbar-toggler-icon"></span>
+    <span class="cxi-grid"></span>
   </button>
-  <li
-    class="nav-item dropdown"
-    *ngIf="token"
-    style="margin-left: 94rem; margin-top: -1.5%; padding-bottom: 1%"
-  >
+  <li class="nav-item dropdown user" *ngIf="token">
     <a
       class="nav-link dropdown-toggle"
       data-toggle="dropdown"
@@ -69,18 +65,18 @@
   <div class="cs-offcanvas-cap d-flex d-lg-none">
     <div class="d-flex align-items-center mt-1">
       <h5 class="text-light mb-0 mr-3">Menu</h5>
-      <span class="badge badge-warning">Docs</span>
+      <span class="badge badge-warning">Store Web</span>
     </div>
     <button
       class="close text-light"
       type="button"
-      data-dismiss="offcanvas"
-      aria-label="Close"
+      data-toggle="collapse"
+      data-target="#componentsNav"
     >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div
+  <!-- <div
     class="d-flex d-lg-none align-items-center py-4 px-3 border-bottom border-light"
   >
     <a class="btn btn-primary btn-block mr-3 px-4" href="index.html"
@@ -91,7 +87,7 @@
       href="../components/typography.html"
       ><i class="cxi-layouts mt-n1 mr-2"></i>Components</a
     >
-  </div>
+  </div> -->
   <div
     class="cs-offcanvas-body px-0 pt-4 pb-grid-gutter"
     data-simplebar
@@ -104,43 +100,43 @@
         class="nav-link px-4"
         routerLinkActive="active"
         [routerLink]="['/dashboard']"
-        >Inicio</a
+        >Home</a
       >
       <a
         class="nav-link px-4"
         routerLinkActive="active"
         [routerLink]="['/index/users']"
-        >Usuarios</a
+        >Users</a
       >
       <a
         class="nav-link px-4"
         routerLinkActive="active"
         [routerLink]="['/index/products']"
-        >Productos</a
+        >Products</a
       >
       <a
         class="nav-link px-4"
         routerLinkActive="active"
         [routerLink]="['/index/coupon']"
-        >Cupones</a
+        >Coupons</a
       >
       <a
         class="nav-link px-4"
         routerLinkActive="active"
         [routerLink]="['/index/contact']"
-        >Mensajes</a
+        >Menssages</a
       >
       <a
         class="nav-link px-4"
         routerLinkActive="active"
         [routerLink]="['/index/sales']"
-        >Ventas</a
+        >Sales</a
       >
       <a
         class="nav-link px-4"
         routerLinkActive="active"
         [routerLink]="['/index/config']"
-        >Configuración</a
+        >Configuration</a
       >
     </nav>
   </div>

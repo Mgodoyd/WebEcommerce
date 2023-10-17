@@ -6,3 +6,29 @@
     background-color: #7673734c;
     padding: 10px;
   }
+  .panel{
+    margin-left: 355px;
+  }
+  .title{
+    margin-right: 0%;
+  }
+  @media (max-width: 3500px) {
+    .title{
+      margin-right: 33.5%;
+    }
+}
+  @media  (max-width: 2000px) {
+    .title{
+      margin-right: 0%;
+    }
+  }
+  @media  (max-width: 500px) {
+    .panel{
+      margin-left: auto;
+      width: 100%;
+    }
+
+    .title{
+      width: 100%;
+    }
+  }

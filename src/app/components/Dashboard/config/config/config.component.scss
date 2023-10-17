@@ -88,15 +88,15 @@
   color: #fff;
 }
 //Diseño card Header
-.card-header{
+.card-header {
   background-color: #7673734c;
   padding: 20px;
 }
-.card-footer{
+.card-footer {
   background-color: #7673734c;
   padding: 10px;
 }
-form{
+form {
   margin-top: 5%;
 }
 
@@ -117,5 +117,30 @@ form{
 @media (max-width: 1230px) {
   form {
     margin-top: 5%;
+  }
+}
+
+.panel {
+  margin-left: 14%;
+  right: 1%;
+}
+@media (max-width: 3500px) {
+  .panel {
+    margin-left: 16%;
+    right: 1%;
+  }
+}
+@media (max-width: 2000px) {
+  .panel {
+    margin-left: 23%;
+    right: 1%;
+  }
+}
+@media (max-width: 500px) {
+  .panel {
+    margin-left: 10px;
+    top: 50px;
+    right: 4px;
+    width: 97%;
   }
 }

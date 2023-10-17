@@ -1,8 +1,7 @@
 <app-sidebar></app-sidebar>
 
 <div
-  class="border-bottom pt-2 mt-5 mb-5"
-  style="margin-left: 380px; margin-right: 15px"
+  class="border-bottom pt-2 mt-5 mb-5 title"
 >
   <h2 class="mt-2 mt-md-4 mb-3 pt-1">Cuopons</h2>
   <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
@@ -13,8 +12,7 @@
 <ng-container *ngIf="coupon != undefined">
   <form #actualizarForm="ngForm" (ngSubmit)="actualizar(actualizarForm)">
     <div
-      class="card box-shadow-sm"
-      style="margin-left: 370px; margin-right: 15px"
+      class="card box-shadow-sm panel"
     >
       <div class="card-header">
         <h5 style="margin-bottom: 0px">Coupon Update</h5>
