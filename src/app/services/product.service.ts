@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GLOBAL } from './GLOBAL';
 import { Observable } from 'rxjs';
-import { IProduct } from '../Entities/IProduct';
 @Injectable({
   providedIn: 'root'
 })
@@ -51,7 +50,7 @@ export class ProducService {
             }
 
             // Servicio para obtener un producto por id
-            get_product(id:IProduct,token: string): Observable<any> {
+            get_product(id:any,token: string): Observable<any> {
               let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
               return this._http.get(this.url + '/products/'+id, {headers: headers});
             }
@@ -86,7 +85,7 @@ export class ProducService {
              }
             
               // Servicio para eliminar un producto
-             delete_product(id:IProduct,token: string): Observable<any> {
+             delete_product(id:any,token: string): Observable<any> {
               let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
               return this._http.delete(this.url + '/products/'+id, {headers: headers});
              }

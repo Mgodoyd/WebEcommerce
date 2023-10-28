@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GLOBAL } from './GLOBAL';
 import { Observable } from 'rxjs';
-import { ICliente } from '../Entities/ICliente';
 @Injectable({
   providedIn: 'root'
 })
@@ -47,13 +46,13 @@ export class UserService {
       }
 
       // Servicio para actualizar un usuario con rol en General
-      update_user(id:any,data:ICliente): Observable<any> {
+      update_user(id:any,data:any): Observable<any> {
         let headers = new HttpHeaders({'Content-Type': 'application/json'});
         return this._http.put(this.url + '/User/'+id,data, {headers: headers});
       }
 
       // Servicio para actualizar un usuario con rol Admin 
-      delete_user(id:ICliente,token: string): Observable<any> {
+      delete_user(id:any,token: string): Observable<any> {
         let headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': token});
         return this._http.delete(this.url + '/User/'+id, {headers: headers});
       }

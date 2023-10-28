@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { GLOBAL } from './GLOBAL';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { ILogin } from '../Entities/ILogin';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -80,7 +79,7 @@ export class LoginService {
   }
 
   //Servicio para iniciar sesion
-  _login_cliente(data: ILogin): Observable<any> {
+  _login_cliente(data: any): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(this.url + '/Login/login', data, {
       headers: headers,
