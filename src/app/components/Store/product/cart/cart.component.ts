@@ -139,7 +139,7 @@ export class CartComponent implements OnInit {
 
   //Método para crear la venta
   createSale() {
-    this.sale.subtotal = this.total_apagar;
+   // this.sale.subtotal = this.total_apagar;
     if (this.token)
       this._saleService.create_sale(this.sale, this.token).subscribe(
         (response) => {
